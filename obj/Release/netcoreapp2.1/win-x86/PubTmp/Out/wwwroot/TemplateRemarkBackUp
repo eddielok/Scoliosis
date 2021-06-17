@@ -1,0 +1,135 @@
+  @*<span onClick="ShowOptions(1)"><u style="cursor: hand; font-size: 11px;">Initial Visit</u></span>
+                                            <span onClick="ShowOptions(2)"><u style="cursor: hand; font-size: 11px;">Investigation</u></span>
+                                            <span onClick="ShowOptions(3)"><u style="cursor: hand; font-size: 11px;">Bracing</u></span>
+                                            <span onClick="ShowOptions(4)"><u style="cursor: hand; font-size: 11px;">Surgery</u></span>
+                                            <span onClick="ShowOptions(6)"><u style="cursor: hand; font-size: 11px;">Physiotherapy</u></span>
+                                            <span onClick="ShowOptions(5)"><u style="cursor: hand; font-size: 11px;">Follow up</u></span>
+                                            <span onClick="ShowOptions(7)"><u style="cursor: hand; font-size: 11px;">Bone Health Promotion</u></span>
+                                            <span onClick="ShowOptions(8)"><u style="cursor: hand; font-size: 11px;">Bone Health Management</u></span>
+                                            <span onClick="ShowOptions(9)"><u style="cursor: hand; font-size: 11px;">CalE Study</u></span>*@
+ 
+ <div id=RemarkOptions1 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('x-ray of whole spine: no abnormality is detected except scoliosis;')">x-ray of whole spine: no abnormality is detected except scoliosis;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Physiotherapy is offered;')">Physiotherapy is offered;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('scoliosis advice is given including a) appropriate exercise. b) avoid carrying heavy objects;')">scoliosis advice is given including a) appropriate exercise. b) avoid carrying heavy objects;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Pregnancy alert with xray;')">Pregnancy alert with xray;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient has been explained and understand the following:')">Patient has been explained and understand the following:</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('a) the undesirable and harmful effects of ray on fetus during pregnancy;')">a) the undesirable and harmful effects of ray on fetus during pregnancy;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('b) in case they have unusual menstrual event or if pregnancy is suspected, they should inform the medical staff before any xray is taken;')">b) in case they have unusual menstrual event or if pregnancy is suspected, they should inform the medical staff before any xray is taken;</td></tr>
+                                            </table>
+                                        </div>
+
+                                        <div id=RemarkOptions2 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('MRI spine booked;')">MRI spine booked;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient to come back 2 weeks after MRI for review of report;')">Patient to come back 2 weeks after MRI for review of report;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('U/S abdomen booked;')">U/S abdomen booked;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient to come back 2 weeks after MRI for review of report;')">Patient to come back 2 weeks after U/S for review of report;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('XRay scannogram to check leg length discrepancy;')">XRay scannogram to check leg length discrepancy;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('XRay cone view on thoracic spine (AP,lateral);')">XRay cone view on thoracic spine (AP,lateral);</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('XRay cone view on lumbar spine (AP,lateral);')">XRay cone view on lumbar spine (AP,lateral);</td></tr>
+                                            </table>
+                                        </div>
+
+                                        <div id=RemarkOptions3 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('Bracing will be started;')">Bracing will be started;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient has been informed of the following:')">Patient has been informed of the following:</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Risk of curve progression and its potential sequelae of cardiopulmonary compromise and early spine degeneration and chronic back pain;')">&nbsp; &nbsp;Risk of curve progression and its potential sequelae of cardiopulmonary compromise and early spine degeneration and chronic back pain;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Need to wear brace 23 hrs per day;')">&nbsp; &nbsp;Need to wear brace 23 hrs per day;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Bracing will be continued until skeletal maturity;')">&nbsp; &nbsp;Bracing will be continued until skeletal maturity;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('P&O form is completed;')">&nbsp; &nbsp;P&O form is completed;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Notify us in case no contact for brace fitting within 1 month;')">&nbsp; &nbsp;Notify us in case no contact for brace fitting within 1 month;</td></tr>
+
+                                                <tr><td class=choice onClick="AddRemarks('Brace compliance:       hpd (hour per day);')">Brace compliance:       hpd (hour per day);</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Brace compliance is emphasized (23 hours per day));')">Brace compliance is emphasized (23 hours per day);</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient is reminded the need to have adequate strapping tension;')">Patient is reminded the need to have adequate strapping tension;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Brace for P&O adjustment;')">Brace for P&O adjustment;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Brace for P&O renewal;')">Brace for P&O renewal;</td></tr>
+
+                                                <tr><td class=choice onClick="AddRemarks('Bracing weaning begins today;')">Bracing weaning begins today;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Schedule: 15 hours bracing per day (eg 7:00am-10:00pm) for 3 months, then 10 hours bracing per day (eg 7:00am-5:00pm) for another 3 months, then stop bracing;')">Schedule: 15 hours bracing per day (eg 7:00am-10:00pm) for 3 months, then 10 hours bracing per day (eg 7:00am-5:00pm) for another 3 months, then stop bracing;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Brace need adjustment;')">Brace need adjustment;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Brace is stopped today;')">Brace is stopped today;</td></tr>
+                                            </table>
+                                        </div>
+                                        <div id=RemarkOptions4 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('Surgery is suggested;')">Surgery is suggested;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient & guardian have been of informed the following:')">Patient & guardian have been informed of the following:</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Risk of curve progression and its potential sequelae of cardiopulmonary compromise and early spine degeneration and chronic back pain;')">&nbsp; &nbsp;Risk of curve progression and its potential sequelae of cardiopulmonary compromise and early spine degeneration and chronic back pain;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('The nature and rationale of surgery of fusing the affected segment of the spine to partially correct the deformity and to prevent the deformity from getting worse;')">&nbsp; &nbsp;The nature and rationale of surgery of fusing the affected segment of the spine to partially correct the deformity and to prevent the deformity from getting worse;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Risk of general anesthesia;')">&nbsp; &nbsp;Risk of general anesthesia;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Risk of surgery for scoliosis(wound infection, blood loss, mortality, neurologoical deficit, +/- allograft-related complication);')">&nbsp; &nbsp;Risk of surgery for scoliosis(wound infection, blood loss, mortality, neurologoical deficit, +/- allograft-related complication);</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('MRI brain & whole spine are booked for pre--op workup;')">MRI brain & whole spine are booked for pre--op workup;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Appointment of MRI should be within 3 months, Patient will come back to notify us if the MRI appointment is beyound 3 months or later;')">Appointment of MRI should be within 3 months, Patient will come back to notify us if the MRI appointment is beyound 3 months or later;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Admission slip & notification letter are given to patient;')">Admission slip & notification letter are given to patient;</td></tr>
+                                            </table>
+                                        </div>
+
+                                        <div id=RemarkOptions5 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('Patient is asymptomatic;')">Patient is asymptomatic;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('No back tenderness;')">No back tenderness;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Both lower limbs have normal motor & sensory function;')">Normal Motor & sensory function;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('No other abnormality detected from xray except scoliosis;')">No other abnormality detected from xray except scoliosis;</td></tr>
+
+                                                <tr><td class=choice onClick="AddRemarks('Skeletally matured, risk of progression and intervention insignificant. Patient is advised to continue with regular scoliosis exercise learnt from Physiotherapy Department, continue with lifestyle for good bone health and attend annual body check including the back by family doctor and FU prn;')">Skeletally matured, risk of progression and intervention insignificant. Patient is advised to continue with regular scoliosis exercise learnt from Physiotherapy Department, continue with lifestyle for good bone health and attend annual body check including the back by family doctor and FU prn;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Referral to SCM clinic;')">Referral to SCM clinic;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Referral to Special Scoliosis Clinic;')">Referral to Special Scoliosis Clinic;</td></tr>
+                                            </table>
+                                        </div>
+
+                                        <div id=RemarkOptions6 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('Side bending stretching exercise;')">Side bending stretching exercise;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('15 mins session, 2 times per day;')">15 mins session, 2 times per day;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('exercise 15 mins;')">exercise 15 mins;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('spine extension strengthening;')">spine extension strengthening;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('erect posture training;')">erect posture training;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('spinal slow stretching exercise;')">spinal slow stretching exercise;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('side bending;')">side bending;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('ipsilateral rotation;')">ipsilaterial rotation;</td></tr>
+                                            </table>
+                                        </div>
+
+
+
+                                        <div id=RemarkOptions7 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('Bone Health Pamphlet is given to patient. Patient is reminded to watch the clinic video display and visit the Bone Health Website and use the Bone Health Mobile App;')">Bone Health Pamphlet is given to patient. Patient is reminded to watch the clinic video display and visit the Bone Health Website and use the Bone Health Mobile App;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('More in-depth recommendation on lifestyle for good bone health is given;')">More in-depth recommendation on lifestyle for good bone health is given;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient has concerns over increased sunlight exposure. Hence oral Vit-D (Cholecalciferol) 500 IU per day is prescribed up to next visit;')">Patient has concerns over increased sunlight exposure. Hence oral Vit-D (Cholecalciferol) 500 IU per day is prescribed up to next visit;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Cobb increase > 5 degrees despite being braced and with Vit-D supplementation: patient is referred to Bone Health Sub-unit for bone health assessment and treatment;')">Cobb increase > 5 degrees despite being braced and with Vit-D supplementation: patient is referred to Bone Health Sub-unit for bone health assessment and treatment;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient has been assessed at Bone Health Sub-unit previously. The Individualized Calcium+Vit-D supplementation is continued with the same dosage. Patient is reminded of importance of adequate water intake when taking Ca+Vit-D supplementation;')">Patient has been assessed at Bone Health Sub-unit previously. The Individualized Calcium+Vit-D supplementation is continued with the same dosage. Patient is reminded of importance of adequate water intake when taking Ca+Vit-D supplementation;</td></tr>
+                                            </table>
+                                        </div>
+
+                                        <div id=RemarkOptions8 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('IT VDP and TC4 explained;')">IT VDP and TC4 explained;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Bone health workup is done;')">Bone health workup is done;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('TC4 Visit;')">TC4 Visit;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('DXA Z-score: R , L;')">DXA Z-score: R, L;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Dietary calcium intake:   mg/day;')">&nbsp; &nbsp; &nbsp;Dietary calcium intake:   mg/day;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Serum 25(OH)Vit-D :      nmol/L;')">&nbsp; &nbsp; &nbsp;Serum 25(OH)Vit-D :      nmol/L;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Bone profile and PTH: normal;')">&nbsp; &nbsp; &nbsp;Bone profile and PTH: normal;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient is given explanation and understands the above results. Lifestyle for good bone health is reiterated and emphasized;')">Patient is given explanation and understands the above results. Lifestyle for good bone health is reiterated and emphasized;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Patient prefers reinforcement of lifestyle for good bone health and declines Calcium or Vit-D supplementation;')">Patient prefers reinforcement of lifestyle for good bone health and declines Calcium or Vit-D supplementation;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Individualized Ca+Vit-D supplementation:')">Individualized Ca+Vit-D supplementation:</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Consensus made with patient on Individualized Ca+Vit-D Supplementation: ')">&nbsp; &nbsp; &nbsp;Consensus made with patient on Individualized Ca+Vit-D Supplementation: </td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Calcium Carbonate   mg/day is prescribed;')">&nbsp; &nbsp; &nbsp;Calcium Carbonate   mg/day is prescribed;</td></tr>
+                                                <tr><td class=choice onClick="AddRemarks('Oral Vit-D (Cholecalciferol)    IU/day is prescribed;')">&nbsp; &nbsp; &nbsp;Oral Vit-D (Cholecalciferol)    IU/day is prescribed;</td></tr>
+                                            </table>
+                                        </div>
+
+                                        <div id=RemarkOptions9 style="display:none">
+                                            <table class=choice border=0 cellspacing=1 color="#000">
+                                                <tr><td class=choice onClick="AddRemarks('CalE Study preRC1 (First preparatory visit); DOE = (ie the date of this visit record); Risser;  Cobb angle of scoliosis taken without brace is recorded at DOE visit record:   ***to be confirmed;  Back: non tender, ROM full;  X-ray of whole spine: no abnormality detected except scoliosis;   z score L hip:      R hip:     ; Patient and Mother are explained of the study;  The amount of blood taken and risks of blood taking are explained: bruises, fainting and infection;   Radiation associated with DXA and XtremeCT is explained;  The nature of randomization and that there is the chance that the patient may be allocated to the placebo is explained; Patient is clearly informed that when she enters the study, she needs to take adequate amount of water daily. Otherwise, there might be a chance of getting renal stone with Calcium and Vit D supplement in presence of inadequate water intake; Radiation associated with DXA and XtremeCT is explained; Patient Information Sheet is given to the patient and consent form is signed; Patient will undergo the following investigation: 1. x-ray of whole spine standing: AP and lateral without brace and L hand for skeletal age; 2. DXA, XtremeCT, lifestyle assessment and blood taking; Lifestyle and dietary advice on good bone health is given;  RC1 has been arranged with patient; CalE Study:  PI Dr Lam Tsz Ping, Tel:26323309; Randomized Double-blinded Placebo-Controlled Trial testing effects of Calcium+VitD for female patients with Adolescent Idiopathic Scoliosis;  Patients are allocated to either one of the two groups: Group 0: placebo tablet, 2 tablets per day;  Group 1: daily dose of 600mg Ca + 800U VitD; Treatment duration : 3 years; Any query, please contact Dr Lam Tsz Ping (O&T) at 26323309 [CalE Study], [pager: 73821213]; ')">CalE Study preRC1 (First preparatory visit);&nbsp; &nbsp; &nbsp;DOE =   (ie the date of this visit record);&nbsp; &nbsp; &nbsp;Risser;&nbsp; &nbsp; &nbsp;Cobb angle of scoliosis taken without brace is recorded at DOE visit record:&nbsp; &nbsp; &nbsp;***to be confirmed;***to be confirmed; &nbsp; &nbsp; &nbsp;X-ray of whole spine: no abnormality detected except scoliosis;  &nbsp; &nbsp; &nbsp;z score L hip:      R hip:&nbsp;&nbsp;&nbsp;  &nbsp; &nbsp; &nbsp;Patient and Mother are explained of the study;   &nbsp; &nbsp; &nbsp;The amount of blood taken and risks of blood taking are explained: bruises, fainting and infection; &nbsp; &nbsp; &nbsp;Radiation associated with DXA and XtremeCT is explained; &nbsp; &nbsp; &nbsp;The nature of randomization and that there is the chance that the patient may be allocated to the placebo is explained;&nbsp; &nbsp; &nbsp;Patient is clearly informed that when she enters the study, she needs to take adequate amount of water daily. Otherwise, there might be a chance of getting renal stone with Calcium and Vit D supplement in presence of inadequate water intake;&nbsp; &nbsp; &nbsp;They understand and agree to participate;&nbsp; &nbsp; &nbsp;Patient Information Sheet is given to the patient and consent form is signed;&nbsp; &nbsp; &nbsp;Patient will undergo the following investigation:   &nbsp; &nbsp; &nbsp;1. x-ray of whole spine standing: AP and lateral without brace and L hand for skeletal age;&nbsp; &nbsp; &nbsp;2. DXA, XtremeCT, lifestyle assessment and blood taking;&nbsp; &nbsp; &nbsp;Lifestyle and dietary advice on good bone health is given;&nbsp; &nbsp; &nbsp;RC1 has been arranged with patient;&nbsp; &nbsp; &nbsp;CalE Study:&nbsp; &nbsp; &nbsp;PI Dr Lam Tsz Ping, Tel:26323309;  &nbsp; &nbsp; &nbsp;Randomized Double-blinded Placebo-Controlled Trial testing effects of Calcium+VitD for female patients with Adolescent Idiopathic Scoliosis;  &nbsp; &nbsp; &nbsp;Patients are allocated to either one of the two groups: &nbsp; &nbsp; &nbsp;Group 0: placebo tablet, 2 tablets per day;&nbsp; &nbsp; &nbsp;Group 1: daily dose of 600mg Ca + 800U VitD;&nbsp; &nbsp; &nbsp;Treatment duration : 3 years; &nbsp; &nbsp; &nbsp;Any query, please contact Dr Lam Tsz Ping (O&T) at 26323309 [CalE Study], [pager: 73821213];</td></tr>
+
+
+
+                                                <tr><td class=choice onClick="AddRemarks('Risser;  Cal RC a :  Back: non-tender, ROM full;  Brace compliance: hours per day; Subjective drug compliance: %; x-ray of whole spine: no abnormality is detected except scoliosis;  Scoliosis advice is given including a) appropriate exercise. b) avoid carrying heavy objects;  Brace rationale and Brace compliance is emphasized; Lifestyle and dietary advice for bone health reiterated. Adequate water intake is emphasized; Re-fill of study articles is given to the patient;  ')">Risser;  &nbsp; &nbsp; &nbsp;Cal RC a :&nbsp; &nbsp; &nbsp;Back: non-tender, ROM full;&nbsp; &nbsp; &nbsp;Brace compliance: hours per day;&nbsp; &nbsp; &nbsp;Subjective drug compliance: %;&nbsp; &nbsp; &nbsp;x-ray of whole spine: no abnormality is detected except scoliosis;  &nbsp; &nbsp; &nbsp;Scoliosis advice is given including a) appropriate exercise. b) avoid carrying heavy objects;  &nbsp; &nbsp; &nbsp;Brace rationale and Brace compliance is emphasized;  &nbsp; &nbsp; &nbsp;Lifestyle and dietary advice for bone health reiterated. Adequate water intake is emphasized; &nbsp; &nbsp; &nbsp;Re-fill of study articles is given to the patient; </td></tr>
+                                            </table>
+                                        </div>

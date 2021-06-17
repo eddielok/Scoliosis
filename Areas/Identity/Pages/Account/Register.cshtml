@@ -1,0 +1,235 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    var roles = (List<IdentityRole>)ViewData["roles"];
+}
+
+@*<link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/css/bs-stepper.min.css" rel="stylesheet">*@
+
+<script type="text/javascript" src="~/js/moment.js"></script>
+<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="~/js/bs-stepper.min.js"></script>
+<script src="~/js/sb-admin-2.min.js"></script>
+<script src="~/js/jquery-ui.js"></script>
+<script src="~/js/sb-admin-2.min.js"></script>
+
+<link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="~/css/sb-admin-2.css" rel="stylesheet">
+<link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+<link href="~/css/sb-admin-2.css" rel="stylesheet">
+<link href="~/css/bs-stepper.min.css" rel="stylesheet">
+
+<link href="~/dist/css/lightgallery.css" rel="stylesheet">
+<link href="~/dist/css/lightslider.css" rel="stylesheet">
+
+<style type="text/css">
+    input.CtrlBtn {
+        background: #DADAAD;
+        color: #000000;
+        font-weight: bold;
+        font-family: Arial;
+        font-size 10px;
+        width: 140px;
+    }
+
+    input.ro {
+        border-style: groove;
+        background: #DDD;
+    }
+
+    body {
+        background: #FFF;
+        font-family: Arial;
+    }
+
+    td {
+        background: #FFF;
+        font-family: Arial;
+        font-size: 12px;
+    }
+
+        td.subtable {
+            text-align: center;
+        }
+
+    th {
+        background: #6496DE;
+        color: #FFF;
+        font-family: Arial;
+        font-size: 12px;
+    }
+
+        th.section {
+            background: #22F;
+            color: #FFF;
+            font-size: 16px;
+        }
+
+    td.sep {
+        height: 5px;
+    }
+
+    table {
+        background: #FFF;
+    }
+
+        table.section {
+            background: #BBB;
+        }
+
+        table.subtable {
+            background: #888;
+        }
+
+    input, select, textarea {
+        font-family: Arial;
+        font-size: 11px;
+    }
+
+        input.Bluebtn {
+            background: #6496DE;
+            color: #FFFFFF;
+            font-weight: bold;
+            width: 100px;
+        }
+</style>
+
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        <!-- End of Topbar -->
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12 mt-5">
+                    <h2>New User</h2>
+                    <div id="stepper1" class="bs-stepper">
+                        <div class="bs-stepper-header">
+                            <div class="step" data-target="#test-l-1">
+                                <button type="button" class="btn step-trigger">
+                                    <span class="bs-stepper-circle">1</span>
+                                    <span class="bs-stepper-label">Create account</span>
+                                </button>
+                            </div>
+                            <div class="line"></div>
+                            <div class="step" data-target="#test-l-2">
+                                <button type="button" class="btn step-trigger">
+                                    <span class="bs-stepper-circle">2</span>
+                                    <span class="bs-stepper-label">Create Detail</span>
+                                </button>
+                            </div>
+                            <div class="line"></div>
+                            <div class="step" data-target="#test-l-3">
+                                <button type="button" class="btn step-trigger">
+                                    <span class="bs-stepper-circle">3</span>
+                                    <span class="bs-stepper-label">Completed</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bs-stepper-content">
+                            <div id="test-l-1" class="content">
+                                <form method="post">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                                        <tr>
+                                            <td width="25%"></td>
+                                            <td width="75%"> </td>
+                                        </tr>
+                                        <tr width="22%" bgcolor="RoyalBlue"><th colspan="2">Create a new Account</th></tr>
+                                        <tr width="22%"><td colspan="2"><div asp-validation-summary="All" class=""></div></td></tr>
+                                        <tr>
+                                            <td valign=top class="level2"> <label asp-for="Input.Email"></label></td>
+                                            <td>
+                                                <input asp-for="Input.Email" class="" />
+                                                <span asp-validation-for="Input.Email" class=""></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2">  <label asp-for="Input.Password"></label></td>
+                                            <td>
+                                                <input asp-for="Input.Password" class="" />
+                                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2">    <label asp-for="Input.ConfirmPassword"></label></td>
+                                            <td>
+                                                <input asp-for="Input.ConfirmPassword" class="" />
+                                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign=top class="level2">Role</td>
+                                            <td>
+                                                <select asp-for="Input.Name" class="" asp-items='new SelectList(roles,"Id","Name")'></select>
+                                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2">
+                                                <button type="submit" class="btn btn-primary" onclick="stepper1.next()">Register</button>
+                                                <input type="button" class="btn btn-primary" onclick="window.close()" value="Cancel" />
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </form>
+
+                            </div>
+                            <div id="test-l-2" class="content">
+                                <p class="text-center">test 2</p>
+                                <button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+                            </div>
+                            <div id="test-l-3" class="content">
+                                <p class="text-center">test 3</p>
+                                <button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+                                <button class="btn btn-primary" onclick="stepper1.previous()">Previous</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script src="~/js/bs-stepper.min.js"></script>
+        <script>
+            var stepper1Node = document.querySelector('#stepper1')
+            var stepper1 = new Stepper(document.querySelector('#stepper1'))
+
+            stepper1Node.addEventListener('show.bs-stepper', function (event) {
+                console.warn('show.bs-stepper', event)
+            })
+            stepper1Node.addEventListener('shown.bs-stepper', function (event) {
+                console.warn('shown.bs-stepper', event)
+            })
+
+            var stepper2 = new Stepper(document.querySelector('#stepper2'), {
+                linear: false,
+                animation: true
+            })
+            var stepper3 = new Stepper(document.querySelector('#stepper3'), {
+                animation: true
+            })
+            var stepper4 = new Stepper(document.querySelector('#stepper4'))
+        </script>
+
+
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

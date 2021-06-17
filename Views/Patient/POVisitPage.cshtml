@@ -1,0 +1,878 @@
+﻿
+
+@using Microsoft.AspNetCore.Http
+
+
+@model Tuple<Scoliosis.Models.InfoBarViewModel, Scoliosis.Models.POVisitModel>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>POVisitPage</title>
+
+
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/jquerysession.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <script type="text/javascript" src="~/js/Restrict.js"></script>
+    <script type="text/javascript" src="~/js/xBrowser.js"></script>
+    <script type="text/javascript" src="~/js/xLayer.js"></script>
+    <script type="text/javascript" src="~/js/staticMenu.js"></script>
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+    <style type="text/css">
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .lightgallery li {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .lightgallery ul {
+            display: inline-block;
+        }
+
+        .lightgallery h3 {
+            margin: 0;
+        }
+
+        .demo {
+        }
+
+        .item-a {
+            width: 90%;
+            height: 90%;
+        }
+
+
+        td.title2 {
+            font-size: 14px;
+            padding: 5px 5px 5px 5px;
+            color: #000000;
+            text-align: left;
+        }
+    </style>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <script>
+
+        function popitup(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+
+        function popitupreport(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=800,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+    </script>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <style type="text/css">
+        input.CtrlBtn {
+            background: #DADAAD;
+            color: #000000;
+            font-weight: bold;
+            font-family: Arial;
+            font-size 10px;
+            width: 140px;
+        }
+
+        input.ro {
+            border-style: groove;
+            background: #DDD;
+        }
+
+        body {
+            background: #FFF;
+            font-family: Arial;
+        }
+
+        td {
+            background: #FFF;
+            font-family: Arial;
+            font-size: 18px;
+        }
+
+            td.subtable {
+                text-align: center;
+            }
+
+        th {
+            background: #6496DE;
+            color: #FFF;
+            font-family: Arial;
+            font-size: 18px;
+        }
+
+            th.section {
+                background: #22F;
+                color: #FFF;
+                font-size: 18px;
+            }
+
+        td.sep {
+            height: 5px;
+        }
+
+        table {
+            background: #FFF;
+        }
+
+            table.section {
+                background: #BBB;
+            }
+
+            table.subtable {
+                background: #888;
+            }
+
+        input, select, textarea {
+            font-family: Arial;
+            font-size: 11px;
+        }
+
+            input.Bluebtn {
+                background: #6496DE;
+                color: #FFFFFF;
+                font-weight: bold;
+                width: 100px;
+            }
+        #planit {
+
+            width: 500px;
+            height: 500px;
+        }
+        /*#planit {
+            position: absolute;
+            top: 150px;
+            right: 200px;
+            font-size: 18px;
+            width: 400px;
+            height: 400px;
+        }
+
+        #chkplanit {
+            position: absolute;
+            top: 140px;
+            right: 250px;
+            font-size: 18px;
+        }*/
+    </style>
+    <script src="~/js/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="~/css/normalize.css">
+    <link rel="stylesheet" href="~/css/planit.css">
+    <script src="~/js/planit.js"></script>
+    <script src="~/js/modernizr-2.8.3.min.js"></script>
+</head>
+<body id="page-top">
+
+    <form id="form" name="form" action="../Patient/POVisitPage?SCN=@Model.Item2.SCN&DOB=@Model.Item2.DOC" method="post">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-chevron-circle-down"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Menu bar</div>
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Nav Item - Dashboard -->
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Patient information</span>
+                    </a>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded menuFont">
+                            <table>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.SCN</td>
+                                </tr>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.Name</td>
+                                </tr>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.HKID</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Addons</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../Patient/InitAssessPage?SCN=@Model.Item2.SCN">Initial Assesment</a>
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN">New Visit</a>
+                            <a class="collapse-item" href="../Patient/EditPersonalInfoPage?SCN=@Model.Item2.SCN">Personal Info</a>
+                            <a class="collapse-item" href="../Patient/OperativeDataList?SCN=@Model.Item2.SCN">Operative Data</a>
+                            <a class="collapse-item" href="../Patient/VisitList?SCN=@Model.Item2.SCN">Visits List</a>
+                            <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item2.SCN">New P & O Visit</a>
+                            <a class="collapse-item" href="../Patient/POConfigPage?SCN=@Model.Item2.SCN">P & O Config</a>
+                            <a class="collapse-item" href="../Patient/POEvaluationPage?SCN=@Model.Item2.SCN">P & O Evaluation</a>
+                            <a class="collapse-item" href="../Patient/PODOCPage?SCN=@Model.Item2.SCN">P & O Document</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Visits</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach (var visit in @Model.Item1.visits)
+                            {
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)">@visit</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>P & O Visits</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach (var POvisit in @Model.Item1.POvisit)
+                            {
+
+                            <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item1.SCN&DOB=@POvisit">@POvisit</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Core Manu</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../home/index">Home page</a>
+                            <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                            <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item2.SCN">New P & O Visit</a>
+                            <a class="collapse-item" href="../Identity/Account/Login">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+            </ul>
+
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            Clinical Summary Database System
+                        </div>
+                    </div>
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <!--20203014 Put the logout page out-->
+                            @*<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    Hello - @Context.Session.GetString("_userName") &nbsp; &nbsp; |  &nbsp;
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </span>
+                            </a>
+
+
+                        </li>
+
+                    </ul>
+
+
+
+                </nav>
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <div class="container-fluid">
+                        <table width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="center">
+                                    <font style="font-family: Arial; font-size: 20px">P & O Visits Info</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan=2 align="center">
+                                    <input type="hidden" name=SCN value="@Model.Item2.SCN" />
+                                    <input type="hidden" name=OriDOC value="@Model.Item2.DOC" />
+                                    <input type="hidden" id="chkcolor" name=chkcolor value="#00008b" />
+                                    <input type="hidden" id="ImgData" name=ImgData value="@Model.Item2.ImgData" />
+                                    <input type="hidden" id="User" name="User" value="@Model.Item2.User" />
+                                    <input type="hidden" id="BraceType" name="BraceType" value="@Model.Item2.BraceType" />
+                                    <input type="hidden" id="SpcType" name="SpcType" value="@Model.Item2.SpcType" />
+                                    <input type="hidden" id="BraceCompliance" name="BraceCompliance" value="@Model.Item2.BraceCompliance" />
+                                    <input type="hidden" id="BraceProblem" name="BraceProblem" value="@Model.Item2.BraceProblem" />
+                                    <input type="hidden" id="SpcProblem" name="SpcProblem" value="@Model.Item2.SpcProblem" />
+                                    <input type="hidden" id="BraceRenewal" name="BraceRenewal" value="@Model.Item2.BraceRenewal" />
+                                    <input type="hidden" id="SpcRenewal" name="SpcRenewal" value="@Model.Item2.SpcRenewal" />
+                                    <input type="hidden" id="BraceAdjustment" name="BraceAdjustment" value="@Model.Item2.BraceAdjustment" />
+                                    <input type="hidden" id="SpcAdjustment" name="SpcAdjustment" value="@Model.Item2.SpcAdjustment" />
+
+
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Scoliosis Clinic Date:</th>
+                                            <td width="50%">
+                                                <div class="form-inline" style="width:50%">
+                                                    <div class="input-group date" id="datetimepicker2">
+                                                        <input class="class-PoDOC"
+                                                               type="text" maxlength="10" size="10" name="DOC" id="DOC"
+                                                               value="@(Model.Item2.DOC.Value == null ? "" : Model.Item2.DOC.Value.ToString("dd/MM/yyyy"))" onKeyUp="RestrictDate(this)">
+                                                        
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+
+
+                                                    </div>
+                                                    <div style="width:50%"> &nbsp; &nbsp; <input type="button" value="Today" onClick="today()"></div>
+
+
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Responsible By:</th>
+                                            <td>
+                                                <input id="User1" name="User1" type="checkbox" value="true" @(Model.Item2.User == "Mr Kee" ? "checked=\" checked\"" : "") onClick="SetUser(this)"> Mr Kee  &nbsp;
+                                                <input id="User2" name="User2" type="checkbox" value="true" @(Model.Item2.User == "Ruby" ? "checked=\" checked\"" : "") onClick="SetUser(this)"> Ruby &nbsp;
+                                                <input id="User3" name="User3" type="checkbox" value="true" @(Model.Item2.User == "Kim" ? "checked=\" checked\"" : "") onClick="SetUser(this)"> Kim &nbsp;
+                                                <!-- <input id="User4" name="User4" type="checkbox" value="true" @(Model.Item2.User == "Other" ? "checked=\" checked\"" : "") onClick="SetUser(this)"> Other -->
+                                                <input id="newUser" type="text" name="newUser" value='@Model.Item2.User' size="30">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Date of Brace received:</th>
+                                            <td width="50%">
+
+                                                <div class="form-inline" style="width:50%">
+                                                    <div class="input-group date" id="datetimepicker1">
+                                                        <input class="class-DobrDOC"
+                                                               type="text" size="10" name="BraceDate" id="BraceDate"
+                                                               value="@(Model.Item2.BraceDate.Value == null ? "" : Model.Item2.BraceDate.Value.ToString("dd/MM/yyyy"))" onKeyUp="RestrictDate(this)">
+
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+
+                                                    
+                                                    </div>
+                                                    @*<div style="width:50%">  &nbsp; &nbsp; <input type="button" value="Today" onClick="bracetoday()"></div>*@
+
+                                                  
+                                                </div>
+                                               
+
+                                                <script type="text/javascript">
+                                                    $(function () {
+                                                        $('#datetimepicker1').datetimepicker({
+                                                            format: 'dd/mm/yyyy',
+                                                            autoclose: false,
+                                                            minView: 2,
+                                                            todayHighlight: true,
+                                                            todayBtn: true
+                                                        });
+                                                    });
+
+                                                     $(function () {
+                                                        $('#datetimepicker2').datetimepicker({
+                                                            format: 'dd/mm/yyyy',
+                                                            autoclose: false,
+                                                            minView: 2,
+                                                            todayHighlight: true,
+                                                            todayBtn: true
+                                                        });
+                                                    });
+                                                </script>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <table width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <td>
+                                <table class="table" width="86%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="left">
+                                            <font style="font-family: Arial; font-size: 25px">1.Bracing status</font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan=2 align="center">
+                                            <table width="100%" border="0">
+                                                <tr>
+                                                    <th width="18%" bgcolor="RoyalBlue">1.1 Type of Brace checking today</th>
+                                                    <td>
+                                                        <input id="BraceType1" name="BraceType1" type="checkbox" value="true" @(Model.Item2.BraceType == 1 ? "checked=\" checked\"" : "") onClick="SetBraceType(this)"> 1. Under Arm Brace  &nbsp;<br />
+                                                        <input id="BraceType2" name="BraceType2" type="checkbox" value="true" @(Model.Item2.BraceType == 2 ? "checked=\" checked\"" : "") onClick="SetBraceType(this)"> 2. Low Profile Scoliosis Brace &nbsp;<br />
+                                                        <input id="BraceType3" name="BraceType3" type="checkbox" value="true" @(Model.Item2.BraceType == 3 ? "checked=\" checked\"" : "") onClick="SetBraceType(this)"> 3. Semi-rigid Spinal Brace &nbsp;<br />
+                                                        <input id="BraceType4" name="BraceType4" type="checkbox" value="true" @(Model.Item2.BraceType == 4 ? "checked=\" checked\"" : "") onClick="SetBraceType(this)"> 4. Others (specify):
+                                                        <input id="newBraceType" type="text" name="newBraceType" value='@Model.Item2.SpcType' size="30">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="18%" bgcolor="RoyalBlue"></th>
+                                                    <td width="8%">
+                                                        <input id="NoBraceType" name="NoBraceType" type="checkbox" value="true" @(Model.Item2.BraceType == 0 ? "checked=\" checked\"" : "") onClick="SetBraceType(this)"> NO Brace available today &nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="18%" bgcolor="RoyalBlue">1.2 Compliance of brace per day</th>
+                                                    <td>
+                                                        <input id="BraceCompliance1" name="BraceCompliance1" type="checkbox" value="true" @(Model.Item2.BraceCompliance == 1 ? "checked=\" checked\"" : "") onClick="SetCompliance(this)"> 1. Over 20 hours  &nbsp;<br />
+                                                        <input id="BraceCompliance2" name="BraceCompliance2" type="checkbox" value="true" @(Model.Item2.BraceCompliance == 2 ? "checked=\" checked\"" : "") onClick="SetCompliance(this)"> 2. Between 15and 20 hours &nbsp;<br />
+                                                        <input id="BraceCompliance3" name="BraceCompliance3" type="checkbox" value="true" @(Model.Item2.BraceCompliance == 3 ? "checked=\" checked\"" : "") onClick="SetCompliance(this)"> 3. Between 10 and 15 hours &nbsp;<br />
+                                                        <input id="BraceCompliance4" name="BraceCompliance4" type="checkbox" value="true" @(Model.Item2.BraceCompliance == 4 ? "checked=\" checked\"" : "") onClick="SetCompliance(this)"> 4. Between 5 and 10 hours &nbsp;<br />
+                                                        <input id="BraceCompliance5" name="BraceCompliance5" type="checkbox" value="true" @(Model.Item2.BraceCompliance == 5 ? "checked=\" checked\"" : "") onClick="SetCompliance(this)"> 5. Less than 5 hours <br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <div id="chkplanit">
+                                    <input id="chkplanit1" name="chkplanit1" type="checkbox" value="true" checked="checked" onClick="Setchkplanit(this)"> <font color="#00008b">X:Impingement</font>
+                                    <br />
+                                    <input id="chkplanit2" name="chkplanit2" type="checkbox" value="true" onClick="Setchkplanit(this)"> <font color="#8b0000">///:Excessive trimline</font>
+                                </div>
+                                <div id="planit"></div>
+                            </td>
+                        </table>
+                        <br />
+
+
+                        <table class="table" width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td rowspan=2 align="center">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td align="left">
+                                                <font style="font-family: Arial; font-size: 25px">2.Brace Problem</font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue"></th>
+                                            <td>
+                                                <input id="BraceProblem1" name="BraceProblem1" type="checkbox" value="true" @(Model.Item2.BraceProblem == 1 ? "checked=\" checked\"" : "") onClick="SetBraceProblem(this)"> 1. Pressure erythema specify site:  &nbsp;
+                                                <input id="newBraceProblem1" type="text" name="newBraceProblem1" value='@Model.Item2.SpcProblem' size="30"> <br />
+                                                <input id="BraceProblem2" name="BraceProblem2" type="checkbox" value="true" @(Model.Item2.BraceProblem == 2 ? "checked=\" checked\"" : "") onClick="SetBraceProblem(this)"> 2. Pressure sore with specify site: &nbsp;
+                                                <input id="newBraceProblem2" type="text" name="newBraceProblem2" value='@Model.Item2.SpcProblem' size="30"> <br />
+                                                <input id="BraceProblem3" name="BraceProblem3" type="checkbox" value="true" @(Model.Item2.BraceProblem == 3 ? "checked=\" checked\"" : "") onClick="SetBraceProblem(this)"> 3. Allergic reaction &nbsp;<br />
+                                                <input id="BraceProblem4" name="BraceProblem4" type="checkbox" value="true" @(Model.Item2.BraceProblem == 4 ? "checked=\" checked\"" : "") onClick="SetBraceProblem(this)"> 4. Gastric Reflux &nbsp; <br />
+                                                <input id="BraceProblem5" name="BraceProblem5" type="checkbox" value="true" @(Model.Item2.BraceProblem == 5 ? "checked=\" checked\"" : "") onClick="SetBraceProblem(this)"> 5. Worsening of thoracic hypokyphosis<br />
+                                                <input id="BraceProblem6" name="BraceProblem6" type="checkbox" value="true" @(Model.Item2.BraceProblem == 6 ? "checked=\" checked\"" : "") onClick="SetBraceProblem(this)"> 6. Others (specify):
+                                                <input id="newBraceProblem3" type="text" name="newBraceProblem3" value='@Model.Item2.SpcProblem' size="30"> <br />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+
+                        <table class="table" width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="left">
+                                    <font style="font-family: Arial; font-size: 25px">3.Recommendation</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan=2 align="center">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">A. Attached this form with referral </th>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">3.1 Renewal of Brace </th>
+                                            <td>
+                                                <input id="BraceRenewal1" name="BraceRenewal1" type="checkbox" value="true" @(Model.Item2.BraceRenewal == 1 ? "checked=\" checked\"" : "") onClick="SetBraceRenewal(this)"> 1. Under Arm Brace  &nbsp; <br />
+                                                <input id="BraceRenewal2" name="BraceRenewal2" type="checkbox" value="true" @(Model.Item2.BraceRenewal == 2 ? "checked=\" checked\"" : "") onClick="SetBraceRenewal(this)"> 2. Low Profile Scoliosis Brace &nbsp; <br />
+                                                <input id="BraceRenewal3" name="BraceRenewal3" type="checkbox" value="true" @(Model.Item2.BraceRenewal == 3 ? "checked=\" checked\"" : "") onClick="SetBraceRenewal(this)"> 3. Semi-rigid Spinal Brace &nbsp; <br />
+                                                <input id="BraceRenewal4" name="BraceRenewal4" type="checkbox" value="true" @(Model.Item2.BraceRenewal == 4 ? "checked=\" checked\"" : "") onClick="SetBraceRenewal(this)"> 4. Others (specify):
+                                                <input id="newBraceRenewal" type="text" name="newBraceRenewal" value='@Model.Item2.SpcRenewal' size="30"> <br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">3.2 Adjustment of Brace </th>
+                                            <td width="30%">
+                                                <input id="BraceAdjustment1" name="BraceAdjustment1" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 1 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 1. Increase correction by lumbar pad  &nbsp; <br />
+                                                <input id="BraceAdjustment2" name="BraceAdjustment2" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 2 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 2. Increase correction by thoracic pad &nbsp; <br />
+                                                <input id="BraceAdjustment3" name="BraceAdjustment3" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 3 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 3. Renewal of straps and buckles &nbsp; <br />
+                                                <input id="BraceAdjustment4" name="BraceAdjustment4" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 4 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 4. Control shoulder balance by shoulder ring &nbsp; <br />
+                                                <input id="BraceAdjustment5" name="BraceAdjustment5" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 5 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 5. Control shoulder balance by shoulder strap  &nbsp; <br />
+                                                <input id="BraceAdjustment6" name="BraceAdjustment6" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 6 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 6. Adjustment of trimlines &nbsp; <br />
+                                                <input id="BraceAdjustment7" name="BraceAdjustment7" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 7 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 7.  Relieve of pressure points &nbsp;<br />
+                                                <input id="BraceAdjustment8" name="BraceAdjustment8" type="checkbox" value="true" @(Model.Item2.BraceAdjustment == 8 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> 8. Others (specify):
+                                                <input id="newBraceAdjustment" type="text" name="newBraceAdjustment" value='@Model.Item2.SpcAdjustment' size="30"> <br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue"> </th>
+                                            <td width="30%">
+                                                <input id="NoBraceAdjustment" name="NoBraceAdjustment" type="checkbox" value="true" @(Model.Item2.BraceRenewal == 0 ? "checked=\" checked\"" : "") onClick="SetBraceAdjustment(this)"> <font style="font-family: Arial; font-size: 20px">B. NO Brace adjustment needed</font>  &nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+
+
+
+                        <table width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="center">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan=2 align="center">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Remarks: </th>
+                                            <td width="30%">
+                                                <textarea id="Remarks" name="Remarks" cols="100" rows="5">@Model.Item2.Remarks</textarea>
+                                                <!-- <input id="Remarks" type="text" name="Remarks" value='@Model.Item2.Remarks' size="150">-->
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                    </div>
+
+
+                    <input type="submit" name="submit1" id="submit1" value="Save" style="display:none" /><br><br>
+
+                    <DIV id="MenuDiv" STYLE="position:absolute;left:10;top:10;width:110;">
+
+                        <input class="MenuButton" name="update2" type="button" value="Update" onClick="ConfirmUpdate1()"><br><br>
+                        <input class="MenuButton" name=restore2 type=button value="Restore" onClick="ConfirmRestore()"><br><br>
+                        <input class="MenuButton" name=delete2 type=button value="Delete" onClick="deletePost()"><br><br>
+
+                    </DIV>
+                </div>
+    </form>
+
+
+    <div class="row">
+        &nbsp;
+    </div>
+
+    <div id="dialog" title="Alert Message"></div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script>
+       var _isShowMessage = '@Context.Session.GetString("_isShowMessage")';
+                                        var _alertMessage = '@Context.Session.GetString("_alertMessage")';
+
+
+        if (_isShowMessage == 'true' && _alertMessage != '') {
+
+             $( "#dialog" ).dialog({
+                                        autoOpen: true,
+              modal: true,
+              width: 500,
+              height: 300,
+              position: { my: "center", at: "center", of: window  },
+              open: function() {
+                        jQuery('.ui-widget-overlay').on('click', function() {
+                            jQuery('#j_dialog').dialog('close');
+                        })
+                },
+
+              buttons: {
+                                            Ok: function () {
+
+                      $.ajax({
+                                                    method: "post",
+                        url: "./WebRemoveSession",
+                        error: function (xhr, status, err) {
+                                                            alert(err);
+                                                        }
+
+                                                    }).done(function (res) {
+
+                                                    });
+                  $( this ).dialog( "close" );
+                                                }
+                                            },
+              show: {
+                  effect: "fade",
+                duration: 15
+              },
+              hide: {
+                                            effect: "fade",
+                duration: 10
+              }
+
+                                        });
+
+
+           $('#dialog').show().html(_alertMessage);
+
+                                    }
+
+    </script>
+
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/js/cleave.js"></script>
+    <script type="text/javascript" src="~/js/POVisitPage.js"></script>
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+
+
+
+
+
+    <script>
+
+        function deletePost() {
+            var ask = window.confirm("Are you sure you want to delete?");
+            if (ask) {
+                window.alert("This post will be deleted and redirect to Visit List Page");
+
+                window.location.href = '../Patient/POVisitDelete?scn=@Model.Item2.SCN&doc=@Model.Item2.DOC';
+
+            }
+    }
+
+
+        function ConfirmUpdate1() {
+            PrepareSave();
+             $("#submit1").button().click();
+        }
+
+
+
+
+        function ConfirmRestore() {
+
+             var r = confirm("Nothing save. Are you sure to Restore?");
+              if (r == true) {
+                var href = "../Patient/POVisitPage?SCN=@Model.Item2.SCN&DOB=@Model.Item2.DOC";
+                window.open(href, "_self", "menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0");
+              } else {
+
+              }
+            }
+
+
+    </script>
+
+
+
+
+    <script>
+
+        CreateStaticMenu("MenuDiv", document.body.offsetWidth - 120, 50);
+    </script>
+    <script>
+        var coords = [];
+        p = planit.new({
+            container: 'planit',
+            image: {
+                url: '../images/PO.png',
+            }
+            //,markers: [
+
+            //    {
+            //        coords: [0, 10],
+            //        color: '#ccc'
+            //    },
+            //    {
+            //        coords: [5.44, 90],
+            //        draggable: true
+            //    }
+            //]
+        });
+        if ($('#ImgData').val().length > 0) {
+            coords = JSON.parse($('#ImgData').val());
+            for (i = 0; i < coords.length; i++) {
+                p.addMarker({
+                    coords: [coords[i].x, coords[i].y],
+                    color: coords[i].color
+                });
+            }
+        }
+        function FindPosition(oElement) {
+            if (typeof (oElement.offsetParent) != "undefined") {
+                for (var posX = 0, posY = 0; oElement; oElement = oElement.offsetParent) {
+                    posX += oElement.offsetLeft;
+                    posY += oElement.offsetTop;
+                }
+                return [posX, posY];
+            }
+            else {
+                return [oElement.x, oElement.y];
+            }
+        }
+        $('#planit').click(function (e) {
+            var offset = $(this).offset();
+            var height = $(this).height();
+            var width = $(this).width();
+            //alert(height); alert(width);
+            e.preventDefault();
+            var x = (e.pageX - offset.left+8  ) / width * 100;
+            var y = (e.pageY - offset.top+5) / height * 100;
+            var color = $('#chkcolor').val();
+            p.addMarker({
+                coords: [x, y],
+                color: color
+            }); //alert(marker.position());
+            storeCoordinate(x, y, color, coords);
+            //var i;
+            // var resultstr = "";
+            //for (i = 0; i < p.options.markers.length; i++) {
+            //    resultstr += JSON.stringify(p.options.markers[i].coords) + "|";
+            //}
+            //alert(resultstr);
+        });
+        function storeCoordinate(xVal, yVal, colorVal, array) {
+            array.push({ x: xVal, y: yVal, color: colorVal });
+        }
+    </script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+
+</body>
+</html>

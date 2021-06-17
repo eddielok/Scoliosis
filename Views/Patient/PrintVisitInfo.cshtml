@@ -1,0 +1,1452 @@
+﻿@model Scoliosis.Models.PrintVisitInfoViewModel
+
+<html>
+<head>
+    <meta http-equiv=pragma content=no-cache>
+    <basefont face=Arial>
+    <style>
+        td {
+            font-size: 11px;
+        }
+
+        th {
+            font-size: 12px;
+        }
+
+        td.subtitle {
+            font-size: 12px;
+            color: #000;
+            background: #E0E0E0;
+        }
+
+        h1.title {
+            font-size: 16px;
+            color: #000;
+            background: #FFF;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        table.data {
+            background: #F4F4F4;
+        }
+
+        table.table td {
+            padding-right: 25px;
+        }
+    </style>
+    <title>Visit Details of @Model.name (SCN: @Model.scn) on @Model.dob</title>
+</head>
+<body bgcolor=#FFFFFF leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+    <h1 class="title">Visit Details of @Model.name (SCN: @Model.scn, HKID:  @Model.hkid) on @Model.oriDate</h1>
+
+    <table width=100% border=1 cellpadding=2 cellspacing=0 align=center>
+
+        <tr>
+            <td>
+                <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                    <tr> <td class=subtitle colspan=2><B><I>General Information</I></B></td> </tr>
+                    <tr>
+                        <td>
+                            <table width=50%>
+                                <tr> <td>Visit Type: </td><td>@Model.virtualView</td> </tr>
+                                <tr> <td>Visit Date: </td><td>@Model.oriDate</td> </tr>
+                                <tr> <td width=15%>Name: </td><td>@Model.name</td> </tr>
+                                <tr> <td>SCN: </td><td>@Model.scn</td> </tr>
+                                <tr> <td>HKID: </td><td>@Model.hkid</td> </tr>
+                                <tr> <td>Date of Birth: </td><td>@Model.dob</td> </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><td height=2px></td></tr>
+
+        @if (Model.virtualView == "Pre-Clinic Measurement")
+        {
+            <tr>
+                <td>
+                    <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                        <tr>
+                            <td class=subtitle colspan=2><B><I>Clinical Examination</I></B></td>
+                        </tr>
+                        <tr>
+                            <td width=15%>Height/Arm Span:</td>
+                            <td>
+
+                                if (@Model.HT == ""){
+                                <div>N/A</div>
+                                }else{
+                                <div> @Model.HT  cm</div>
+
+                                }
+
+                                if (@Model.armSpan == ""){
+                                <div>N/A</div>
+                                }else{
+                                <div> @Model.armSpan  cm</div>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Weight:</td>
+                            <td>
+                                @if (Model.wt == "")
+                                {
+
+                                    <div>N/A</div>
+                                }
+                                else
+                                {
+
+                                    <div>
+                                        @Model.wt cm
+                                    </div>
+                                }
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        }
+
+        @if (Model.virtualView == "Normal")
+        {
+            <tr>
+                <td>
+                    <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                        <tr>
+                            <td class=subtitle colspan=3><B><I>Clinical Examination</I></B></td>
+                        </tr>
+                        <tr>
+                            <td colspan=3 height=3px></td>
+                        </tr>
+                        <tr>
+                            <td valign=top width=22%>
+                                <table>
+                                    <tr>
+                                        <td>Age:</td>
+                                        <td>
+                                            @if (Model.wt == "")
+                                            {
+                                                <div>  N/A</div>
+                                            }
+                                            else
+                                            {
+                                                <div>  @Model.wt  cm</div>
+                                            }
+
+
+                                            @if (Model.dob == "")
+                                            {
+                                                <div>  N/A</div>
+                                            }
+                                            else
+                                            {
+                                                <div>  @Model.dob  cm</div>
+                                            }
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sex:</td>
+                                        <td>
+                                            @Model.sex
+
+                                            @if (Model.sex == "1")
+                                            {
+                                                <div>M</div>
+                                            }
+                                            else if (Model.sex == "2")
+                                            {
+                                                <div>F</div>
+                                            }
+                                            else
+                                            {
+                                                <div> "N/A"</div>
+                                            }
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Height/Arm Span:</td>
+                                        <td>
+
+
+                                            @if (Model.HT == "")
+                                            {
+                                                <div>  N/A</div>
+                                            }
+                                            else
+                                            {
+                                                <div>  @Model.HT  cm</div>
+                                            }
+                                            /
+                                            @if (Model.armSpan == "")
+                                            {
+                                                <div>  N/A</div>
+                                            }
+                                            else
+                                            {
+                                                <div>  @Model.armSpan  cm</div>
+                                            }
+
+
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weight:</td>
+                                        <td>
+                                            @if (Model.wt == "")
+                                            {
+                                                <div>  N/A</div>
+                                            }
+                                            else
+                                            {
+                                                <div>  @Model.wt  cm</div>
+                                            }
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign=top width=48%>
+                                <table>
+                                    <tr>
+                                        <td>Menarche:</td>
+                                        <td>
+                                            @if (Model.sex == "1")
+                                            {
+                                                <div>  N/A</div>
+                                            }
+                                            else if (Model.isMenarchePos == "true")
+                                            {
+                                                <div>
+                                                    "Positive : @Model.MaturYear year @Model.MaturMonth  month
+                                                </div>
+                                            }
+                                            else if (Model.isMenarcheNeg == "true")
+                                            {
+                                                <div>
+                                                    Negative
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    No Data
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign=top>
+                                            <table cellspacing=0 cellpadding=0>
+                                                <tr>
+                                                    <td>Adominal reflex:</td>
+                                                    <td style="text-align: center; width: 20px; border-bottom: 1px solid #000; ">a</td>
+                                                    <td style="text-align: center; width: 20px; border-bottom: 1px solid #000; border-left: 1px solid #000">b</td>
+                                                    <td rowspan=2 align=middle>:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>(e: equivocal)</td>
+                                                    <td style="text-align: center; width: 20px; ">c</td>
+                                                    <td style="text-align: center; width: 20px; border-left: 1px solid #000">d</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table cellspacing=0 cellpadding=0>
+                                                <tr>
+                                                    <td style="text-align: center; width: 20px; border-bottom: 1px solid #000; ">&nbsp @Model.AbdReflexA</td>
+                                                    <td style="text-align: center; width: 20px; border-bottom: 1px solid #000; border-left: 1px solid #000"> @Model.AbdReflexB &nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center; width: 20px; ">&nbsp;  @Model.AbdReflexC </td>
+                                                    <td style="text-align: center; width: 20px; border-left: 1px solid #000"> @Model.AbdReflexD &nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joint hyperlaxity: </td>
+                                        <td>
+                                            @if (Model.Jointhyper == "")
+                                            {
+                                                <div>N/A</div>
+                                            }
+                                            else
+                                            {
+                                                <div> @Model.Jointhyper / 5</div>
+                                            }
+
+
+                                        </td>
+                                    <tr>
+                                    <tr>
+                                        <td>Trunk shift (C7/T1): </td>
+                                        <td>
+
+
+                                            @if (Model.CTrunkShift == "")
+                                            {
+                                                <div> @Model.CTrunkShiftDir N/A</div>
+                                            }
+                                            else
+                                            {
+                                                <div> @Model.CTrunkShiftDir  @Model.CTrunkShift.ToString() cm</div>
+                                            }
+
+                                        </td>
+                                    <tr>
+                                    <tr>
+                                        <td>Breast Tanner's Staging:</td>
+                                        <td>@Model.BreastTanner</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pubic hair Tanner's Staging:</td>
+                                        <td>@Model.PubicTanner</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Axillary hair:</td>
+                                        <td>@Model.hair</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign=top width=30%>
+                                <table>
+                                    <tr><td colspan=3><U>Rotation (Scoliometer)</U></td></tr>
+
+                                    @if (Model.R1Dir != "0" || Model.Rotat1 != "0")
+                                    {
+                                        <tr>
+                                            <td># 1 :</td>
+                                            <td>@Model.R1Dir &#176;</td>
+
+                                            <td>
+                                                @if (Model.Rotat1 != "0")
+                                                {
+                                                    <div>@Model.Rotat1  &#176; </div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr><td># 1 : </td><td colspan=2>N/A</td></tr>
+                                    }
+
+                                    @if (Model.R2Dir != "0" || Model.Rotat2 != "0")
+                                    {
+                                        <tr>
+                                            <td># 2 :</td>
+                                            <td>@Model.R2Dir &#176;</td>
+
+                                            <td>
+                                                @if (Model.Rotat2 != "0")
+                                                {
+                                                    <div>@Model.Rotat2  &#176; </div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr><td># 2 : </td><td colspan=2>N/A</td></tr>
+                                    }
+
+                                    @if (Model.R3Dir != "0" || Model.Rotat3 != "0")
+                                    {
+                                        <tr>
+                                            <td># 3 :</td>
+                                            <td>@Model.R3Dir &#176;</td>
+
+                                            <td>
+                                                @if (Model.Rotat3 != "0")
+                                                {
+                                                    <div>@Model.Rotat3  &#176; </div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr><td># 3 : </td><td colspan=3>N/A</td></tr>
+                                    }
+
+                                    @if (Model.R4Dir != "0" || Model.Rotat4 != "0")
+                                    {
+                                        <tr>
+                                            <td># 4 :</td>
+                                            <td>@Model.R4Dir &#176;</td>
+
+                                            <td>
+                                                @if (Model.Rotat4 != "0")
+                                                {
+                                                    <div>@Model.Rotat4  &#176; </div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr><td># 4 : </td><td colspan=4>N/A</td></tr>
+                                    }
+
+                                    <tr><td colspan=3>&nbsp;</td></tr>
+
+                                    <tr><td colspan=3><u>Shoulder Asymmetry</u></td></tr>
+
+                                    @if (Model.ShoulderDir != "0" || Model.ShoulderDir != "0")
+                                    {
+                                        <tr>
+                                            <td></td>
+                                            <td>@Model.ShoulderDir</td>
+                                            <td>
+
+                                                @if (Model.ShoulderAsy != "0")
+                                                {
+                                                    <div> @Model.ShoulderAsy cm </div>
+                                                }
+
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        }
+
+        <!-- Radiographic Data -->
+        <tr>
+            <td>
+                <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                    <tr>
+                        <td class=subtitle><B><I>Radiographic Data</I></B></td>
+                    </tr>
+                    <tr><td height=3px></td></tr>
+
+                    <tr>
+                        <td>
+                            <table class=table>
+                                <tr><td colspan=6><U>Degree of Curvature in Frontal Plane</U></td></tr>
+                                <tr>
+                                    <td colspan=6>
+                                        @if (Model.withBrace == 1)
+                                        {
+                                            <div> Measured with Brace: &nbsp; Yes</div>
+
+                                        }
+                                        else if (Model.withBrace == 2)
+
+                                        {
+                                            <div>Measured with Brace: &nbsp; No</div>
+
+                                        }
+                                        else
+                                        {
+
+                                            <div>Measured with Brace: &nbsp; Unknown</div>
+                                        }
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel1From) || string.IsNullOrEmpty(Model.CurveLevel1To)
+|| string.IsNullOrEmpty(Model.CurveApex1) || string.IsNullOrEmpty(Model.CurveDir1)
+|| Model.AVTDir1 != null || Model.CurveDeg1 != null)
+                                    {
+                                        <td>#1:</td>
+                                        <td>Side:  @Model.CurveDir1 </td>
+                                        <td>
+                                            @if (Model.CurveLevel1From != "" || Model.CurveLevel1To != "")
+                                            {
+
+                                                <div> @Model.CurveLevel1From +"-" + @Model.CurveLevel1To </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> "N/A" </div>
+                                            }
+                                        </td>
+                                        <td>
+
+                                            @if (Model.CurveApex1 != "")
+                                            {
+
+                                                <div> Apex: @Model.CurveApex1 </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> Apex: "N/A" </div>
+                                            }
+                                        </td>
+                                        @if (Model.CurveDir1 != "")
+                                        {
+                                            <td>
+
+                                                Cobbs: @Model.CurveDeg1  &#176;chr(13)
+
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan=2> R/L: N/A</td>
+                                        }
+
+                                        <td>
+                                            @if (Model.AVTDir1 != null || Model.CurveDeg1 != null)
+                                            {
+                                                <div>
+                                                    <span>@Model.AVTDir1.ToString() &nbsp;</span>
+                                                    @if (Model.CurveDeg1 != null)
+                                                    {
+                                                        <span>@Model.CurveDeg1.ToString()  cm</span>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>N/A</div>
+                                            }
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>#1 :</td>
+                                        <td colspan=5>N/A</td>
+                                    }
+                                </tr>
+
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel2From) || string.IsNullOrEmpty(Model.CurveLevel2To)
+|| string.IsNullOrEmpty(Model.CurveApex2) || string.IsNullOrEmpty(Model.CurveDir2)
+|| Model.AVTDir2 != null || Model.CurveDeg2 != null)
+                                    {
+                                        <td>#2:</td>
+                                        <td>Side:  @Model.CurveDir2 </td>
+                                        <td>
+                                            @if (Model.CurveLevel2From != "" || Model.CurveLevel2To != "")
+                                            {
+
+                                                <div> @Model.CurveLevel2From +"-" + @Model.CurveLevel2To </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> "N/A" </div>
+                                            }
+                                        </td>
+                                        <td>
+
+                                            @if (Model.CurveApex2 != "")
+                                            {
+
+                                                <div> Apex: @Model.CurveApex2 </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> Apex: "N/A" </div>
+                                            }
+                                        </td>
+                                        @if (Model.CurveDir2 != "")
+                                        {
+                                            <td>
+
+                                                Cobbs: @Model.CurveDeg2  &#176;chr(13)
+
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan=2> R/L: N/A</td>
+                                        }
+
+                                        <td>
+                                            @if (Model.AVTDir2 != null || Model.CurveDeg2 != null)
+                                            {
+                                                <div>
+                                                    <span>@Model.AVTDir2 &nbsp;</span>
+                                                    @if (Model.CurveDeg2 != null)
+                                                    {
+                                                        <span>@Model.CurveDeg2  cm</span>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>N/A</div>
+                                            }
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>#2 :</td>
+                                        <td colspan=5>N/A</td>
+                                    }
+                                </tr>
+
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel3From) || string.IsNullOrEmpty(Model.CurveLevel3To)
+                         || string.IsNullOrEmpty(Model.CurveApex3) || string.IsNullOrEmpty(Model.CurveDir3)
+                         || Model.AVTDir3 != null || Model.CurveDeg3 != null)
+                                    {
+                                        <td>#3:</td>
+                                        <td>Side:  @Model.CurveDir3 </td>
+                                        <td>
+                                            @if (Model.CurveLevel3From != "" || Model.CurveLevel3To != "")
+                                            {
+
+                                                <div> @Model.CurveLevel3From +"-" + @Model.CurveLevel3To </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> "N/A" </div>
+                                            }
+                                        </td>
+                                        <td>
+
+                                            @if (Model.CurveApex3 != "")
+                                            {
+
+                                                <div> Apex: @Model.CurveApex3 </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> Apex: "N/A" </div>
+                                            }
+                                        </td>
+                                        @if (Model.CurveDir3 != "")
+                                        {
+                                            <td>
+
+                                                Cobbs: @Model.CurveDeg3  &#176;chr(13)
+
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan=2> R/L: N/A</td>
+                                        }
+
+                                        <td>
+                                            @if (Model.AVTDir3 != null || Model.CurveDeg3 != null)
+                                            {
+                                                <div>
+                                                    <span>@Model.AVTDir3 &nbsp;</span>
+                                                    @if (Model.CurveDeg3 != null)
+                                                    {
+                                                        <span>@Model.CurveDeg3  cm</span>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>N/A</div>
+                                            }
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>#3 :</td>
+                                        <td colspan=5>N/A</td>
+                                    }
+                                </tr>
+
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel4From) || string.IsNullOrEmpty(Model.CurveLevel4To)
+                          || string.IsNullOrEmpty(Model.CurveApex4) || string.IsNullOrEmpty(Model.CurveDir4)
+                          || Model.AVTDir4 != null || Model.CurveDeg4 != null)
+                                    {
+                                        <td>#4:</td>
+                                        <td>Side:  @Model.CurveDir4 </td>
+                                        <td>
+                                            @if (Model.CurveLevel4From != "" || Model.CurveLevel4To != "")
+                                            {
+
+                                                <div> @Model.CurveLevel4From +"-" + @Model.CurveLevel4To </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> "N/A" </div>
+                                            }
+                                        </td>
+                                        <td>
+
+                                            @if (Model.CurveApex4 != "")
+                                            {
+
+                                                <div> Apex: @Model.CurveApex4 </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div> Apex: "N/A" </div>
+                                            }
+                                        </td>
+                                        @if (Model.CurveDir4 != "")
+                                        {
+                                            <td>
+
+                                                Cobbs: @Model.CurveDeg4  &#176;chr(13)
+
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan=2> R/L: N/A</td>
+                                        }
+
+                                        <td>
+                                            @if (Model.AVTDir4 != null || Model.CurveDeg4 != null)
+                                            {
+                                                <div>
+                                                    <span>@Model.AVTDir4 &nbsp;</span>
+                                                    @if (Model.CurveDeg4 != null)
+                                                    {
+                                                        <span>@Model.CurveDeg4  cm</span>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>N/A</div>
+                                            }
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>#4 :</td>
+                                        <td colspan=5>N/A</td>
+                                    }
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table class=table>
+                                <tr><td colspan=5><U>Degree of Curvature in Sagittal Plane</U></td></tr>
+                                <tr>
+                                    <td colspan=5>
+
+
+
+                                        @if (Model.withBraceS.ToString() == "1")
+                                        {
+                                            <div>Measured with Brace: &nbsp;Yes</div>
+                                        }
+                                        else if (Model.withBraceS.ToString() == "2")
+                                        {
+                                            <div>Measured with Brace: &nbsp;No</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Measured with Brace: &nbsp;Unknown</div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel1FromS) || (string.IsNullOrEmpty(Model.CurveLevel1ToS))
+|| string.IsNullOrEmpty(Model.CurveDir1S) || string.IsNullOrEmpty(Model.CurveDeg1S))
+                                    {
+                                        <td>#1</td>
+                                        <td>
+
+                                            @if (Model.CurveLevel1FromS != "" || Model.CurveLevel1ToS != "")
+                                            {
+                                                <div> Level: @Model.CurveLevel1FromS - Model.CurveLevel1ToS</div>
+                                            }
+                                            else
+                                            {
+                                                <div>Level: N/A</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(Model.CurveApex1S))
+                                            {
+                                            <td>Apex :@Model.CurveApex1S</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Apex :N/A</td>
+                                        }
+                                </td>
+                                @if (Model.CurveDir1S != "" || Model.CurveDeg1S != "")
+                                {
+                                    <td>
+
+                                        @if (Model.CurveDir1S != "R")
+                                        {
+                                            <div>Direction: Kyphosis</div>
+                                        }
+                                        else if (Model.CurveDir1S != "L")
+                                        {
+                                            <div>
+                                                Direction:  Lordosis
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.CurveDeg1S != "")
+                                        {
+                                            <div>@Model.CurveDeg1S &#176;chr(13)</div>
+                                        }
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td colspan=2> R/L: N/A</td>
+                                }
+                            }
+                            else
+                            {
+                                <td>#1 :</td>
+                                <td colspan=4>N/A</td>
+                            }
+                                </tr>
+
+                                <tr>
+                                    <td colspan=5>
+
+
+
+                                        @if (Model.withBraceS.ToString() == "1")
+                                        {
+                                            <div>Measured with Brace: &nbsp;Yes</div>
+                                        }
+                                        else if (Model.withBraceS.ToString() == "2")
+                                        {
+                                            <div>Measured with Brace: &nbsp;No</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Measured with Brace: &nbsp;Unknown</div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel2FromS) || (string.IsNullOrEmpty(Model.CurveLevel2ToS))
+|| string.IsNullOrEmpty(Model.CurveDir2S) || string.IsNullOrEmpty(Model.CurveDeg2S))
+                                    {
+                                        <td>#2</td>
+                                        <td>
+
+                                            @if (Model.CurveLevel2FromS != "" || Model.CurveLevel2ToS != "")
+                                            {
+                                                <div> Level: @Model.CurveLevel2FromS - Model.CurveLevel2ToS</div>
+                                            }
+                                            else
+                                            {
+                                                <div>Level: N/A</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(Model.CurveApex2S))
+                                            {
+                                            <td>Apex :@Model.CurveApex2S</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Apex :N/A</td>
+                                        }
+                                </td>
+                                @if (Model.CurveDir2S != "" || Model.CurveDeg2S != "")
+                                {
+                                    <td>
+
+                                        @if (Model.CurveDir2S != "R")
+                                        {
+                                            <div> Direction: Kyphosis</div>
+                                        }
+                                        else if (Model.CurveDir2S != "L")
+                                        {
+                                            <div>
+                                                Direction: Lordosis
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.CurveDeg2S != "")
+                                        {
+                                            <div>@Model.CurveDeg2S &#176;chr(13)</div>
+                                        }
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td colspan=2> R/L: N/A</td>
+                                }
+                            }
+                            else
+                            {
+                                <td>#2 :</td>
+                                <td colspan=4>N/A</td>
+                            }
+                                </tr>
+
+                                <tr>
+                                    <td colspan=5>
+
+
+
+                                        @if (Model.withBraceS.ToString() == "1")
+                                        {
+                                            <div>Measured with Brace: &nbsp;Yes</div>
+                                        }
+                                        else if (Model.withBraceS.ToString() == "2")
+                                        {
+                                            <div>Measured with Brace: &nbsp;No</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Measured with Brace: &nbsp;Unknown</div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel3FromS) || (string.IsNullOrEmpty(Model.CurveLevel3ToS))
+|| string.IsNullOrEmpty(Model.CurveDir3S) || string.IsNullOrEmpty(Model.CurveDeg3S))
+                                    {
+                                        <td>#3</td>
+                                        <td>
+
+                                            @if (Model.CurveLevel3FromS != "" || Model.CurveLevel3ToS != "")
+                                            {
+                                                <div> Level: @Model.CurveLevel3FromS - Model.CurveLevel3ToS</div>
+                                            }
+                                            else
+                                            {
+                                                <div>Level: N/A</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(Model.CurveApex3S))
+                                            {
+                                            <td>Apex :@Model.CurveApex3S</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Apex :N/A</td>
+                                        }
+                                            </td>
+                                            @if (Model.CurveDir3S != "" || Model.CurveDeg3S != "")
+                                            {
+                                                <td>
+
+                                                    @if (Model.CurveDir3S != "R")
+                                                    {
+                                                        <div> Direction: Kyphosis</div>
+                                                    }
+                                                    else if (Model.CurveDir3S != "L")
+                                                    {
+                                                        <div>
+                                                            Direction: Lordosis
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (Model.CurveDeg3S != "")
+                                                    {
+                                                        <div>@Model.CurveDeg3S &#176;chr(13)</div>
+                                                    }
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td colspan=2> R/L: N/A</td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td>#3 :</td>
+                                            <td colspan=4>N/A</td>
+                                        }
+                                </tr>
+
+                                <tr>
+                                    <td colspan=5>
+
+
+
+                                        @if (Model.withBraceS.ToString() == "1")
+                                        {
+                                            <div>Measured with Brace: &nbsp;Yes</div>
+                                        }
+                                        else if (Model.withBraceS.ToString() == "2")
+                                        {
+                                            <div>Measured with Brace: &nbsp;No</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Measured with Brace: &nbsp;Unknown</div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    @if (string.IsNullOrEmpty(Model.CurveLevel4FromS) || (string.IsNullOrEmpty(Model.CurveLevel4ToS))
+|| string.IsNullOrEmpty(Model.CurveDir4S) || string.IsNullOrEmpty(Model.CurveDeg4S))
+                                    {
+                                        <td>#4</td>
+                                        <td>
+
+                                            @if (Model.CurveLevel4FromS != "" || Model.CurveLevel4ToS != "")
+                                            {
+                                                <div> Level: @Model.CurveLevel4FromS - Model.CurveLevel4ToS</div>
+                                            }
+                                            else
+                                            {
+                                                <div>Level: N/A</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(Model.CurveApex4S))
+                                            {
+                                            <td>Apex :@Model.CurveApex4S</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Apex :N/A</td>
+                                        }
+                                            </td>
+                                            @if (Model.CurveDir4S != "" || Model.CurveDeg4S != "")
+                                            {
+                                                <td>
+
+                                                    @if (Model.CurveDir4S != "R")
+                                                    {
+                                                        <div> Direction: Kyphosis</div>
+                                                    }
+                                                    else if (Model.CurveDir4S != "L")
+                                                    {
+                                                        <div>
+                                                            Direction: Lordosis
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (Model.CurveDeg4S != "")
+                                                    {
+                                                        <div>@Model.CurveDeg4S &#176;chr(13)</div>
+                                                    }
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td colspan=2> R/L: N/A</td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td>#4 :</td>
+                                            <td colspan=4>N/A</td>
+                                        }
+                                </tr>
+
+
+
+
+                            </table>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        @if (Model.TrunkDir == "L")
+                                        {
+                                            <span>Trunk Shift(C7/ T1):  Left</span>
+                                        }
+                                        else if (Model.TrunkDir == "R")
+                                        {
+                                            <span>
+                                                Trunk Shift (C7/T1):  Right
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span>
+                                                Trunk Shift (C7/T1):
+                                                -
+                                            </span>
+                                        }
+
+
+                                        @if (Model.RTrunkShift != "")
+                                        {
+                                            <span>  @Model.RTrunkShift cm </span>
+                                        }
+                                        else
+                                        {
+                                            <span> N/A </span>
+                                        }
+
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <table width=100% border=0>
+                                        <tr>
+                                            <td width=50% valign=top>
+                                                <table>
+                                                    <tr><td colspan=4><U> Apical Rotation (Nash Moe 0-IV) </U></td></tr>
+                                                    @if (string.IsNullOrEmpty(Model.ApicalDir1) || string.IsNullOrEmpty(Model.ApicalRotation1))
+                                                    {
+                                                        <tr>
+                                                            <td>Rotation # 1 :</td>
+                                                            <td>
+                                                                @if (Model.ApicalDir1 == "L")
+                                                                {
+                                                                    <div>Left</div>
+                                                                }
+                                                                else if (Model.ApicalDir1 == "R")
+                                                                {
+                                                                    <div>Right</div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>@Model.ApicalDir1</div>
+                                                                }
+
+                                                            </td>
+                                                            <td>
+                                                                @if (string.IsNullOrEmpty(Model.ApicalRotation1))
+                                                                {
+                                                                    <div> Nash Moe @Model.ApicalRotation1</div>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td colspan=3>Rotation # 1 : N/A</td>
+                                                        </tr>
+                                                    }
+
+                                                    @if (string.IsNullOrEmpty(Model.ApicalDir2) || string.IsNullOrEmpty(Model.ApicalRotation2))
+                                                    {
+                                                        <tr>
+                                                            <td>Rotation # 2 :</td>
+                                                            <td>
+                                                                @if (Model.ApicalDir2 == "L")
+                                                                {
+                                                                    <div>Left</div>
+                                                                }
+                                                                else if (Model.ApicalDir2 == "R")
+                                                                {
+                                                                    <div>Right</div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>@Model.ApicalDir2</div>
+                                                                }
+
+                                                            </td>
+                                                            <td>
+                                                                @if (string.IsNullOrEmpty(Model.ApicalRotation2))
+                                                                {
+                                                                    <div> Nash Moe @Model.ApicalRotation2</div>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td colspan=3>Rotation # 2 : N/A</td>
+                                                        </tr>
+                                                    }
+
+                                                    @if (string.IsNullOrEmpty(Model.ApicalDir3) || string.IsNullOrEmpty(Model.ApicalRotation3))
+                                                    {
+                                                        <tr>
+                                                            <td>Rotation # 3 :</td>
+                                                            <td>
+                                                                @if (Model.ApicalDir3 == "L")
+                                                                {
+                                                                    <div>Left</div>
+                                                                }
+                                                                else if (Model.ApicalDir3 == "R")
+                                                                {
+                                                                    <div>Right</div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>@Model.ApicalDir3</div>
+                                                                }
+
+                                                            </td>
+                                                            <td>
+                                                                @if (string.IsNullOrEmpty(Model.ApicalRotation3))
+                                                                {
+                                                                    <div> Nash Moe @Model.ApicalRotation3</div>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td colspan=3>Rotation # 3 : N/A</td>
+                                                        </tr>
+                                                    }
+
+                                                    @if (string.IsNullOrEmpty(Model.ApicalDir4) || string.IsNullOrEmpty(Model.ApicalRotation4))
+                                                    {
+                                                        <tr>
+                                                            <td>Rotation # 4 :</td>
+                                                            <td>
+                                                                @if (Model.ApicalDir4 == "L")
+                                                                {
+                                                                    <div>Left</div>
+                                                                }
+                                                                else if (Model.ApicalDir4 == "R")
+                                                                {
+                                                                    <div>Right</div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>@Model.ApicalDir4</div>
+                                                                }
+
+                                                            </td>
+                                                            <td>
+                                                                @if (string.IsNullOrEmpty(Model.ApicalRotation4))
+                                                                {
+                                                                    <div> Nash Moe @Model.ApicalRotation4</div>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td colspan=4>Rotation # 4 : N/A</td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            </td>
+
+                                            <td width=50% valign=top>
+                                                <table>
+                                                    <tr>
+                                                        <td><U>Risser's Sign:</U></td>
+                                                        @if (string.IsNullOrEmpty(Model.RSign))
+                                                        {
+                                                            <td>N/A</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>@Model.RSign</td>
+                                                        }
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Thoracic kyphosis: </td>
+                                                        <td>
+                                                            @if (Model.Thoracictype == "N")
+                                                            {
+                                                                <div>Cobb's angle: Normal</div>
+                                                            }
+                                                            else if (Model.Thoracictype == "K")
+                                                            {
+                                                                <div>Cobb's angle: Hyperkyphosis</div>
+                                                            }
+                                                            else if (Model.Thoracictype == "H")
+                                                            {
+                                                                <div>Cobb's angle: Hypokyphosis</div>
+                                                            }
+                                                            else if (Model.Thoracictype == "L")
+                                                            {
+                                                                <div>Cobb's angle: Lordosis</div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div>Cobb's angle: N/A</div>
+                                                            }
+
+
+                                                        </td>
+
+                                                        <td>
+                                                            @if (!string.IsNullOrEmpty(Model.Thoracictype))
+                                                            {
+                                                                <div>Degree: @Model.ThoKyphosis &#176;</div>
+                                                            }
+
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Lumbar Lordosis: </td>
+                                                        <td>
+                                                            @if (Model.Lumbartype == "N")
+                                                            {
+                                                                <div>Cobbs' angle: Normal</div>
+                                                            }
+                                                            else if (Model.Lumbartype == "K")
+                                                            {
+                                                                <div>Cobbs' angle: Hyperkyphosis</div>
+                                                            }
+                                                            else if (Model.Lumbartype == "H")
+                                                            {
+                                                                <div>Cobbs' angle: Hypokyphosis</div>
+                                                            }
+                                                            else if (Model.Lumbartype == "L")
+                                                            {
+                                                                <div>Cobbs' angle: Lordosis</div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div>Cobbs' angle: N/A</div>
+                                                            }
+
+
+                                                        </td>
+                                                        <td>
+                                                            @if (!string.IsNullOrEmpty(Model.LumLordosis))
+                                                            {
+                                                                <div>Degree: @Model.LumLordosis &#176;</div>
+                                                            }
+                                                        </td>
+
+                                                    </tr>
+                                                </table>
+                                            </td>
+
+                                        </tr>
+                                </td>
+                            </tr>
+
+                            <tr><td height=2px></td></tr>
+
+                            @if (Model.virtualView == "Normal")
+                            {
+
+                                <tr>
+                                    <td colspan="2">
+                                        <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                                            <tr>
+                                                <td class=subtitle><B><I>Plan</I></B></td>
+                                            </tr>
+                                            <tr><td height=3px></td></tr>
+                                            <tr>
+                                                <td>
+                                                    <table width=40%>
+                                                        <tr><td>Observation: </td><td>@Model.PlanObs</td></tr>
+                                                        <tr>
+                                                            <td>Brace: </td>
+                                                            <td>
+
+                                                                @if (Model.PlanBrace == "weaned")
+                                                                {
+                                                                    <div> @Model.PlanBrace &nbsp; @Model.PlanBraceWeanTime months</div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div> @Model.PlanBrace </div>
+                                                                }
+
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>FU at: </td>
+                                                            <td>
+                                                                @if (!string.IsNullOrEmpty(Model.PlanFUYear))
+                                                                {
+                                                                    <div> @Model.PlanFUYear year  </div>
+                                                                }
+
+                                                                @if (!string.IsNullOrEmpty(Model.PlanFUMonth))
+                                                                {
+                                                                    <div> @Model.PlanFUMonth month  </div>
+                                                                }
+
+                                                                @if (!string.IsNullOrEmpty(Model.PlanFUWeek))
+                                                                {
+                                                                    <div> @Model.PlanFUWeek week  </div>
+                                                                }
+
+                                                                @if (!string.IsNullOrEmpty(Model.AfterBracing) && Model.AfterBracing == "true")
+                                                                {
+                                                                    <div> &nbsp; after bracing </div>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr><td>X-Ray: </td><td>@Model.PlanXray </td></tr>
+                                                        <tr><td>For surgery: </td><td>@Model.PlanSurgery</td></tr>
+
+                                                    </table>
+                                                </td>
+                                            </tr>
+
+                                            <tr><td height=2px></td></tr>
+
+                                            @if (Model.virtualView != "Pre-Clinic Measurement")
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                                                            <tr><td class=subtitle><B><I>Special Remarks</I></B></td></tr>
+                                                            <tr><td height=3px></td></tr>
+                                                            <tr><td>Doctor: @Model.DrName</td></tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div>@Model.SpcRemarks</div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            }
+
+
+
+
+
+
+                                        </table>
+                                    </td>
+                                </tr>
+
+
+
+
+
+                            }
+
+
+                            </table>
+
+
+                            <div align=right><font style="font-size:12px">Page Generated on @Model.Today by @Model.UserId ></font></div>
+
+                        </body>
+                    </html>

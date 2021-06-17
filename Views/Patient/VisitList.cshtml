@@ -1,0 +1,806 @@
+﻿@{
+    ViewData["Title"] = "Visit";
+
+}
+
+@model Tuple<List<Scoliosis.Models.InfoVisitModel>, Scoliosis.Models.InfoBarViewModel>
+
+@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <!-- <script type="text/javascript" src="~/js/tooltip.js"></script> -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/sb-admin-2.min.js"></script>
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+    <link href="~/dist/css/lightgallery.css" rel="stylesheet">
+    <link href="~/dist/css/lightslider.css" rel="stylesheet">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <style type="text/css">
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .lightgallery li {
+            text-align: center;
+            color: #FFF;
+            /*width: 150px;
+            height: 80%;*/
+        }
+
+        .lightgallery ul {
+            display: inline-block;
+        }
+
+        .lightgallery h3 {
+            margin: 0;
+        }
+
+        .demo {
+        }
+
+        .item-a {
+            width: 90px;
+            height: 180px;
+            overflow-wrap: break-word;
+        }
+
+        td.title2 {
+            font-size: 14px;
+            padding: 5px 5px 5px 5px;
+            color: #000000;
+            text-align: left;
+        }
+    </style>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+
+
+        .buttonMenu {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 11pt;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .buttonVisit {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 11pt;
+            width: 100%;
+        }
+
+        .Sub-title {
+            FONT-FAMILY: Tahoma,Arial;
+            FONT-SIZE: 11pt;
+            FONT-WEIGHT: bold;
+            TEXT-ALIGN: center;
+            BACKGROUND: #6495ED;
+            COLOR: #ffffff;
+        }
+
+        .ContentA {
+            FONT-FAMILY: Tahoma,Arial;
+            FONT-SIZE: 11pt;
+            BACKGROUND: #ffffff;
+            COLOR: #000000;
+            VERTICAL-ALIGN: middle;
+            width: 100%;
+            TEXT-ALIGN: center;
+        }
+
+        .ContentB {
+            FONT-FAMILY: Tahoma,Arial;
+            FONT-SIZE: 11pt;
+            BACKGROUND: #eeeeee;
+            COLOR: #000000;
+            VERTICAL-ALIGN: middle;
+            width: 100%;
+            TEXT-ALIGN: center;
+        }
+
+        .remarkField {
+            width: 100%;
+        }
+
+        .post-modal {
+            width: 100%;
+            min-height: 100px;
+            max-height: 200px;
+            right: 0;
+            top: 75px;
+            left: 289px;
+            overflow-y: scroll;
+        }
+
+        body {
+            background: #75C864;
+            font-family: Arial;
+            max-height: 800px;
+            overflow: hidden
+        }
+    </style>
+
+    <style TYPE="text/css">
+        th.FieldName {
+            font-family: Tahoma,Arial;
+            font-size: 9pt;
+            height: 20px;
+            width: 250px;
+            text-align: center;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background: #6495ED
+        }
+
+        th.ExtraFieldName {
+            font-family: Tahoma,Arial;
+            font-size: 9pt;
+            height: 20px;
+            /*width: 200px;*/
+            max-width: 100%;
+            background: #008800;
+            color: #FFF;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        td.Normal {
+            font-family: Tahoma,Arial;
+            font-size: 9pt;
+            height: 20px;
+            width: 110px;
+            text-align: center
+        }
+
+        th.Normal {
+            font-family: Tahoma,Arial;
+            font-size: 9pt;
+            height: 20px;
+            width: 110px
+        }
+
+        td.Extra {
+            font-family: Tahoma,Arial;
+            font-size: 9pt;
+            height: 20px;
+            width: 110px;
+            text-align: center;
+            background: #000033;
+            color: #FFF;
+        }
+
+        th.ExtraSeparator {
+            height: 1px;
+            background: #D3D3D3;
+        }
+
+        td.ExtraSeparator {
+            height: 1px;
+        }
+
+        .tableCss {
+            font-family: Tahoma,Arial;
+            font-size: 9pt;
+            text-align: center;
+            color: #FFF;
+            center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Eddie -->
+        <input type="hidden" id="hddgallery" value="0">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-TP sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <li class="nav-item">
+                <div style="max-height: 400px; overflow-y: scroll;">
+                    <div class="Sub-title">Patient</div>
+                    <hr class="sidebar-dividerTP">
+                    <div class="ContentA">@Model.Item2.SCN</div>
+                    <hr class="sidebar-dividerTP">
+                    <div class="ContentB">@Model.Item2.Name</div>
+                    <hr class="sidebar-dividerTP">
+                    <div class="ContentA">@Model.Item2.HKID</div>
+                    <hr class="sidebar-dividerTP">
+
+                    <div class="Sub-title">Visit Info</div>
+
+                    <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/InitAssessPage?SCN=@Model.Item2.SCN')" value="Initial Assesment">
+                    <hr class="sidebar-dividerTP">
+                    <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN')" value="New Visit">
+                    <hr class="sidebar-dividerTP">
+                    <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/EditPersonalInfoPage?SCN=@Model.Item2.SCN')" value="Personal Info">
+                    <hr class="sidebar-dividerTP">
+                    <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/OperativeDataList?SCN=@Model.Item2.SCN')" value="Operative Data">
+                    <hr class="sidebar-dividerTP">
+                    <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/VisitList?SCN=@Model.Item2.SCN')" value="Visits List">
+                    <hr class="sidebar-dividerTP">
+
+
+                    <div class="Sub-title">Visits</div>
+                    @foreach (var visit in @Model.Item2.visits)
+                    {
+                        if (@visit.Substring(0, 1) == "n")
+                        {
+        <input type="button" style="background:Green" class="buttonVisit" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+                        else if (@visit.Substring(0, 1) == "p")
+                        {
+<input type="button" style="background:pink" class="buttonVisit" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+                        else if (@visit.Substring(0, 1) == "o")
+                        {
+<input type="button" style="background:blue" class="buttonVisit" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+                        else
+                        {
+<input type="button" class="buttonVisit" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+                    }
+<div class="Sub-title">P & O Visits</div>
+                @foreach (var POvisit in @Model.Item2.POvisit)
+                {
+<input type="button" style="background:Green" class="buttonVisit" onclick="goToUrl('../Patient/POVisitPage?SCN=@Model.Item2.SCN&DOB=@POvisit')" value="@POvisit ">}
+                                <div class="Sub-title">Physio Visits</div>
+                                                @foreach (var Physioitem in @Model.Item2.Physio)
+                                                {
+                                <input type="button" style="background:Green" class="buttonVisit" onclick="goToUrl('../Patient/PhysioPage?SCN=@Model.Item2.SCN&DOB=@Physioitem')" value="@Physioitem ">}
+                                                                <hr class="sidebar-dividerTP">
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+
+                <input type="button" class="buttonMenu" onclick="goToUrl('../home/index')" value="Home page">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/SearchTrad')" value="Search Page">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/TextSearch')" value="Words/Text Search">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/CreatePersonalInfoPage')" value="New Patient">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/POVisitPage?SCN=@Model.Item2.SCN')" value="New P & O Visit">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/POConfigPage?SCN=@Model.Item2.SCN')" value="P & O Config">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/POEvaluationPage?SCN=@Model.Item2.SCN')" value="P & O Evaluation">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/PODOCPage?SCN=@Model.Item2.SCN')" value="P & O Document">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/PhysioPage?SCN=@Model.Item2.SCN')" value="New Physio Visit">
+                <hr class="sidebar-dividerTP">
+                <input type="button" class="buttonMenu" onclick="goToUrl('../Identity/Account/Login')" value="Logout">
+
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+        </ul>
+
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+                <div class="col-lg-12  testimonial-group">
+                    <!-- Content Row -->
+
+                    <div class="post-modal">
+                        <div class="demo">
+
+                            @if (Model.Item1.Count > 0 && Model.Item1[0].VisitList != null)
+                            {
+                                <ul id="lightgallery">
+                                    <!--class="ightgallery"-->
+                                    @for (int i = 0; i < Model.Item1[0].VisitList.Count(); i++)
+                                    {
+                                        <li id="@Model.Item1[0].VisitList[i]" data-thumb="@Model.Item1[0].VisitList[i]" data-src="@Model.Item1[0].VisitList[i]" data-sub-html="@Model.Item1[0].PhotoModifyList[i]">
+                                            <a href="" data-sub-html="#caption2">
+                                                <img class="img-responsive item-a" src="@Model.Item1[0].VisitList[i]">
+                                                <div class="caption">
+                                                    @if (@Model.Item1[0].VisitListName[i].Length > 15 && Model.Item1[0].VisitList != null)
+                                                    {
+                                                <p style="font-size:11px;">@Model.Item1[0].VisitListName[i].Substring(0, 15)</p> }
+                                                                    else
+                                                                    {
+                                                <p style="font-size:11px;">@Model.Item1[0].VisitListName[i]</p>}
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <div><h1><font color="#FFF"> No X-Ray/Photo Found </font></h1></div>
+                            }
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">&nbsp; </div>
+
+                <div class="col-lg-12  testimonial-group">
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <div style="max-height: 500px; width: 100%; overflow-y: scroll; overflow-x: scroll;">
+
+                            @if (Model.Item1.Count == 0)
+                            {
+                                <div class="row">
+                                    <h1><font color="#FFF"> No Visiting record </font></h1>
+                                </div>
+                            }
+                            else
+                            {
+
+                        <table cellspacing="2" border="1" align="center" BORDER="0" bgcolor="MidnightBlue" class="tableCss" style="width: 100%;">
+                            <tr class="bg-gray-500 text-gray-100">
+                                <th class="FieldName">Visit No</th>
+
+                                @{int i = 1;}
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td bgcolor="RoyalBlue"><a href="../Patient/VisitPage?SCN=@Html.DisplayFor(modelItem => item.SCN)&DOB=@Html.DisplayFor(modelItem => item.DocHpylink)"><font color="#FFFF00">@i</font></a></td>
+                                    i = i + 1;
+                                }
+                            </tr>
+                            <tr>
+                                <th class="FieldName">Date of Clinic</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.DOC)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="FieldName" bgcolor="#6495ED">Age</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                                }
+
+
+                            </tr>
+
+
+                            <tr>
+
+                                <th class="FieldName" bgcolor="#6495ED">Remarks</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                            @if (item.SpcRemarks == "Yes")
+                            {
+                            <td>
+                                <a href="#" onclick="window.open('../Patient/SpecialRemarkSummary?SCN=@Html.DisplayFor(modelItem => item.SCN)',
+                                                                        'name', 'location=no,scrollbars=yes,status=no,toolbar=no,resizable=yes,width=600,height=600')" id="spcRemark" name="spcRemark" data-toggle="tooltip" data-html="true" title="<h6> @Html.DisplayFor(modelItem => item.VisitListRemark) </h6>">
+                                    <font color="#FFFF00">@Html.DisplayFor(modelItem => item.SpcRemarks)</font>
+                                </a>
+
+                            </td> }
+                                                else
+                                                {
+                            <td>@Html.DisplayFor(modelItem => item.SpcRemarks)</td>}}
+                            </tr>
+                            <tr>
+                                <th class="ExtraSeparator">&nbsp;</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <th class="ExtraSeparator">&nbsp;</th>
+                                }
+                            </tr>
+
+                    <tr>
+                        <th class="ExtraFieldName">Height/Arm Span(cm)</th>
+                        @foreach (var item in Model.Item1)
+                        {
+        <td>@Html.DisplayFor(modelItem => item.HT) / @Html.DisplayFor(modelItem => item.ArmSpan) </td>
+}
+                    </tr>
+
+                    <tr>
+                        <th class="ExtraFieldName">Seating Height(cm)</th>
+                        @foreach (var item in Model.Item1)
+                        {
+        <td>@Html.DisplayFor(modelItem => item.SHT)</td>
+}
+                    </tr>
+                    <tr>
+                        <th class="ExtraFieldName">Weight(kg)</th>
+                        @foreach (var item in Model.Item1)
+                        {
+        <td>@Html.DisplayFor(modelItem => item.WT)</td>
+}
+
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Menarche(A yr B m )</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.MaturYear) yr @Html.DisplayFor(modelItem => item.MaturMonth) m</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">
+                                    Risser's Sign
+                                </th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.RSign)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">
+                                    TOCI
+                                </th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.TOCI)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">
+                                    Left Hand Epiphyseal Fusion
+                                </th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.EpFusion)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Curve Level #1</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel1From)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Curve Level #2</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel2From)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Curve Level #3</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel3From)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Curve Level #4</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel4From)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName"> Measured with Brace </th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    @if (item.withBrace == 1)
+                                    {
+                                        <td>yes</td>
+                                    }
+                                    else if (item.withBrace == 2)
+                                    {
+                                        <td>no</td>
+                                    }
+                                    else
+                                    {
+                                        <td>&nbsp;</td>
+                                    }
+
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Frontal Degree #1</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg1)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Frontal Degree #2 </th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg2)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Frontal Degree #3</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg3)</td>
+                                }
+                            </tr>
+                            <tr>
+                                <th class="ExtraFieldName">Frontal Degree #4</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg4)</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Sagittal Degree #2 (T5-T12)</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.ScannogramTotalL)</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Sagittal Degree #3 (T12-S1)</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.ScannogramTotalR)</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Leg padding Side</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg1Padding)</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Leg padding cm</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg2Paddingcm)</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Scannogram Total R minus L (cm)</th>
+                                @foreach (var item in Model.Item1)
+                                {
+
+                                    var intScannogramTotalR = (String.IsNullOrEmpty(item.ScannogramTotalR) ? 0 : int.Parse(item.ScannogramTotalR));
+                                    var intScannogramTotalL = (String.IsNullOrEmpty(item.ScannogramTotalL) ? 0 : int.Parse(item.ScannogramTotalL));
+                                    var intScannogramTotal = intScannogramTotalR - intScannogramTotalL;
+
+                                    <td>@intScannogramTotal</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Brace compliance</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.PlanBrace)</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">Exercise compliance (mins/day)</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.ShoulderAsy)</td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <th class="ExtraFieldName">doctor</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.DrFullName)</td>
+                                }
+                            </tr>
+
+
+                            <tr class="ExtraSeparator">
+                                <th class="ExtraSeparator">&nbsp;</th>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <th class="ExtraSeparator">&nbsp;</th>
+                                }
+                            </tr>
+
+
+
+
+
+
+
+
+
+                        </table>
+
+                            }
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- End of Content Wrapper -->
+
+            </div>
+            <!-- End of Page Wrapper -->
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/dist/js/lightgallery.js"></script>
+    <script src="~/dist/js/lightslider.js"></script>
+    <script type="text/javascript">
+
+        
+        $(document).keyup(function (e) {
+            if (e.key === "Escape") {
+                var hddgallery = document.getElementById('hddgallery');
+                if (hddgallery.value == "1") {
+                    hddgallery.value = "0";
+                    location.reload();
+                }
+            }
+        });
+
+
+        $('#lightgallery').lightSlider({
+            item: 10,
+            gallery: false,
+            slideMargin: 0,
+            autowidth: true,
+            addClass: '',
+            hideControlOnEnd: true,
+            loop: false,
+            prevHtml: '<img src="../images/prev.jpg">',
+            nextHtml: '<img src="../images/next.jpg">',
+            onSliderLoad: function (el) {
+                var maxHeight = 0,
+                    container = $(el),
+                    children = container.children();
+
+                children.each(function () {
+                    var childHeight = $(this).height();
+                    if (childHeight > maxHeight) {
+                        maxHeight = childHeight;
+                    }
+                });
+                container.height(maxHeight);
+                el.lightGallery({
+                    selector: '#lightgallery .lslide'
+                });
+            }
+        });
+        $('#lightgallery').lightGallery({
+            share: false,
+        });
+        $('#lightgallery').on('onAfterOpen.lg', function (event) {
+            //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+            var myVariable = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src');
+            var myVariable2 = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('sub-html');
+            window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            var hddgallery = document.getElementById('hddgallery');
+            hddgallery.value = "1";
+            $('#lightgallery').destroy(true);
+        });
+        $('#lightgallery').on('onSlideClick.lg', function (event) {
+            //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+            var myVariable = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src');
+            var myVariable2 = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('sub-html');
+            window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            var hddgallery = document.getElementById('hddgallery');
+            hddgallery.value = "1";
+        });
+        $('#lightgallery').on('onCloseAfter.lg', function (event) {
+            location.reload();
+        });
+
+
+        function goToUrl(href) {
+            window.open(href, "_self");
+        }
+
+    </script>
+        <script>
+$(function () { $('.tooltip-show').tooltip('show');});
+        $(function () { $('.tooltip-hide').tooltip('hide');});
+        $(function () { $('.tooltip-destroy').tooltip('destroy');});
+        $(function () { $('.tooltip-toggle').tooltip('toggle');});
+        $(function () { $(".tooltip-options a").tooltip({html : true });
+        });
+</script>
+
+</body>
+
+</html>
+

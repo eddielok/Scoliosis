@@ -1,0 +1,218 @@
+﻿@model Scoliosis.Models.PrintReplySlipViewModel
+
+    <html>
+    <head>
+        <title>Reply Slip</title>
+        <style>
+            body {
+                background: #FFF;
+                color: #000;
+            }
+
+            h1 {
+                text-align: center;
+                text-decoration: underline;
+                font-size: 20px;
+                font-family: Arial;
+            }
+
+            h2 {
+                margin-left: 10px;
+                text-decoration: underline;
+                font-size: 16px;
+                font-family: Arial;
+            }
+
+            td {
+                font-family: Arial;
+                font-size: 14px;
+            }
+
+                td.field {
+                    font-family: Courier;
+                    font-size: 14px;
+                }
+
+                td.data {
+                    font-family: Arial;
+                    font-size: 14px;
+                }
+
+            p.sign {
+                text-align: right;
+                font-size: 14px;
+                font-family: Arial;
+            }
+
+            pre {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <br><br><br>
+        <OBJECT RUNAT=SERVER PROGID="Persits.AspUser" ID=UM></OBJECT>
+        <h1>Reply Slip</h1>
+        <br>
+        <table border=0 cellpadding=2 cellspacing=8>
+            <tr>
+                <td class=field>To:</td>
+                <td class=data colspan=3>
+                    <span style="width:540px;border-bottom: 1px solid #000;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class=field>From:</td>
+                <td class=data colspan=3>
+                    Orthopaedics &amp; Traumatology Un &nbsp; &nbsp; &nbsp; Li Ka Shing Specialist Clinic
+               
+                </td>
+            </tr>
+            <tr>
+                <td class=field>Date:</td>
+                <td class=data width=45%>
+
+                    @if (Model.Date == "")
+                    {
+                        <span style="width:160px;border-bottom: 1px solid #000;"></span>
+                    }
+                    else
+                    {
+                        @Model.Date
+                    }
+                  
+                </td>
+                <td class=field>Clinic No:</td>
+                <td class=data>
+                    <span style="width:160px;border-bottom: 1px solid #000;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class=field>Name:</td>
+                <td class=data> @Model.Name</td>
+                <td class=field>Your Ref :</td>
+                <td class=data>
+                    <span style="width:160px;border-bottom: 1px solid #000;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class=field>Sex:</td>
+                <td class=data>@Model.Sex</td>
+                <td class=field>DOB :</td>
+                <td class=data>@Model.DOB</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <h2>Diagnosis and Recommendations:</h2>
+        <table style="margin-left: 20px" border=0 cellpadding=2 cellspacing=8>
+            <tr>
+                <td>#1</td>
+                @if (Model.CurveLevel1From == "" && Model.CurveLevel1To == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>Level: @Model.CurveLevel1From - @Model.CurveLevel1To</td>
+                }
+                @if (Model.CurveApex1 == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>CurveApex: @Model.CurveApex1</td>
+                }
+                <td>@Model.CurveDir1</td>
+
+                <td>@Model.CurveDeg1&#176;&nbsp;  </td>
+            </tr>
+
+            <tr>
+                <td>#2</td>
+                @if (Model.CurveLevel2From == "" && Model.CurveLevel2To == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>Level: @Model.CurveLevel2From - @Model.CurveLevel2To</td>
+                }
+                @if (Model.CurveApex2 == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>CurveApex: @Model.CurveApex2</td>
+                }
+                <td>@Model.CurveDir2</td>
+
+                <td>@Model.CurveDeg2&#176;&nbsp; </td>
+            </tr>
+
+            <tr>
+                <td>#3</td>
+                @if (Model.CurveLevel3From == "" && Model.CurveLevel3To == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>Level: @Model.CurveLevel3From - @Model.CurveLevel3To</td>
+                }
+                @if (Model.CurveApex3 == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>CurveApex: @Model.CurveApex3</td>
+                }
+                <td>@Model.CurveDir3</td>
+
+                <td>@Model.CurveDeg3&#176;&nbsp; </td>
+            </tr>
+
+            <tr>
+                <td>#4</td>
+                @if (Model.CurveLevel4From == "" && Model.CurveLevel4To == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>Level: @Model.CurveLevel4From - @Model.CurveLevel4To</td>
+                }
+                @if (Model.CurveApex4 == "")
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>CurveApex: @Model.CurveApex4</td>
+                }
+                <td>@Model.CurveDir4</td>
+
+                <td>@Model.CurveDeg4&#176;&nbsp; </td>
+            </tr>
+
+
+            <tr>
+                <td colspan=4>
+                    <pre>@Model.SpcRemarks</pre>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <p class=sign>Signature: <span style="width:200px;border-bottom: 1px solid #000;"></span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
+        <p class=sign>( @Model.Dr ) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
+        <p class=sign>
+            @Model.TodayDate
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        </p>
+    </body>
+    </html>

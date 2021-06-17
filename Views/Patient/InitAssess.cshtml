@@ -1,0 +1,1474 @@
+﻿@model Tuple<Scoliosis.Models.InfoBarViewModel, Scoliosis.Models.InfoInitAssessViewModel>
+@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/cleave.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/jquerysession.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="~/js/sb-admin-2.min.js"></script>
+
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/js/Restrict.js"></script>
+
+
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="~/css/CreatePersonalInfo.css" rel="stylesheet" type="text/css">
+
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+    @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">*@
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+
+</head>
+
+<body id="page-top">
+
+    <form id="form" action="../Patient/InitAssess?scn=@Model.Item2.SCN" method="post">
+        <div id="wrapper">
+
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-chevron-circle-down"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Menu bar</div>
+                </a>
+
+                <hr class="sidebar-divider my-0">
+
+                <hr class="sidebar-divider">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Patient</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="">@Model.Item1.SCN  </a>
+                            <a class="collapse-item" href="">@Model.Item1.Name  </a>
+                            <a class="collapse-item" href="">@Model.Item1.HKID  </a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Addons</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../Patient/InitAssess?SCN=@Model.Item2.SCN">Initial Assesment</a>
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN">New Visit</a>
+                            <a class="collapse-item" href="../Patient/EditPersonalInfo?SCN=@Model.Item2.SCN">Personal Info</a>
+                            <a class="collapse-item" href="../Patient/OperativeDataList?SCN=@Model.Item2.SCN">Operative Data</a>
+                            <!--<a class="collapse-item" href="">Orthotic Remarks</a>-->
+                            <a class="collapse-item" href="../Patient/VisitList?SCN=@Model.Item2.SCN">Visits List</a>
+                        </div>
+                    </div>
+                </li>
+
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Visits</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach (var visit in @Model.Item1.visits)
+                            {
+                                <a class="collapse-item" href="../Patient/Visit?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)">@visit</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Core Manu</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../home/index">Home page</a>
+                            <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                            <a class="collapse-item" href="../Patient/TextSearch">Words/Text Search</a>
+                            <a class="collapse-item" href="../Patient/CreatePersonalInfo">New Patient</a>
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN">New Visit</a>
+                            <a class="collapse-item" href="../Identity/Account/Login">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <!-- <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+                -->
+
+            </ul>
+
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    @*<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>*@
+
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            Clinical Summary Database System
+                        </div>
+                    </div>
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hello - @Context.Session.GetString("_userName")</span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+
+
+                </nav>
+
+
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Inital Assessment</h1>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <!-- Content Column -->
+                                <div class="col-lg-12 mb-4">
+
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Action Menu</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                            <input type="button" value="Main Menu" class="btn btn-primary" onclick="location.href='../Home/Index'" />
+                                            <input type="button" value="Visits List" class="btn btn-primary" onclick="location.href='../Patient/VisitList?SCN=@Model.Item2.SCN'" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">General Information </h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Date of Initial Assessment</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+
+                                                                            <input type="text" class="form-control form-control-user class-DOC"
+                                                                                   id="iadate"
+                                                                                   name="iadate"
+                                                                                   value="@Model.Item2.iadate"
+                                                                                   placeholder="dd/mm/yyyy">
+
+
+                                                                            <input type=button value="Today" onclick="today()">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row"> &nbsp;</div>
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Referral source</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isReferralStudent" name="isReferralStudent" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isReferralStudent == "true" ? "checked=\" checked\"" : "") onclick="SetReferral(this)" />
+                                                                                <label class="form-check-label" for="isReferralStudent"> student health service</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isReferralOther" name="isReferralOther" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isReferralOther == "true" ? "checked=\" checked\"" : "") onclick="SetReferral(this)" />
+                                                                                <label class="form-check-label" for="isReferralOther">  others, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("ReferralOther", Model.Item2.ReferralOther, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isReferralOther,isReferralStudent)" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row"> &nbsp;</div>
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Patient's main concern</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isConcernNil" name="isConcernNil" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isConcernNil == "true" ? "checked=\" checked\"" : "") onclick="SetConcern(this)" />
+                                                                                <label class="form-check-label" for="isConcernNil"> nil</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isConcernOther" name="isConcernOther" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isConcernOther == "true" ? "checked=\" checked\"" : "") onclick="SetConcern(this)" />
+                                                                                <label class="form-check-label" for="isConcernOther"> others, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("ConcernOther", Model.Item2.ConcernOther, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isConcernOther,isConcernNil)" })
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <span id="hello" onclick="ToggleConcernList()"><u style="cursor: hand">Choose from list</u></span>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div id="ConcernList" style="display:none">
+                                                                                <table border="0" cellspacing="1" color="#000">
+                                                                                    <tr><td onclick="AddConcern('risk of progression;')">risk of progression;</td></tr>
+                                                                                    <tr><td onclick="AddConcern('associated morbidity;')">associated morbidity;</td></tr>
+                                                                                    <tr><td onclick="AddConcern('body symmetry;')">body symmetry;</td></tr>
+                                                                                    <tr><td onclick="AddConcern('future morbidity;')">futre morbidity;</td></tr>
+                                                                                    <tr><td onclick="AddConcern('future ill health;')">future ill health;</td></tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">History</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Date of Initial Assessment</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <input type=button value="Set History Normal" onclick="SetHistory()"> - Mark all items in History section as nil/normal/healthy
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Symptoms history of present illness</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isSymNil" name="isSymNil" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isSymNil == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                                                <label class="form-check-label" for="isSymNil">nil</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isSymBack" name="isSymBack" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isSymBack == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                                                <label class="form-check-label" for="isSymBack">back pain, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isSymLimb" name="isSymLimb" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isSymLimb == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                                                <label class="form-check-label" for="isSymLimb">lower limb neurological symptom, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isSymCon" name="isSymCon" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isSymCon == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                                                <label class="form-check-label" for="isSymCon">constitutional symptoms such as weight loss, malaise, anorexia:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isSymOther" name="isSymOther" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isSymOther == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                                                <label class="form-check-label" for="isSymOther">others, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            @*<input type="text" class="form-control form-control-user"
+                                                                                id="SymOther"
+                                                                                name="SymOther"
+                                                                                value="@Model.Item2.SymOther"
+                                                                                placeholder="SymOther">*@
+
+                                                                            @Html.TextArea("SymOther", Model.Item2.SymOther, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isSymOther,isSymNil)" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Past health</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isPastGood" name="isPastGood" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isPastGood == "true" ? "checked=\" checked\"" : "") onclick="SetPast(this)" />
+                                                                                <label class="form-check-label" for="isPastGood">good past health</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isPastSpinal" name="isPastSpinal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isPastSpinal == "true" ? "checked=\" checked\"" : "") onclick="SetPast(this)" />
+                                                                                <label class="form-check-label" for="isPastSpinal">previous spinal injuries</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+
+                                                                            @Html.TextArea("PastSpinal", Model.Item2.PastSpinal, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isPastSpinal,isPastGood)" })
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isPastOther" name="isPastOther" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isPastOther == "true" ? "checked=\" checked\"" : "") onclick="SetPast(this)" />
+                                                                                <label class="form-check-label" for="isPastOther">others, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+
+
+                                                                            @Html.TextArea("PastOther", Model.Item2.PastOther, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isPastOther,isPastGood)" })
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Medication</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <input id="SCN" name="SCN" class="form-check-input" type="hidden" value="@Model.Item2.SCN" ) />
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isMedicationNil" name="isMedicationNil" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isMedicationNil == "true" ? "checked=\" checked\"" : "") onclick="SetMedication(this)" />
+                                                                                <label class="form-check-label" for="isMedicationNil">nil</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isMedication" name="isMedication" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isMedication == "true" ? "checked=\" checked\"" : "") onclick="SetMedication(this)" />
+                                                                                <label class="form-check-label" for="isMedication">yes, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Previous operation</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isPreOpNil" name="isPreOpNil" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isPreOpNil == "true" ? "checked=\" checked\"" : "") onclick="SetPreOp(this)" />
+                                                                                <label class="form-check-label" for="isPreOpNil">nil</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isPreOp" name="isPreOp" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isPreOp == "true" ? "checked=\" checked\"" : "") onclick="SetPreOp(this)" />
+                                                                                <label class="form-check-label" for="isPreOp">yes, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("PreOp", Model.Item2.PreOp, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isPreOp,isPreOpNil)" })
+                                                                        </div>
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Physical Examination</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">General</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+
+                                                                        <div class="row">
+                                                                            <input type=button value="Set Normal" onclick="SetNormal();">- Mark all items below (except inspection) as normal
+                                                                        </div>
+
+                                                                        <div class="row"> &nbsp;</div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isGenNormal" name="isGenNormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isGenNormal == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                                                <label class="form-check-label" for="isGenNormal">normal</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isGenLeg" name="isGenLeg" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isGenLeg == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                                                <label class="form-check-label" for="isGenLeg">leg length discrepancy, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+
+                                                                            @Html.TextArea("GenLeg", Model.Item2.GenLeg, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isGenLeg,isGenNormal)" })
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isGenDys" name="isGenDys" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isGenDys == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                                                <label class="form-check-label" for="isGenDys">dysmorphic feature, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("GenDys", Model.Item2.GenDys, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isGenDys,isGenNormal)" })
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isGenSkin" name="isGenSkin" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isGenSkin == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                                                <label class="form-check-label" for="isGenSkin">abnormal skin pigmentation, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+
+                                                                            @Html.TextArea("GenSkin", Model.Item2.GenSkin, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isGenSkin,isGenNormal)" })
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isGenOther" name="isGenOther" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isGenOther == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                                                <label class="form-check-label" for="isGenOther">others, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("GenOther", Model.Item2.GenOther, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isGenOther,isGenNormal)" })
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Allergy</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row"> &nbsp;</div>
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Allergy</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isAllergyNil" name="isAllergyNil" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isAllergyNil == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                                                <label class="form-check-label" for="isAllergyNil">nil</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isAllergy" name="isAllergy" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isAllergy == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                                                <label class="form-check-label" for="isAllergy">yes, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("Allergy", Model.Item2.Allergy, 5, 15, new { @class = "form-control" })
+
+
+                                                                        </div>
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Back</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row"> &nbsp;</div>
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a name="Inspection">Inspection</a></div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectNormal" name="isBackInspectNormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                                                <label class="form-check-label" for="isBackInspectNormal">normal</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectAsy" name="isBackInspectAsy" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectAsy == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                                                <label class="form-check-label" for="isBackInspectAsy">asymmetrical shoulder:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectAsyL" name="isBackInspectAsyL" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectAsyL == "true" ? "checked=\" checked\"" : "") />
+                                                                                <label class="form-check-label" for="isBackInspectAsyL">left higher</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectAsyR" name="isBackInspectAsyR" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectAsyR == "true" ? "checked=\" checked\"" : "") />
+                                                                                <label class="form-check-label" for="isBackInspectAsyR">right higher</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectRib" name="isBackInspectRib" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectRib == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                                                <label class="form-check-label" for="isBackInspectRib">rib hump:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectLumbar" name="isBackInspectLumbar" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectLumbar == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                                                <label class="form-check-label" for="isBackInspectLumbar">lumbar prominence:</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectLumbarL" name="isBackInspectLumbarL" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectLumbarL == "true" ? "checked=\" checked\"" : "") />
+                                                                                <label class="form-check-label" for="isBackInspectLumbarL">left</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectLumbarR" name="isBackInspectLumbarR" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectLumbarR == "true" ? "checked=\" checked\"" : "") />
+                                                                                <label class="form-check-label" for="isBackInspectLumbarR">right</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackPelvisTilt" name="isBackPelvisTilt" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackPelvisTilt == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                                                <label class="form-check-label" for="isBackPelvisTilt">pelvis tilt:</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackPelvisTiltL" name="isBackPelvisTiltL" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackPelvisTiltL == "true" ? "checked=\" checked\"" : "") />
+                                                                                <label class="form-check-label" for="isBackPelvisTiltL">left higher</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackPelvisTiltR" name="isBackPelvisTiltR" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackPelvisTiltR == "true" ? "checked=\" checked\"" : "") />
+                                                                                <label class="form-check-label" for="isBackPelvisTiltR">right higher</label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackInspectOther" name="isBackInspectOther" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackInspectOther == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                                                <label class="form-check-label" for="isBackInspectOther">others, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+
+                                                                            @Html.TextArea("BackInspectOther", Model.Item2.BackInspectOther, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isBackInspectOther,isBackInspectNormal)" })
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Palpation</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row"> &nbsp;</div>
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Allergy</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackPalpationNormal" name="isBackPalpationNormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackPalpationNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackPalpation(this)" />
+                                                                                <label class="form-check-label" for="isBackPalpationNormal">normal, non-tender, no spasm</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackPalpationAbnormal" name="isBackPalpationAbnormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackPalpationAbnormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackPalpation(this)" />
+                                                                                <label class="form-check-label" for="isBackPalpationAbnormal">abnormal, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("BackPalpationAbnormal", Model.Item2.BackPalpationAbnormal, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isBackPalpationAbnormal,isBackPalpationNormal)" })
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Range of movement</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row"> &nbsp;</div>
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Range of movement</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackRangeNormal" name="isBackRangeNormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackRangeNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackRange(this)" />
+                                                                                <label class="form-check-label" for="isBackRangeNormal">normal</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackRangeDys" name="isBackRangeDys" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackRangeDys == "true" ? "checked=\" checked\"" : "") onclick="SetBackRange(this)" />
+                                                                                <label class="form-check-label" for="isBackRangeDys">Dysrthymic, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            @Html.TextArea("BackRangeDys", Model.Item2.BackRangeDys, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isBackRangeDys,isBackRangeNormal)" })
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Modified Schober Test:</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+
+                                                <table align="center" border="1" cellspacing="1" cellpadding="0" width="100%">
+                                                    <tr>
+                                                        <td class="level2a">Standing:</td>
+                                                        <td class="level2a">5cm</td>
+                                                        <td class="level2a">10cm</td>
+                                                        <td class="level2a">15cm</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="level2a">Flexion:</td>
+                                                        <td class="level2a"><input name="BackRangeSchober5" type="text" onkeyup="RestrictFloat(this)" onchange="changed()" size="2" value="@Model.Item2.BackRangeSchober5">cm</td>
+                                                        <td class="level2a"><input name="BackRangeSchober10" type="text" onkeyup="RestrictFloat(this)" onchange="changed()" size="2" value="@Model.Item2.BackRangeSchober10">cm</td>
+                                                        <td class="level2a"><input name="BackRangeSchober15" type="text" onkeyup="RestrictFloat(this)" onchange="changed()" size="2" value="@Model.Item2.BackRangeSchober15">cm</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="form-check">
+                                                    <input id="isBackRangeAbnormal" name="isBackRangeAbnormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackRangeAbnormal == "true" ? "checked=\" checked\"" : "") />
+                                                    <label class="form-check-label" for="isBackRangeAbnormal">abnormal, specify:</label>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="row">
+                                                forward flexion: finger to
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="BackRangeForward"
+                                                       name="BackRangeForward"
+                                                       value="@Model.Item2.BackRangeForward"
+                                                       placeholder="BackRangeForward">
+
+                                                side flexion: finger to
+
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="BackRangeSide"
+                                                       name="BackRangeSide"
+                                                       value="@Model.Item2.BackRangeSide"
+                                                       placeholder="BackRangeSide">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Straight leg raising</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row"> &nbsp;</div>
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Straight leg raising</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackLegNormal" name="isBackLegNormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackLegNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackLeg(this)" />
+                                                                                <label class="form-check-label" for="isBackLegNormal">normal both sides</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackLegAbnormal" name="isBackLegAbnormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackLegAbnormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackLeg(this)" />
+                                                                                <label class="form-check-label" for="isBackLegAbnormal">abnormal, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+
+                                                                            @Html.TextArea("BackLegAbnormal", Model.Item2.BackLegAbnormal, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isBackLegAbnormal,isBackLegNormal)" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Neurology of lower limb</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row"> &nbsp;</div>
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Neurology of lower limb</div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackLimbAbnormal" name="isBackLimbNormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackLimbNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackLimb(this)" />
+                                                                                <label class="form-check-label" for="isBackLimbNormal">normal motor, reflex, sensation, coordination</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-check">
+                                                                                <input id="isBackLegAbnormal" name="isBackLimbAbnormal" class="form-check-input" type="checkbox" value="true" @(Model.Item2.isBackLimbAbnormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackLimb(this)" />
+                                                                                <label class="form-check-label" for="isBackLimbAbnormal">abnormal, specify:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+
+                                                                            @Html.TextArea("BackLimbAbnormal", Model.Item2.BackLimbAbnormal, 5, 15, new { @class = "form-control", onkeyup = "AutoCheck(this,isBackLimbAbnormal,isBackLimbNormal)" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <!-- Content Row -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-12">
+                                    <div class="card shadow mb-12">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Remarks</h6>
+
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 mb-12">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+
+                                                            <div class="row"> &nbsp;</div>
+
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Remarks</div>
+
+
+                                                                    <div class="row">
+
+
+                                                                        @Html.TextArea("Remarks", Model.Item2.Remarks, 5, 15, new { @class = "form-control" })
+                                                                    </div>
+
+                                                                    <div class="row">
+
+                                                                        <table>
+                                                                            <tr><td style="color: #000; font-size: 11px;" colspan=4>Template Remarks:</td></tr>
+                                                                            <tr>
+                                                                                <td style="color: #000; vertical-align: top;">
+                                                                                    <span id="RemarkOptionsToggler1" onclick="ToggleRemarkOptions1()"><u style="cursor: hand; font-size: 11px;">Initial Visit</u></span>
+                                                                                    <div id="RemarkOptions1" style="display:none">
+                                                                                        <table border="0" cellspacing="1" color="#000">
+                                                                                            <tr><td onclick="AddRemarks('Physiotherapy is offered;')">Physiotherapy is offered;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Scoliosis advice is given;')">Scoliosis advice is given;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Pregnancy alert with xray;')">Pregnancy alert with xray;</td></tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="color: #000; vertical-align: top;">
+                                                                                    <span id="RemarkOptionsToggler2" onclick="ToggleRemarkOptions2()"><u style="cursor: hand; font-size: 11px;">Investigation</u></span>
+                                                                                    <div id="RemarkOptions2" style="display:none">
+                                                                                        <table border="0" cellspacing="1" color="#000">
+                                                                                            <tr><td onclick="AddRemarks('MRI spine booked;')">MRI spine booked;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('U/S abdomen booked;')">U/S abdomen booked;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('XRay scannogram to check leg length discrepancy;')">XRay scannogram to check leg length discrepancy;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('XRay cone view on thoracic spine (AP,lateral);')">XRay cone view on thoracic spine (AP,lateral);</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('XRay cone view on lumbar spine (AP,lateral);')">XRay cone view on lumbar spine (AP,lateral);</td></tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="color: #000; vertical-align: top;">
+                                                                                    <span id="RemarkOptionsToggler3" onclick="ToggleRemarkOptions3()"><u style="cursor: hand; font-size: 11px;">Bracing</u></span>
+                                                                                    <div id="RemarkOptions3" style="display:none">
+                                                                                        <table border="0" cellspacing="1" color="#000">
+                                                                                            <tr><td onclick="AddRemarks('Bracing will be started;')">Bracing will be started;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Patient has been informed the following:')">Patient has been informed the following:</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Risk of curve progression;')">&nbsp; &nbsp;Risk of curve progression;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Need to wear brace 23 hrs per day;')">&nbsp; &nbsp;Need to wear brace 23 hrs per day;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Bracing will be continue until skeletal maturity;')">&nbsp; &nbsp;Bracing will be continue until skeletal maturity;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('P&O form is completed;')">&nbsp; &nbsp;P&O form is completed;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Notify us in case no contact for brace fitting within 1 month;')">&nbsp; &nbsp;Notify us in case no contact for brace fitting within 1 month;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Bracing weaning begins today;')">Bracing weaning begins today;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('7:00am-10:00pm for 6 months;')">7:00am-10:00pm for 6 months;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('7:00am-5:00pm for another 6 months;')">7:00am-5:00pm for another 6 months;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Brace need adjustment;')">Brace need adjustment;</td></tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="color: #000; vertical-align: top;">
+                                                                                    <span id="RemarkOptionsToggler4" onclick="ToggleRemarkOptions4()"><u style="cursor: hand; font-size: 11px;">Surgery</u></span>
+                                                                                    <div id="RemarkOptions4" style="display:none">
+                                                                                        <table border="0" cellspacing="1" color="#000">
+                                                                                            <tr><td onclick="AddRemarks('Surgery is suggested;')">Surgery is suggested;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Patient & guardian has been informed the following:')">Patient & guardian has been informed the following:</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Risk of curve progression;')">&nbsp; &nbsp;Risk of curve progression;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Nature & retionale of surgery;')">&nbsp; &nbsp;Nature & retionale of surgery;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Risk of general anesthesia;')">&nbsp; &nbsp;Risk of general anesthesia;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Risk of surgery for scoliosis;')">&nbsp; &nbsp;Risk of surgery for scoliosis;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('MRI brain & whole spine are booked for pre--op workup;')">MRI brain & whole spine are booked for pre--op workup;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Admission slip & notification letter are given to patient;')">Admission slip & notification letter are given to patient;</td></tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="color: #000; vertical-align: top;">
+                                                                                    <span id="RemarkOptionsToggler5" onclick="ToggleRemarkOptions5()"><u style="cursor: hand; font-size: 11px;">Follow up</u></span>
+                                                                                    <div id="RemarkOptions5" style="display:none">
+                                                                                        <table border="0" cellspacing="1" color="#000">
+                                                                                            <tr><td onclick="AddRemarks('Patient is asymptomatic;')">Patient is asymptomatic;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('No back tenderness;')">No back tenderness;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('Both lower limbs have normal motor & sensory function;')">Normal Motor & sensory function;</td></tr>
+                                                                                            <tr><td onclick="AddRemarks('No other abnorality detected from xray except scoliosis;')">No other abnorality detected from xray except scoliosis;</td></tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <div id="dialog" title="Alert Message"></div>
+
+
+
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var _isShowMessage = '@Context.Session.GetString("_isShowMessage")';
+        var _alertMessage = '@Context.Session.GetString("_alertMessage")';
+
+        if (_isShowMessage == 'true' && _alertMessage != '') {
+
+             $( "#dialog" ).dialog({
+              autoOpen: true,
+              modal: true,
+              width: 500,
+              height: 300,
+              position: { my: "center", at: "center", of: window  },
+              open: function() {
+                    jQuery('.ui-widget-overlay').on('click', function() {
+                        jQuery('#j_dialog').dialog('close');
+                    })
+                },
+
+              buttons: {
+                  Ok: function () {
+
+                      $.ajax({
+                        method: "post",
+                        url: "./WebRemoveSession",
+                        error: function (xhr, status, err) {
+                            alert(err);
+                           }
+
+                        }).done(function (res) {
+
+                        });
+
+                      $(this).dialog("close");
+
+                }
+                },
+              show: {
+                  effect: "fade",
+                duration: 15
+              },
+              hide: {
+                effect: "fade",
+                duration: 10
+              }
+
+             });
+
+           $('#dialog').show().html(_alertMessage);
+
+
+            //alert(_alertMessage);
+        }
+
+    </script>
+
+    <script type="text/javascript" src="~/js/InitAssess.js"></script>
+
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</body>
+
+
+</html>

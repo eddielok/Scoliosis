@@ -1,0 +1,769 @@
+﻿
+@model Tuple<List<Scoliosis.Models.PersonalInfoModel>, Scoliosis.Models.PatientSearchViewModel>
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="~/js/sb-admin-2.min.js"></script>
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" type="text/css">
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+
+    <style>
+
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('../images/pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
+            opacity: .8;
+        }
+    </style>
+
+
+</head>
+
+<body class="bg-gradient-primary bg-gradient-primary">
+
+    <div id="wrapper" style="background-color:#f8f9fc">
+
+        <div id="loading-div-background" class="loader">
+            <div id="loading-div" class="ui-corner-all ">
+                <div id="loadingbar"></i></div>
+                <h2 style="color:gray;font-weight:normal;"></h2> <!--Please wait....-->
+            </div>
+        </div>
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-chevron-circle-down"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Menu bar</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Core Manu</span>
+                </a>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../home/index">Home page</a>
+                        <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                        <a class="collapse-item" href="../Patient/TextSearch">Words/Text Search</a>
+                        <a class="collapse-item" href="../Patient/CreatePersonalInfo">New Patient</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+
+        </ul>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Search -->
+                @*<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>*@
+
+                <div class="input-group">
+                    <div class="input-group-append">
+                        Clinical Summary Database System
+                    </div>
+                </div>
+
+
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <!--20203014 Put the logout page out-->
+                        @*<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                Hello - @Context.Session.GetString("_userName") &nbsp; &nbsp; |  &nbsp;
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </span>
+                        </a>
+
+                        <!-- Dropdown - User Information -->
+                        @*<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>*@
+                    </li>
+
+                </ul>
+
+
+
+            </nav>
+
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Search Patient Page</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <form class="user" asp-controller="Patient" asp-action="Search" method="get">
+
+                                <div class="form-group">
+                                    <div class="row">
+
+
+                                        <div class="col-lg-4">
+                                            <!-- Group of default radios - option 1 -->
+                                            <label for="rowsPage">Sort By</label>
+                                            <div class="custom-control custom-radio">
+                                                @if (@Model.Item2.SortBy == "SortByName")
+                                                {
+                                                    <input type="radio" class="custom-control-input" id="SortByName" name="SortBy" value="SortByName" Checked>
+                                                }
+                                                else
+                                                {
+                                                    <input type="radio" class="custom-control-input" id="SortByName" name="SortBy" value="SortByName">
+                                                }
+                                                <label class="custom-control-label" for="SortByName">Name</label>
+                                            </div>
+
+                                            <!-- Group of default radios - option 2 -->
+                                            <div class="custom-control custom-radio">
+                                                @if (@Model.Item2.SortBy == "SortBySCN" || @Model.Item2.SortBy == "" || @Model.Item2.SortBy == null)
+                                                {
+                                                    <input type="radio" class="custom-control-input" id="SortBySCN" name="SortBy" value="SortBySCN" checked>
+                                                }
+                                                else
+                                                {
+                                                    <input type="radio" class="custom-control-input" id="SortBySCN" name="SortBy" value="SortBySCN">
+                                                }
+                                                <label class="custom-control-label" for="SortBySCN">SCN</label>
+                                            </div>
+
+                                            <!-- Group of default radios - option 3 -->
+                                            <div class="custom-control custom-radio">
+                                                @if (@Model.Item2.SortBy == "SortByHKID")
+                                                {
+                                                    <input type="radio" class="custom-control-input" id="SortByHKID" name="SortBy" value="SortByHKID" checked>
+                                                }
+                                                else
+                                                {
+                                                    <input type="radio" class="custom-control-input" id="SortByHKID" name="SortBy" value="SortByHKID">
+                                                }
+                                                <label class="custom-control-label" for="SortByHKID">HKID</label>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-lg-4">
+
+                                            <!-- Group of default radios - option 1 -->
+                                            <label for="rowsPage">Order by</label>
+                                            <div class="custom-control custom-radio">
+                                                @if (@Model.Item2.Orderby == "OrderbyAsc")
+                                                {
+                                                    <input type="radio" class="custom-control-input"
+                                                           id="OrderbyAsc"
+                                                           name="Orderby"
+                                                           value="OrderbyAsc" checked>
+                                                }
+                                                else
+                                                {
+                                                    <input type="radio" class="custom-control-input"
+                                                           id="OrderbyAsc"
+                                                           name="Orderby"
+                                                           value="OrderbyAsc">
+                                                }
+                                                <label class="custom-control-label" for="OrderbyAsc">A - Z</label>
+                                            </div>
+
+                                            <!-- Group of default radios - option 2 -->
+                                            <div class="custom-control custom-radio">
+                                                @if (@Model.Item2.Orderby == "OrderbyDesc" || @Model.Item2.Orderby == "" || @Model.Item2.Orderby == null)
+                                                {
+                                                    <input type="radio" class="custom-control-input"
+                                                           id="OrderbyDesc"
+                                                           name="Orderby"
+                                                           value="OrderbyDesc"
+                                                           checked>
+                                                }
+                                                else
+                                                {
+                                                    <input type="radio" class="custom-control-input"
+                                                           id="OrderbyDesc"
+                                                           name="Orderby"
+                                                           value="OrderbyDesc">
+                                                }
+
+                                                <label class="custom-control-label" for="OrderbyDesc">Z - A</label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">&nbsp; </div>
+
+                                    <div class="row">
+
+
+                                        <div class="col-lg-4">
+                                            <label for="rowsPage">Name</label>
+                                            <input type="text" class="form-control"
+                                                   id="Name"
+                                                   name="Name"
+                                                   value="@Model.Item2.Name"
+                                                   placeholder="">
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label for="rowsPage">SCN</label>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="SCNPrefix"
+                                                           name="SCNPrefix"
+                                                           placeholder=""
+                                                           value=""
+                                                           maxlength="2" />
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <i class="fa fa-minus"></i>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="SCNSuffix"
+                                                           name="SCNSuffix"
+                                                           value=""
+                                                           maxlength="10">
+                                                </div>
+
+                                                <input type="hidden" class="form-control" id="SCN"
+                                                       name="SCN"
+                                                       value="@Model.Item2.SCN">
+                                            </div>
+                                        </div>
+
+                                        <script type="text/javascript">
+
+                                            $("#SCNPrefix").keypress(function () {
+
+
+                                                if ($('#SCNPrefix').val().length == 2) {
+                                                    $('#SCNSuffix').focus();
+                                                }
+
+                                            });
+
+                                            $("#SCNPrefix").change(function () {
+                                                SCNPrefixSuffix($('#SCNPrefix').val(), $('#SCNSuffix').val());
+                                            });
+
+                                            $("#SCNSuffix").change(function () {
+                                                SCNPrefixSuffix($('#SCNPrefix').val(), $('#SCNSuffix').val());
+                                            });
+
+                                            function SCNPrefixSuffix(scnPrefix, scnSuffix) {
+
+                                                if (scnPrefix.length > 0 && scnSuffix.length > 0) {
+                                                    $('#SCN').val(scnPrefix + '-' + scnSuffix);
+                                                }
+                                                else if (scnPrefix.length > 0 && scnSuffix.length == 0) {
+                                                    $('#SCN').val(scnPrefix + '-');
+                                                }
+                                                else if (scnPrefix.length == 0 && scnSuffix.length > 0) {
+                                                    $('#SCN').val('-' + scnSuffix);
+                                                }
+                                                else if (scnPrefix.length == 0 && scnSuffix.length == 0) {
+                                                    $('#SCN').val("");
+                                                }
+
+                                                return true;
+
+                                            }
+
+                                        </script>
+
+                                        <div class="col-lg-4">
+                                            <label for="rowsPage">HKID</label>
+                                            <input type="text" class="form-control class-hkid" id="HKID"
+                                                   name="HKID"
+                                                   value="@Model.Item2.HKID"
+                                                   placeholder="">
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="row">&nbsp; </div>
+
+                                    <div class="row">
+
+
+                                        @*<div class="col-lg-4">
+                                            <label for="rowsPage">King's</label>
+                                            <select name="kingOption" id="kingOption" aria-controls="dataTable" class="custom-select ">
+
+                                                @if (@Model.Item2.kingOption == "" || @Model.Item2.kingOption == null)
+                                                {
+                                                    <option value="" selected></option>
+                                                }
+                                                else
+                                                {
+                                                    <option value=""></option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "I")
+                                                {
+                                                    <option value="I" selected>I</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="I">I</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "II")
+                                                {
+                                                    <option value="II" selected>II</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="II">II</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "III")
+                                                {
+                                                    <option value="III" selected>III</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="III">III</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "IV")
+                                                {
+                                                    <option value="IV" selected>IV</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="IV">IV</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "V")
+                                                {
+                                                    <option value="V" selected>V</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="V">V</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "IV")
+                                                {
+                                                    <option value="IV" selected>IV</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="IV">IV</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "TL")
+                                                {
+                                                    <option value="TL" selected>Iso. T-L</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="TL">Iso. T-L</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "L")
+                                                {
+                                                    <option value="L" selected>Iso. L</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="L">Iso. L</option>
+                                                }
+
+                                                @if (@Model.Item2.kingOption == "Triple")
+                                                {
+                                                    <option value="Triple" selected>Triple</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="Triple">Triple</option>
+                                                }
+                                            </select>
+
+                                        </div>*@
+
+                                        <div class="col-lg-8">
+                                            <label for="rowsPage">Remarks</label>
+                                            <input type="text" class="form-control"
+                                                   id="Remarks"
+                                                   name="Remarks"
+                                                   value="@Model.Item2.Remarks"
+                                                   placeholder="">
+                                        </div>
+
+                                        <div class="col-lg-4">
+
+                                            <label for="rowsPage">Search Period Start Date</label>
+
+                                            <div class="form-group">
+                                                <div class="input-group date" id="datetimepicker1">
+                                                    <input type="text" class="form-control class-DOBFrom" name="dateFrom" id="dateFrom"
+                                                           value="@Model.Item2.DateFrom" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-time"></span>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <script type="text/javascript">
+                                                $(function () {
+                                                    $('#datetimepicker1').datetimepicker({
+                                                        format: 'dd/mm/yyyy',
+                                                        autoclose: false,
+                                                        minView: 2,
+                                                        todayHighlight: true,
+                                                        todayBtn: true
+                                                    });
+                                                });
+                                            </script>
+
+                                            <label for="rowsPage">Search Period End Date</label>
+
+                                            <div class="form-group">
+                                                <div class="input-group date" id="datetimepicker2">
+                                                    <input type="text" class="form-control class-DOBTo" name="dateTo" id="dateTo"
+                                                           value="@Model.Item2.DateTo" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-time"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <script type="text/javascript">
+
+                                                $(function () {
+                                                    $('#datetimepicker2').datetimepicker({
+                                                        format: 'dd/mm/yyyy',
+                                                        autoclose: true,
+                                                        minView: 2
+                                                    });
+                                                });
+                                            </script>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-2">
+                                            <button type="submit" class="btn btn-primary btn-block" onclick="validation()">Search</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">&nbsp; </div>
+
+                                    <div class="row">
+
+                                        <div class="col-lg-2">
+                                            <p class="btn btn-warning btn-user btn-block .border-left-primary">
+                                                @*<a class="text-white" href="../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=AD">A-D</a>*@
+                                                <button type="button" id="btn-one" class="btn btn-warning" onclick="location.href='../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=AD'">&nbsp;&nbsp;A-D&nbsp;&nbsp;</button>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            @* <p class="btn btn-warning btn-user btn-block .border-left-primary"><a class="text-white" href="../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=EH">E-H</a></p>*@
+                                            <p class="btn btn-warning btn-user btn-block .border-left-primary">
+                                                <button type="button" id="btn-one1" class="btn btn-warning" onclick="location.href='../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=EH'">&nbsp;&nbsp;E-H&nbsp;&nbsp;</button>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            @* <p class="btn btn-warning btn-user btn-block .border-left-primary"><a class="text-white" href="../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=IL">I-L</a></p>*@
+                                            <p class="btn btn-warning btn-user btn-block .border-left-primary">
+                                                <button type="button" id="btn-one2" class="btn btn-warning" onclick="location.href='../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=IL'">&nbsp;&nbsp;I-L&nbsp;&nbsp;</button>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            @* <p class="btn btn-warning btn-user btn-block .border-left-primary"><a class="text-white" href="../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=MP">M-P</a></p>*@
+                                            <p class="btn btn-warning btn-user btn-block .border-left-primary">
+                                                <button type="button" id="btn-one3" class="btn btn-warning" onclick="location.href='../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=MP'">&nbsp;&nbsp;M-P&nbsp;&nbsp;</button>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            @*<p class="btn btn-warning btn-user btn-block .border-left-primary"><a class="text-white" href="../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=QT">Q-T</a></p>*@
+                                            <p class="btn btn-warning btn-user btn-block .border-left-primary">
+                                                <button type="button" id="btn-one4" class="btn btn-warning" onclick="location.href='../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=QT'">&nbsp;&nbsp;Q-T&nbsp;&nbsp;</button>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            @*<p class="btn btn-warning btn-user btn-block .border-left-primary"><a class="text-white" href="../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=UZ">U-Z</a></p>*@
+                                            <p class="btn btn-warning btn-user btn-block .border-left-primary">
+                                                <button type="button" id="btn-one5" class="btn btn-warning" onclick="location.href='../Patient/Search?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=UZ'">&nbsp;&nbsp;U-Z&nbsp;&nbsp;</button>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Patient List</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0" style="">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>SCN</th>
+                                            <th>HKID</th>
+                                            <th>Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>SCN</th>
+                                            <th>HKID</th>
+                                            <th>Detail</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model.Item1)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.SCN)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.HKID)</td>
+                                                <td><a href="../Patient/VisitList?SCN=@Html.DisplayFor(modelItem => item.SCN)&DOB=1900-01-01">Detail</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+              
+
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
+    <!-- Page level plugins -->
+
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    @*<script src="~/js/demo/datatables-demo.js"></script>*@
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#dataTable1').DataTable({
+                "Pageing": true,
+                "info": false,
+                "ordering": false,
+                "pageLength": 25
+            });
+
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+
+        $('#btn-one').click(function () {
+            $('#btn-one').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+            $('#loading-div-background').show();
+        });
+
+        $('#btn-one1').click(function () {
+            $('#btn-one1').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+            $('#loading-div-background').show();
+        });
+
+        $('#btn-one2').click(function () {
+            $('#btn-one2').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+            $('#loading-div-background').show();
+        });
+
+        $('#btn-one3').click(function () {
+            $('#btn-one3').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+            $('#loading-div-background').show();
+        });
+
+        $('#btn-one4').click(function () {
+            $('#btn-one4').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+            $('#loading-div-background').show();
+        });
+
+        $('#btn-one5').click(function () {
+            $('#btn-one5').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+            $('#loading-div-background').show();
+        });
+    </script>
+
+
+
+
+    <script type="text/javascript">
+        $('#loading-div-background').hide();
+    </script>
+
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/js/cleave.js"></script>
+    <script type="text/javascript" src="~/js/Search.js"></script>
+
+</body>
+
+</html>

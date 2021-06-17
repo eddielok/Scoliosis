@@ -1,0 +1,295 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+
+@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+
+    <script>
+        function popitup(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=1000,height=620,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+
+        $('#loading-div-background').hide();
+
+        function goToUrl(href) {
+            window.open(href, "_self");
+        }
+    </script>
+
+    <style>
+        .buttonMenu {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 11pt;
+            font-weight: 500;
+            width: 100%;
+        }
+    </style>
+
+    @*<link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+             <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+
+         <!-- Custom styles for this template-->
+         <link href="~/css/sb-admin-2.css" rel="stylesheet">
+         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="~/css/bootstrap-reboot.css" rel="stylesheet">
+             <link href="~/css/bootstrap-grid.css" rel="stylesheet">
+         <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" rel="stylesheet">*@
+
+
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-primary bg-gradient-primary">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+
+        <div id="content-wrapper" class="d-flex flex-column" style="background-color:#f8f9fc">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            Clinical Summary Database System
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                      
+
+                    </ul>
+
+
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-1 text-gray-800">Access Level: @Context.Session.GetString("_roles")</h1>
+                    <p class="mb-4">Please report any error to Patrick Tsang: Email: <a href=""> pltsang@cuhk.edu.hk</a> Tel: 3505-2733</p>
+
+                    <!-- Content Row -->    
+                    <div class="row">
+
+                        <!-- First Column -->
+                        <div class="col-lg-4">
+
+                            <!-- Custom Text Color Utilities -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-black-100  ">Information Browsing</h6>
+                                </div>
+                                <div class="card-body">
+                                    <input type="button" class="buttonMenu" onclick="goToUrl('/Patient/SearchTrad?Pages=10&SortBy=SortBySCN&Orderby=OrderbyDesc&Name=&SCN=&HKID=&kingOption=&Remarks=&dateFrom=&dateTo=&IsAllList=true&Range=AD')" value="List All Patient Records">
+                                    <hr class="sidebar-dividerTP">
+                                    <input type="button" class="buttonMenu" onclick="goToUrl('/Patient/SearchTrad')" value="Search for Patient Records">
+                                    <hr class="sidebar-dividerTP">
+                                    <input type="button" class="buttonMenu" onclick="goToUrl('/Patient/TextSearch)" value="Search by Text for Patient Records">
+                                    <hr class="sidebar-dividerTP">
+                                    <input type="button" class="buttonMenu" onclick="window.open('../Patient/RecordSummary','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0');" value="Record Summary">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Second Column -->
+                        <div class="col-lg-4">
+
+                            <!-- Background Gradient Utilities -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-black-100">Modify Database</h6>
+                                </div>
+                                <div class="card-body">
+                                    <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/CreatePersonalInfoPage')" value="Create New Patient Record ">
+                                </div>
+                            </div>
+
+                            <!-- Custom Font Size Utilities -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-black-100">User Profile</h6>
+                                </div>
+                                <div class="card-body">
+                                    <input type="button" class="buttonMenu" onclick="goToUrl('/Identity/Account/Manage/ChangePassword')" value="Change Password">
+                                    <hr class="sidebar-dividerTP">
+                                    <input type="button" class="buttonMenu" onclick="window.open('../Patient/UserSupplement?userId=@Context.Session.GetString("_userId")','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0');" value="Change Personal Detail">
+                                    <hr class="sidebar-dividerTP">
+                                    <input type="button" class="buttonMenu" onclick="return ( confirm('Are you sure to logout?') == true ? goToUrl('/Identity//Account/Logout') : '' ) " value="Logout">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Third Column -->
+                        @if (@Context.Session.GetString("_roles") == "Administrator")
+                        {
+
+                            <div class="col-lg-4">
+
+                                <!-- Grayscale Utilities -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-black-100">System Maintenance</h6>
+                                    </div>
+                                    <div class="card-body">
+
+
+                                        <input type="button" class="buttonMenu" onclick="window.open('../Identity/Account/Register','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,dependent,width=800,height=620,left=0,top=0');" value="Register New Users">
+                                        <hr class="sidebar-dividerTP">
+                                        <input type="button" class="buttonMenu" onclick="window.open('../Patient/DisplayActionLog','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,dependent,width=800,height=620,left=0,top=0');" value="View Log File">
+                                        <hr class="sidebar-dividerTP">
+                                        <input type="button" class="buttonMenu" onclick="window.open('../Role','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=yes,dependent,width=800,height=620,left=0,top=0');" value="Role Manager">
+                                        <hr class="sidebar-dividerTP">
+                                        <input type="button" class="buttonMenu" onclick="window.open('../Patient/UserSupplementList','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,dependent,width=800,height=620,left=0,top=0');" value="User Management">
+                                        <hr class="sidebar-dividerTP">
+                                        <input type="button" class="buttonMenu" onclick="window.open('../Patient/UploadDocumentList','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,dependent,width=800,height=620,left=0,top=0');" value="Key Reference Document">
+                                        <hr class="sidebar-dividerTP">
+                                        <input type="button" class="buttonMenu" onclick="window.open('../Patient/TemplateRemarksContentList','_blank','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=yes,dependent,width=800,height=620,left=0,top=0');" value="Template Remark Manager">
+                                        <hr class="sidebar-dividerTP">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                @*<span>Copyright &copy; CUHK 2019</span>*@
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/Identity/Account/Login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //var elems = document.getElementsByClassName('confirmation');
+        var confirmIt = function (e) {
+            if (!confirm('Are you sure to logout?')) e.preventDefault();
+        };
+        for (var i = 0, l = elems.length; i < l; i++) {
+            elems[i].addEventListener('click', confirmIt, false);
+        }
+    </script>
+</body>
+
+</html>

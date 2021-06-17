@@ -1,0 +1,656 @@
+﻿
+
+@using Microsoft.AspNetCore.Http
+
+
+@model Tuple<Scoliosis.Models.InfoBarViewModel, Scoliosis.Models.POEvaluationModel, Scoliosis.Models.POImportViewModel, Scoliosis.Models.POConfigModel>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>POEvaluationPage</title>
+
+
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/jquerysession.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/sb-admin-2.min.js"></script>
+    <script type="text/javascript" src="~/js/Restrict.js"></script>
+    <script type="text/javascript" src="~/js/xBrowser.js"></script>
+    <script type="text/javascript" src="~/js/staticMenu.js"></script>
+    <script type="text/javascript" src="~/js/xLayer.js"></script>
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+    <script type="text/javascript" src="~/js/chart.js"></script>
+    <script type="text/javascript" src="~/js/utils.js"></script>
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+
+
+    <style type="text/css">
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+
+
+        .demo {
+        }
+
+        .item-a {
+            width: 90%;
+            height: 90%;
+        }
+
+
+        td.title2 {
+            font-size: 14px;
+            padding: 5px 5px 5px 5px;
+            color: #000000;
+            text-align: left;
+        }
+    </style>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <script>
+
+        var datapoints = @Model.Item3.datapoints;
+        var config = {
+            type: 'line',
+            data: {
+                labels:  @Html.Raw(ViewBag.Exponate),
+                datasets: [
+                    {
+                        label: 'Recommended hours/day',
+                        backgroundColor: 'rgba(255, 10, 10, 0.1)',
+                        borderColor: 'rgba(255, 10, 10, 0.1)',
+                        data: @Model.Item3.upper,
+                        fill: 1,
+                    },
+                    {
+                        //label: 'Filled',
+                        backgroundColor: 'rgba(255, 10, 10, 0.1)',
+                        borderColor: 'rgba(255, 10, 10, 0.1)',
+                        data: @Model.Item3.lower,
+                        fill: false,
+                    },
+                    {
+                        label: 'Average',
+                        fill: false,
+                        backgroundColor: window.chartColors.orange,
+                        borderColor: window.chartColors.orange,
+                        borderDash: [5, 5],
+                        data: @Model.Item3.avg,
+                    },
+                    {
+                        label: 'Hour/Day',
+                        data: datapoints,
+                        borderColor: window.chartColors.purple,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                        fill: false,
+                        lineTension: 0
+                    }]
+            },
+            options: {
+
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'P & O Evaluation Report'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        scaleLabel: {
+                            display: true
+                        }
+                    },
+                    y: {
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        },
+                        suggestedMin: -10,
+                        suggestedMax: 200
+                    }
+                }
+            }
+        };
+        window.onload = function () {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+
+        };
+        function popitup(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+
+        function popitupreport(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=800,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+    </script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <style type="text/css">
+        input.CtrlBtn {
+            background: #DADAAD;
+            color: #000000;
+            font-weight: bold;
+            font-family: Arial;
+            font-size 10px;
+            width: 140px;
+        }
+
+        input.ro {
+            border-style: groove;
+            background: #DDD;
+        }
+
+        body {
+            background: #FFF;
+            font-family: Arial;
+        }
+
+        td {
+            background: #FFF;
+            font-family: Arial;
+            font-size: 18px;
+        }
+
+            td.subtable {
+                text-align: center;
+            }
+
+        th {
+            color: 000;
+            font-family: Arial;
+            font-size: 18px;
+        }
+
+            th.section {
+                color: #000;
+                font-size: 16px;
+            }
+
+        td.sep {
+            height: 5px;
+        }
+
+        table {
+            background: #FFF;
+        }
+
+            table.section {
+                background: #BBB;
+            }
+
+            table.subtable {
+                background: #888;
+            }
+
+        input, select, textarea {
+            font-family: Arial;
+            font-size: 18px;
+        }
+
+            input.Bluebtn {
+                background: #6496DE;
+                color: #FFFFFF;
+                font-weight: bold;
+                width: 100px;
+            }
+    </style>
+</head>
+<body id="page-top">
+
+    <form id="form" action="../Patient/POEvaluationPage?SCN=@Model.Item1.SCN" enctype="multipart/form-data" method="post">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-chevron-circle-down"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Menu bar</div>
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Nav Item - Dashboard -->
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Patient information</span>
+                    </a>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded menuFont">
+                            <table>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.SCN</td>
+                                </tr>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.Name</td>
+                                </tr>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.HKID</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Addons</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../Patient/InitAssessPage?SCN=@Model.Item2.SCN">Initial Assesment</a>
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN">New Visit</a>
+                            <a class="collapse-item" href="../Patient/EditPersonalInfoPage?SCN=@Model.Item2.SCN">Personal Info</a>
+                            <a class="collapse-item" href="../Patient/OperativeDataList?SCN=@Model.Item2.SCN">Operative Data</a>
+                            <a class="collapse-item" href="../Patient/VisitList?SCN=@Model.Item2.SCN">Visits List</a>
+                            <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item2.SCN">New P & O Visit</a>
+                            <a class="collapse-item" href="../Patient/POConfigPage?SCN=@Model.Item2.SCN">P & O Config</a>
+                            <a class="collapse-item" href="../Patient/POEvaluationPage?SCN=@Model.Item2.SCN">P & O Evaluation</a>
+                            <a class="collapse-item" href="../Patient/PODOCPage?SCN=@Model.Item2.SCN">P & O Document</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Visits</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach (var visit in @Model.Item1.visits)
+                            {
+                                <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)">@visit</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>P & O Visits</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach (var POvisit in @Model.Item1.POvisit)
+                            {
+
+                                <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item1.SCN&DOB=@POvisit">@POvisit</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Core Manu</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../home/index">Home page</a>
+                            <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                            <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item2.SCN">New P & O Visit</a>
+                            <a class="collapse-item" href="../Identity/Account/Login">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+            </ul>
+
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            Clinical Summary Database System
+                        </div>
+                    </div>
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <!--20203014 Put the logout page out-->
+                            @*<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    Hello - @Context.Session.GetString("_userName") &nbsp; &nbsp; |  &nbsp;
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </span>
+                            </a>
+
+
+                        </li>
+
+                    </ul>
+
+
+
+                </nav>
+
+                <!-- Main Content -->
+                <div id="content">
+                    <div align="center">
+                        <font style="font-family: Arial; font-weight: bold;font-size: 30px">Evaluation of wearing time: @Model.Item2.Periodfrom.Value.ToString().Replace("12:00:00 am", "") - @Model.Item2.Periodto.Value.ToString().Replace("12:00:00 am", "") </font>
+                    </div>
+                    <table align="center" width="86%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="10%">Patient:</th>
+                            <td width="10%">
+                                @Model.Item2.SCN , @Model.Item2.Name
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="10%">Born:</th>
+                            <td width="10%">
+                                @Model.Item2.Born
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="10%">SSN:</th>
+                            <td width="10%">
+                                @Model.Item2.SSN
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="10%">Health fund:</th>
+                            <td width="10%">
+                                @Model.Item2.Healthfund
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="10%">Chip:</th>
+                            <td width="10%">
+                                @Model.Item2.Chip
+                            </td>
+                            <th width="10%">Activated:</th>
+                            <td width="10%">
+                                @Model.Item2.Activated
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div align="center" class="container-fluid">
+                        <input type="hidden" id="lab" name="lab" value="@Model.Item3.labels" />
+                        <div style="width:75%;">
+                            <canvas id="canvas"></canvas>
+                        </div>
+                    </div>
+                    <div align="center">
+                        <font style="font-family: Arial; font-weight: bold;font-size: 30px">Result</font><br />
+                        <font style="font-family: Arial; font-size: 20px">Daily target achieved on @Model.Item3.count of @Model.Item3.total days: @Model.Item3.percentage </font><br />
+                        <font style="font-family: Arial; font-size: 20px">Average wearing time per day: @Model.Item3.count hours.</font><br />
+                    </div>
+                    <table align="center" width="86%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="10%">Standard wearing criteria:</th>
+                            <td width="10%">
+                                @Model.Item4.Hour hours/day at minimum @Model.Item4.MinHour hours continous use
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="10%">Special wearing criteria:</th>
+                            <td width="10%">
+                                -
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="10%">Excluded periods:</th>
+                            <td width="10%">
+                                -
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="10%">Remarks on periods:</th>
+                            <td width="10%">
+                               -
+                            </td>
+                        </tr>
+                       
+                    </table>
+
+
+
+
+                </div>
+    </form>
+
+
+    <div class="row">
+        &nbsp;
+    </div>
+
+    <div id="dialog" title="Alert Message"></div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script>
+       var _isShowMessage = '@Context.Session.GetString("_isShowMessage")';
+                                        var _alertMessage = '@Context.Session.GetString("_alertMessage")';
+
+
+        if (_isShowMessage == 'true' && _alertMessage != '') {
+
+             $( "#dialog" ).dialog({
+                                        autoOpen: true,
+              modal: true,
+              width: 500,
+              height: 300,
+              position: { my: "center", at: "center", of: window  },
+              open: function() {
+                        jQuery('.ui-widget-overlay').on('click', function() {
+                            jQuery('#j_dialog').dialog('close');
+                        })
+                },
+
+              buttons: {
+                                            Ok: function () {
+
+                      $.ajax({
+                                                    method: "post",
+                        url: "./WebRemoveSession",
+                        error: function (xhr, status, err) {
+                                                            alert(err);
+                                                        }
+
+                                                    }).done(function (res) {
+
+                                                    });
+                  $( this ).dialog( "close" );
+                                                }
+                                            },
+              show: {
+                  effect: "fade",
+                duration: 15
+              },
+              hide: {
+                                            effect: "fade",
+                duration: 10
+              }
+
+                                        });
+
+
+           $('#dialog').show().html(_alertMessage);
+
+                                    }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+
+
+
+
+
+    <script>
+
+
+        function deletePost() {
+            var ask = window.confirm("Are you sure you want to delete?");
+            if (ask) {
+                window.alert("This post will be deleted and redirect to Visit List Page");
+
+                window.location.href = '../Patient/VisitDelete?scn=@Model.Item2.SCN';
+
+            }
+    }
+
+
+        function ConfirmUpdate1() {
+             $("#submit1").button().click();
+        }
+
+
+
+
+        function ConfirmRestore() {
+
+             var r = confirm("Nothing save. Are you sure to Restore?");
+              if (r == true) {
+                var href = "../Patient/POEvaluationPage?SCN=@Model.Item2.SCN";
+                window.open(href, "_self", "menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0");
+              } else {
+
+              }
+            }
+
+
+    </script>
+
+
+
+
+    <script>
+         //   CreateStaticMenu("MenuDiv", document.body.offsetWidth - 120, 50);
+    </script>
+
+</body>
+</html>

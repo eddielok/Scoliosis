@@ -1,0 +1,863 @@
+﻿
+
+@using Microsoft.AspNetCore.Http
+
+
+@model Tuple<Scoliosis.Models.InfoBarViewModel, Scoliosis.Models.PhysioModel>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PhysioPage</title>
+
+
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/jquerysession.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <script type="text/javascript" src="~/js/Restrict.js"></script>
+    <script type="text/javascript" src="~/js/xBrowser.js"></script>
+    <script type="text/javascript" src="~/js/xLayer.js"></script>
+    <script type="text/javascript" src="~/js/staticMenu.js"></script>
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+    <style type="text/css">
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .lightgallery li {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .lightgallery ul {
+            display: inline-block;
+        }
+
+        .lightgallery h3 {
+            margin: 0;
+        }
+
+        .demo {
+        }
+
+        .item-a {
+            width: 90%;
+            height: 90%;
+        }
+
+
+        td.title2 {
+            font-size: 14px;
+            padding: 5px 5px 5px 5px;
+            color: #000000;
+            text-align: left;
+        }
+    </style>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <script>
+
+        function popitup(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+
+        function popitupreport(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=800,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+    </script>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <style type="text/css">
+        input.CtrlBtn {
+            background: #DADAAD;
+            color: #000000;
+            font-weight: bold;
+            font-family: Arial;
+            font-size 10px;
+            width: 140px;
+        }
+
+        input.ro {
+            border-style: groove;
+            background: #DDD;
+        }
+
+        body {
+            background: #FFF;
+            font-family: Arial;
+        }
+
+        td {
+            background: #FFF;
+            font-family: Arial;
+            font-size: 18px;
+        }
+
+            td.subtable {
+                text-align: center;
+            }
+
+        th {
+            background: #6496DE;
+            color: #FFF;
+            font-family: Arial;
+            font-size: 18px;
+        }
+
+            th.section {
+                background: #22F;
+                color: #FFF;
+                font-size: 18px;
+            }
+
+        td.sep {
+            height: 5px;
+        }
+
+        table {
+            background: #FFF;
+        }
+
+            table.section {
+                background: #BBB;
+            }
+
+            table.subtable {
+                background: #888;
+            }
+
+        input, select, textarea {
+            font-family: Arial;
+            font-size: 11px;
+        }
+
+            input.Bluebtn {
+                background: #6496DE;
+                color: #FFFFFF;
+                font-weight: bold;
+                width: 100px;
+            }
+
+    </style>
+    <script src="~/js/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="~/css/normalize.css">
+    <link rel="stylesheet" href="~/css/planit.css">
+    <script src="~/js/planit.js"></script>
+    <script src="~/js/modernizr-2.8.3.min.js"></script>
+</head>
+<body id="page-top">
+
+    <form id="form" name="form" action="../Patient/PhysioPage?SCN=@Model.Item2.SCN&DOB=@Model.Item2.DOC" method="post">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-chevron-circle-down"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Menu bar</div>
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Nav Item - Dashboard -->
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Patient information</span>
+                    </a>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded menuFont">
+                            <table>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.SCN</td>
+                                </tr>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.Name</td>
+                                </tr>
+                                <tr>
+                                    <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item1.HKID</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Addons</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../Patient/InitAssessPage?SCN=@Model.Item2.SCN">Initial Assesment</a>
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN">New Visit</a>
+                            <a class="collapse-item" href="../Patient/EditPersonalInfoPage?SCN=@Model.Item2.SCN">Personal Info</a>
+                            <a class="collapse-item" href="../Patient/OperativeDataList?SCN=@Model.Item2.SCN">Operative Data</a>
+                            <a class="collapse-item" href="../Patient/VisitList?SCN=@Model.Item2.SCN">Visits List</a>
+                            <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item2.SCN">New P & O Visit</a>
+                            <a class="collapse-item" href="../Patient/POConfigPage?SCN=@Model.Item2.SCN">P & O Config</a>
+                            <a class="collapse-item" href="../Patient/POEvaluationPage?SCN=@Model.Item2.SCN">P & O Evaluation</a>
+                            <a class="collapse-item" href="../Patient/PODOCPage?SCN=@Model.Item2.SCN">P & O Document</a>
+                            <a class="collapse-item" href="../Patient/PhysioPage?SCN=@Model.Item2.SCN">New Physio</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Visits</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach (var visit in @Model.Item1.visits)
+                            {
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)">@visit</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Physio Visit</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach (var Physio in @Model.Item1.Physio)
+                            {
+
+                            <a class="collapse-item" href="../Patient/PhysioPage?SCN=@Model.Item1.SCN&DOB=@Physio">@Physio</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Core Manu</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../home/index">Main Page</a>
+                            <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                            <a class="collapse-item" href="../Patient/PhysioPage?SCN=@Model.Item2.SCN">New Physio Visit</a>
+                            <a class="collapse-item" href="../Identity/Account/Login">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+            </ul>
+
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            Clinical Summary Database System
+                        </div>
+                    </div>
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <!--20203014 Put the logout page out-->
+                            @*<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    Hello - @Context.Session.GetString("_userName") &nbsp; &nbsp; |  &nbsp;
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </span>
+                            </a>
+
+
+                        </li>
+
+                    </ul>
+
+
+
+                </nav>
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <div class="container-fluid">
+                        <table width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="center">
+                                    <font style="font-family: Arial; font-size: 20px">Physio Visits Info</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan=2 align="center">
+                                    <input type="hidden" name=SCN value="@Model.Item2.SCN" />
+                                    <input type="hidden" name=OriDOC value="@Model.Item2.DOC" />
+                                    @*<input type="hidden" id="SRS22" name=SRS22 value="@Model.Item2.SRS22" />
+                                    <input type="hidden" id="SRS22Domains" name="SRS22Domains" value="@Model.Item2.SRS22Domains" />
+                                    <input type="hidden" id="SAQ" name="SAQ" value="@Model.Item2.SAQ" />
+                                    <input type="hidden" id="SAQDomains" name="SAQDomains" value="@Model.Item2.SAQDomains" />
+                                    <input type="hidden" id="ExerciseCompliance" name="ExerciseCompliance" value="@Model.Item2.ExerciseCompliance" />
+                                    <input type="hidden" id="BrQ" name="BraceProblem" value="@Model.Item2.BrQ" />*@
+
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Scoliosis Clinic Date:</th>
+                                            <td width="50%">
+                                                <div class="form-inline" style="width:50%">
+                                                    <div class="input-group date" id="datetimepicker2">
+                                                        <input class="class-PoDOC"
+                                                               type="text" maxlength="10" size="10" name="DOC" id="DOC"
+                                                               value="@(Model.Item2.DOC.Value == null ? "" : Model.Item2.DOC.Value.ToString("dd/MM/yyyy"))" onKeyUp="RestrictDate(this)">
+                                                        
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+
+
+                                                    </div>
+                                                    <div style="width:50%"> &nbsp; &nbsp; <input type="button" value="Today" onClick="today()"></div>
+
+
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        
+                                        
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <table width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <td>
+                                <table class="table" width="86%" border="0" cellpadding="0" cellspacing="0">
+
+                                    <tr>
+                                        <td rowspan=2 align="center">
+                                            <table width="100%" border="0">
+                                                <tr>
+                                                    <th width="18%" bgcolor="RoyalBlue">SRS-22</th>
+                                                    <td>
+
+                                                        <select id="SRS22" name="SRS22" >
+                                                            @if (Model.Item2.SRS22.ToString() == "1")
+                                                            {
+                                                                <option value="1" selected="selected">Pre-PT-Brace</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="1">Pre-PT-Brace</option>
+                                                            }
+                                                            @if (Model.Item2.SRS22.ToString() == "2")
+                                                            {
+                                                                <option value="2" selected="selected">Immediate Post-Scoliosis-Class</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="2">Immediate Post-Scoliosis-Class</option>
+                                                            }
+                                                            @if (Model.Item2.SRS22.ToString() == "3")
+                                                            {
+                                                                <option value="3" selected="selected">Immediate Post-Scoli-brace-Class</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="3">Immediate Post-Scoli-brace-Class</option>
+                                                            }
+                                                            @if (Model.Item2.SRS22.ToString() == "4")
+                                                            {
+                                                                <option value="4" selected="selected">Immediate Post-3D-Exercise-Class</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="4">Immediate Post-3D-Exercise-Class</option>
+                                                            }
+                                                            @if (Model.Item2.SRS22.ToString() == "5")
+                                                            {
+                                                                <option value="5" selected="selected">Immediate Post-Brace</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="5">Immediate Post-Brace</option>
+                                                            }
+                                                            @if (Model.Item2.SRS22.ToString() == "6")
+                                                            {
+                                                                <option value="6" selected="selected">Regular Follow Up</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="6">Regular Follow Up</option>
+                                                            }
+
+                                                        </select>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="18%" bgcolor="RoyalBlue">Domains</th>
+                                                    <td>
+                                                        <select id="SRS22Domains" name="SRS22Domains" >
+                                                            @if (Model.Item2.SRS22Domains.ToString() == "1")
+                                                            {
+                                                            <option value="1" selected="selected">Function/activity</option> }
+                                                                    else
+                                                                    {
+                                                        <option value="1">Function/activity</option>}
+                                                            @if (Model.Item2.SRS22Domains.ToString() == "2")
+                                                            {
+                                                        <option value="2" selected="selected">Pain</option> }
+                                                                    else
+                                                                    {
+                                                        <option value="2">Pain</option>}
+                                                            @if (Model.Item2.SRS22Domains.ToString() == "3")
+                                                            {
+                                                        <option value="3" selected="selected">Self-image/appearance</option> }
+                                                                    else
+                                                                    {
+                                                        <option value="3">Self-image/appearance</option>}
+                                                            @if (Model.Item2.SRS22Domains.ToString() == "4")
+                                                            {
+                                                        <option value="4" selected="selected">Mental health</option> }
+                                                                    else
+                                                                    {
+                                                        <option value="4">Mental health</option>}
+                                                            @if (Model.Item2.SRS22Domains.ToString() == "5")
+                                                            {
+                                                        <option value="5" selected="selected">Satisfaction with management</option> }
+                                                                    else
+                                                                    {
+                                                        <option value="5">Satisfaction with management</option>}
+                                                            @if (Model.Item2.SRS22Domains.ToString() == "6")
+                                                            {
+                                                        <option value="6" selected="selected">Total</option> }
+                                                                    else
+                                                                    {
+                                                        <option value="6">Total</option>}
+
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </table>
+                        <br />
+
+
+                        <table class="table" width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td rowspan=2 align="center">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">SAQ</th>
+                                            <td>
+                                                <select id="SAQ" name="SAQ" >
+                                                    @if (Model.Item2.SAQ.ToString() == "1")
+                                                    {
+                                        <option value="1" selected="selected">Pre-PT-Brace</option>
+ }
+                                    else
+                                    {
+                                    <option value="1">Pre-PT-Brace</option>
+}
+                                                    @if (Model.Item2.SAQ.ToString() == "2")
+                                                    {
+                                        <option value="2" selected="selected">Immediate Post-Scoliosis-Class</option>
+ }
+                                    else
+                                    {
+                                    <option value="2">Immediate Post-Scoliosis-Class</option>
+}
+                                                    @if (Model.Item2.SAQ.ToString() == "3")
+                                                    {
+                                        <option value="3" selected="selected">Immediate Post-Scoli-brace-Class</option>
+ }
+                                    else
+                                    {
+                                    <option value="3">Immediate Post-Scoli-brace-Class</option>
+}
+                                                    @if (Model.Item2.SAQ.ToString() == "4")
+                                                    {
+                                        <option value="4" selected="selected">Immediate Post-3D-Exercise-Class</option>
+ }
+                                    else
+                                    {
+                                    <option value="4">Immediate Post-3D-Exercise-Class</option>
+}
+                                                    @if (Model.Item2.SAQ.ToString() == "5")
+                                                    {
+                                        <option value="5" selected="selected">Immediate Post-Brace</option>
+ }
+                                    else
+                                    {
+                                    <option value="5">Immediate Post-Brace</option>
+}
+                                                    @if (Model.Item2.SAQ.ToString() == "6")
+                                                    {
+                                        <option value="6" selected="selected">Regular Follow Up</option>
+ }
+                                    else
+                                    {
+                                    <option value="6">Regular Follow Up</option>
+}
+
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Domains</th>
+                                            <td>
+                                                <select id="SAQDomains" name="SAQDomains" >
+                                                    @if (Model.Item2.SAQDomains.ToString() == "1")
+                                                    {
+                                                <option value="1" selected="selected">General</option> }
+                                                            else
+                                                            {
+                                                <option value="1">General</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "2")
+                                                    {
+                                                <option value="2" selected="selected">Curve</option> }
+                                                            else
+                                                            {
+                                                <option value="2">Curve</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "3")
+                                                    {
+                                                <option value="3" selected="selected">Prominence</option> }
+                                                            else
+                                                            {
+                                                <option value="3">Prominence</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "4")
+                                                    {
+                                                <option value="4" selected="selected">Trunk shift</option> }
+                                                            else
+                                                            {
+                                                <option value="4">Trunk shift</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "5")
+                                                    {
+                                                <option value="5" selected="selected">Waist</option> }
+                                                            else
+                                                            {
+                                                <option value="5">Waist</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "6")
+                                                    {
+                                                <option value="6" selected="selected">Shoulders</option> }
+                                                            else
+                                                            {
+                                                <option value="6">Shoulders</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "7")
+                                                    {
+                                                <option value="7" selected="selected">Kyphosis</option> }
+                                                            else
+                                                            {
+                                                <option value="7">Kyphosis</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "8")
+                                                    {
+                                                <option value="8" selected="selected">Chest</option> }
+                                                            else
+                                                            {
+                                                <option value="8">Chest</option>}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "9")
+                                                    {
+                                                <option value="9" selected="selected">Surgical Scar</option>
+ }
+                                            else
+                                            {
+                                                <option value="9">Surgical Scar</option>
+}
+                                                    @if (Model.Item2.SAQDomains.ToString() == "10")
+                                                    {
+                                                <option value="10" selected="selected">Total</option> }
+                                                            else
+                                                            {
+                                                <option value="10">Total</option>}
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+
+                        <table class="table" width="86%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td rowspan=2 align="center">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Exercise Compliance  (in minutes/day)</th>
+                                            <td>
+                                                <input id="ExerciseCompliance" type="text" name="ExerciseCompliance" value='@Model.Item2.ExerciseCompliance' size="30">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">BrQ</th>
+                                            <td>
+                                                <input id="BrQ" type="text" name="BrQ" value='@Model.Item2.BrQ' size="30"> <br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="18%" bgcolor="RoyalBlue">Remarks</th>
+                                            <td>
+                                                <textarea id="Remarks" name="Remarks" cols="100" rows="5">@Model.Item2.Remarks</textarea>
+                                                <!-- <input id="Remarks" type="text" name="Remarks" value='@Model.Item2.Remarks' size="30">--> <br />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <br />
+                    </div>
+
+
+                    <input type="submit" name="submit1" id="submit1" value="Save" style="display:none" /><br><br>
+
+                    <DIV id="MenuDiv" STYLE="position:absolute;left:10;top:10;width:110;">
+
+                        <input class="MenuButton" name="update2" type="button" value="Update" onClick="ConfirmUpdate1()"><br><br>
+                        <input class="MenuButton" name=restore2 type=button value="Restore" onClick="ConfirmRestore()"><br><br>
+                        <input class="MenuButton" name=delete2 type=button value="Delete" onClick="deletePost()"><br><br>
+
+                    </DIV>
+                </div>
+    </form>
+
+
+    <div class="row">
+        &nbsp;
+    </div>
+
+    <div id="dialog" title="Alert Message"></div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script>
+       var _isShowMessage = '@Context.Session.GetString("_isShowMessage")';
+                                        var _alertMessage = '@Context.Session.GetString("_alertMessage")';
+
+
+        if (_isShowMessage == 'true' && _alertMessage != '') {
+
+             $( "#dialog" ).dialog({
+                                        autoOpen: true,
+              modal: true,
+              width: 500,
+              height: 300,
+              position: { my: "center", at: "center", of: window  },
+              open: function() {
+                        jQuery('.ui-widget-overlay').on('click', function() {
+                            jQuery('#j_dialog').dialog('close');
+                        })
+                },
+
+              buttons: {
+                                            Ok: function () {
+
+                      $.ajax({
+                                                    method: "post",
+                        url: "./WebRemoveSession",
+                        error: function (xhr, status, err) {
+                                                            alert(err);
+                                                        }
+
+                                                    }).done(function (res) {
+
+                                                    });
+                  $( this ).dialog( "close" );
+                                                }
+                                            },
+              show: {
+                  effect: "fade",
+                duration: 15
+              },
+              hide: {
+                                            effect: "fade",
+                duration: 10
+              }
+
+                                        });
+
+
+           $('#dialog').show().html(_alertMessage);
+
+                                    }
+
+    </script>
+
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/js/cleave.js"></script>
+    <script type="text/javascript" src="~/js/PhysioPage.js"></script>
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+
+
+
+
+
+    <script>
+
+        function deletePost() {
+            var ask = window.confirm("Are you sure you want to delete?");
+            if (ask) {
+                window.alert("This post will be deleted and redirect to Visit List Page");
+
+                window.location.href = '../Patient/PhysioDelete?scn=@Model.Item2.SCN&doc=@Model.Item2.DOC';
+
+            }
+    }
+
+
+        function ConfirmUpdate1() {
+            PrepareSave();
+             $("#submit1").button().click();
+        }
+
+
+
+
+        function ConfirmRestore() {
+
+             var r = confirm("Nothing save. Are you sure to Restore?");
+              if (r == true) {
+                  var href = "../Patient/PhysioPage?SCN=@Model.Item2.SCN&DOB=@Model.Item2.DOC";
+                window.open(href, "_self", "menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0");
+              } else {
+
+              }
+            }
+
+
+    </script>
+
+
+
+
+    <script>
+
+        CreateStaticMenu("MenuDiv", document.body.offsetWidth - 120, 50);
+    </script>
+   
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+
+</body>
+</html>

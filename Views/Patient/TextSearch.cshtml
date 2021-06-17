@@ -1,0 +1,298 @@
+﻿@model List<Scoliosis.Models.PersonalInfoModel>
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="~/js/sb-admin-2.min.js"></script>
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" type="text/css">
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+
+    <style>
+
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('../images/pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
+            opacity: .8;
+        }
+    </style>
+
+
+</head>
+
+<body class="bg-gradient-primary bg-gradient-primary">
+
+    <div id="wrapper">
+
+        <div id="loading-div-background" class="loader">
+            <div id="loading-div" class="ui-corner-all ">
+                <div id="loadingbar"></i></div>
+                <h2 style="color:gray;font-weight:normal;"></h2> <!--Please wait....-->
+            </div>
+        </div>
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-chevron-circle-down"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Menu bar</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Core Manu</span>
+                </a>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../home/index">Home page</a>
+                        <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                        <a class="collapse-item" href="../Patient/TextSearch">Words/Text Search</a>
+                        <a class="collapse-item" href="../Patient/CreatePersonalInfo">New Patient</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+
+        </ul>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Search Patient Page</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <form class="user" asp-controller="Patient" asp-action="TextSearch" method="get">
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <label for="rowsPage">Text Search</label>
+                                            <input type="text" class="form-control"
+                                                   id="inputText"
+                                                   name="inputText"
+                                                   value=""
+                                                   placeholder="">
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h8 class="m-0 font-weight-bold text-primary">Criteria for search:</h8>
+                                        </div>
+                                            <div class="col-lg-12">
+                                                <input id="isInitalAss" name="isInitalAss" type="checkbox" value="true" /><span>Initial Assessment</span><br>
+                                                <input id="isPatientInfo" name="isPatientInfo" type="checkbox" value="true" /><span>Patient Information Page</span><br>
+                                                <input id="isRemarkBox" name="isRemarkBox" type="checkbox" value="true" /><span>Remark Box</span><br>
+                                                <input id="isAllOther" name="isAllOther" type="checkbox" value="true" /><span>All Other Areas with Texts</span><br>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                <div class="row">
+                                    <div class="col-lg-4"></div>
+                                    <div class="col-lg-4"></div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-2">
+                                        <button type="submit" class="btn btn-primary btn-block" onclick="validation()">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="row">&nbsp;</div>
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Patient List</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>SCN</th>
+                                                    <th>HKID</th>
+                                                    <th>Detail</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>SCN</th>
+                                                    <th>HKID</th>
+                                                    <th>Detail</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.SCN)</td>
+                                                        <td>@Html.DisplayFor(modelItem => item.HKID)</td>
+                                                        <td><a href="../Patient/VisitList?SCN=@Html.DisplayFor(modelItem => item.SCN)&DOB=1900-01-01">Detail</a></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End of Main Content -->
+
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- End of Content Wrapper -->
+            <!-- End of Page Wrapper -->
+            <!-- Page level plugins -->
+
+            <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+            <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+            <!-- Page level custom scripts -->
+            @*<script src="~/js/demo/datatables-demo.js"></script>*@
+
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+            <script>
+                $(document).ready(function () {
+
+                    $('#dataTable1').DataTable({
+                        "Pageing": true,
+                        "info": false,
+                        "ordering": false,
+                        "pageLength": 25
+                    });
+
+                });
+
+
+            </script>
+
+            <script type="text/javascript">
+
+                $('#btn-one').click(function () {
+                    $('#btn-one').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+                    $('#loading-div-background').show();
+                });
+
+                $('#btn-one1').click(function () {
+                    $('#btn-one1').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+                    $('#loading-div-background').show();
+                });
+
+                $('#btn-one2').click(function () {
+                    $('#btn-one2').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+                    $('#loading-div-background').show();
+                });
+
+                $('#btn-one3').click(function () {
+                    $('#btn-one3').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+                    $('#loading-div-background').show();
+                });
+
+                $('#btn-one4').click(function () {
+                    $('#btn-one4').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+                    $('#loading-div-background').show();
+                });
+
+                $('#btn-one5').click(function () {
+                    $('#btn-one5').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+                    $('#loading-div-background').show();
+                });
+            </script>
+
+
+
+
+            <script type="text/javascript">
+                $('#loading-div-background').hide();
+            </script>
+
+            <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+            <script type="text/javascript" src="~/js/cleave.js"></script>
+            <script type="text/javascript" src="~/js/Search.js"></script>
+
+</body>
+
+</html>

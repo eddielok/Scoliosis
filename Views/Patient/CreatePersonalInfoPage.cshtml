@@ -1,0 +1,1977 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@model Scoliosis.Models.CreatePersonalInfoViewModel
+
+<!--C:\Users\Carlos\Desktop\Move\Carlos\Scoliosis\www\CreateRec.asp-->
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VisitPage</title>
+
+
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/jquerysession.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <script type="text/javascript" src="~/js/Restrict.js"></script>
+    <script type="text/javascript" src="~/js/xBrowser.js"></script>
+    <script type="text/javascript" src="~/js/xLayer.js"></script>
+    <script type="text/javascript" src="~/js/staticMenu.js"></script>
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/dist/css/lightgallery.css" rel="stylesheet">
+    <link href="~/dist/css/lightslider.css" rel="stylesheet">
+
+
+    <style type="text/css">
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .lightgallery li {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .lightgallery ul {
+            display: inline-block;
+        }
+
+        .lightgallery h3 {
+            margin: 0;
+        }
+
+        .demo {
+        }
+
+        .lslide a img {
+            width: 800px;
+            height: 300px
+        }
+
+        .item-a {
+            max-width: 400px;
+            max-height: 400px;
+            width: 100%;
+            height: 100%
+        }
+    </style>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <script>
+        function popitup(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+
+        function popitupreport(link) {
+            var w = window.open(link.href,
+                link.target || "_blank",
+                'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=800,left=0,top=0');
+            return w ? false : true; // allow the link to work if popup is blocked
+        }
+    </script>
+    <link href="~/dist/css/lightgallery.css" rel="stylesheet">
+    <link href="~/dist/css/lightslider.css" rel="stylesheet">
+    <script src="~/dist/js/lightgallery.js"></script>
+
+    <style>
+        .help-block, .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 0px solid #ff0000;
+            font-size: 20px;
+            color: red;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+
+    <style>
+        td.title {
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 12px;
+        }
+
+        th {
+            font-size: 12px;
+        }
+
+        input, select, textarea {
+            font-family: Arial;
+            font-size: 11px;
+        }
+
+            input.b {
+                font-family: Arial;
+                font-size: 12px;
+                width: 90px;
+                font-weight: bolder;
+            }
+    </style>
+
+
+</head>
+<body id="page-top">
+
+    <form id="form" action="../Patient/CreatePersonalInfoPage" method="post">
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-chevron-circle-down"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Menu bar</div>
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Core Manu</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="../home/index">Home page</a>
+                            <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                            <a class="collapse-item" href="../Patient/CreatePersonalInfoPage">New Patient</a>
+                            <a class="collapse-item" href="../Identity/Account/Logout" onclick="return confirm('Are you sure to logout?')">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+            </ul>
+
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            Clinical Summary Database System
+                        </div>
+                    </div>
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <!--20203014 Put the logout page out-->
+                            @*<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    Hello - @Context.Session.GetString("_userName") &nbsp; &nbsp; |  &nbsp;
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </span>
+                            </a>
+
+                            <!-- Dropdown - User Information -->
+                            @*<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>*@
+                        </li>
+
+                    </ul>
+
+
+
+                </nav>
+
+
+                <div id="content">
+
+                    <div class="container-fluid">
+
+                        <table width=86% border="0" cellpadding="1" cellspacing=2>
+
+                            <!-- Patient Detail Report -->
+                            <tr>
+                                <td>
+                                    <table align="center" width="100%" border="0" cellpadding="2" cellspacing="1">
+                                        <tr>
+                                            <td colspan="4" align="center"><font style="font-family: Arial; font-size: 20px; font-weight: bold;"> Scoliosis Clinical Summary (Create Patient) </font></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="title" colspan="2" width="50%" bgcolor="MidnightBlue"><b><i>Patient Personal Information</i></b></td>
+                                            <td class="title" colspan="2" width="50%" bgcolor="MidnightBlue"><b><i>History</i></b></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="20%" bgcolor="DarkSlateGray">SCN</td>
+                                            <td bgcolor="black">
+
+                                                <input type="text" class="class-scn"
+                                                       id="SCN"
+                                                       name="SCN"
+                                                       value="@Model.SCN"
+                                                       placeholder="SCN">
+
+                                            </td>
+                                            <td width="20%" bgcolor="DarkSlateGray">Age of onset</td>
+                                            <td bgcolor="black">
+                                                <input type="number" class=""
+                                                       id="AgeOnset"
+                                                       name="AgeOnset"
+                                                       value="@Model.AgeOnset"
+                                                       placeholder="0.00">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td bgcolor="DarkSlateGray">Name</td>
+                                            <td bgcolor="black">
+                                                <input type="text" class=""
+                                                       id="Name"
+                                                       name="Name"
+                                                       value="@Model.Name"
+                                                       placeholder="Name"
+                                                       onkeyup="CapitalizeName(this)">
+                                            </td>
+                                            <td bgcolor="DarkSlateGray">Family history</td>
+                                            <td bgcolor="black">
+                                                <input type="text" class=""
+                                                       id="FamHis"
+                                                       name="FamHis"
+                                                       value="@Model.FamHis"
+                                                       placeholder="FamHis">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td bgcolor="DarkSlateGray">HKID</td>
+                                            <td bgcolor="black">
+                                                <input type="text" class=""
+                                                       id="HKID"
+                                                       name="HKID"
+                                                       value="@Model.HKID"
+                                                       placeholder="HKID"
+                                                       onkeyup="RestrictHKID(this)">
+                                            </td>
+                                            <td bgcolor="DarkSlateGray">Attending Physician</td>
+                                            <td bgcolor="black">
+
+                                                <select id="attnPhys" name="newAttnPhys">
+
+                                                    @if (Model.Surgeons.ToString() == "A Yim")
+                                                    {
+                                                        <option value="A Yim" selected="selected">A Yim</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="A Yim">A Yim</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Aguilar")
+                                                    {
+                                                        <option value="Aguilar" selected="selected">Aguilar</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Aguilar">Aguilar</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "B Chan")
+                                                    {
+                                                        <option value="B Chan" selected="selected">B Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="B Chan">B Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Bundoc")
+                                                    {
+                                                        <option value="Bundoc" selected="selected">Bundoc</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Bundoc">Bundoc</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "C Morin")
+                                                    {
+                                                        <option value="C Morin" selected="selected">C Morin</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="C Morin">C Morin</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "C Tang")
+                                                    {
+                                                        <option value="C Tang" selected="selected">C Tang</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="C Tang">C Tang</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "C Tang")
+                                                    {
+                                                        <option value="C Tang" selected="selected">C Tang</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="C Tang">C Tang</option>
+                                                    }
+
+
+                                                    @if (Model.Surgeons.ToString() == "CC Kong")
+                                                    {
+                                                        <option value="CC Kong" selected="selected">CC Kong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CC Kong">CC Kong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CH Ho")
+                                                    {
+                                                        <option value="CH Ho" selected="selected">CH Ho</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CH Ho">CH Ho</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CH Wong")
+                                                    {
+                                                        <option value="CH Wong" selected="selected">CH Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CH Wong">CH Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CK Ko")
+                                                    {
+                                                        <option value="CK Ko" selected="selected">CK Ko</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CK Ko">CK Ko</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CL Ho")
+                                                    {
+                                                        <option value="CL Ho" selected="selected">CL Ho</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CL Ho">CL Ho</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CN Lim")
+                                                    {
+                                                        <option value="CN Lim" selected="selected">CN Lim</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CN Lim">CN Lim</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CW Wong")
+                                                    {
+                                                        <option value="CW Wong" selected="selected">CW Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CW Wong">CW Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CW Wong")
+                                                    {
+                                                        <option value="CW Wong" selected="selected">CW Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CW Wong">CW Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CW Wong")
+                                                    {
+                                                        <option value="CW Wong" selected="selected">CW Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CW Wong">CW Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "CY Leung")
+                                                    {
+                                                        <option value="CY Leung" selected="selected">CY Leung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="CY Leung">CY Leung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "D Chan")
+                                                    {
+                                                        <option value="D Chan" selected="selected">D Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="D Chan">D Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Donald Chan")
+                                                    {
+                                                        <option value="Donald Chan" selected="selected">Donald Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Donald Chan">Donald Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "E Chan")
+                                                    {
+                                                        <option value="E Chan" selected="selected">E Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="E Chan">E Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "E Wong")
+                                                    {
+                                                        <option value="E Wong" selected="selected">E Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="E Wong">E Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "EH Chen")
+                                                    {
+                                                        <option value="EH Chen" selected="selected">EH Chen</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="EH Chen">EH Chen</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "H Ho")
+                                                    {
+                                                        <option value="H Ho" selected="selected">H Ho</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="H Ho">H Ho</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Henry Halm")
+                                                    {
+                                                        <option value="Henry Halm" selected="selected">Henry Halm</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Henry Halm">Henry Halm</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Henry Ho")
+                                                    {
+                                                        <option value="Henry Ho" selected="selected">Henry Ho</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Henry Ho">Henry Ho</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "HF Tsui")
+                                                    {
+                                                        <option value="HF Tsui" selected="selected">HF Tsui</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="HF Tsui">HF Tsui</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "J Aguila")
+                                                    {
+                                                        <option value="J Aguila" selected="selected">J Aguila</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="J Aguila">J Aguila</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "JDY Silee")
+                                                    {
+                                                        <option value="JDY Silee" selected="selected">JDY Silee</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="JDY Silee">JDY Silee</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "JDY Silee")
+                                                    {
+                                                        <option value="JDY Siloe" selected="selected">JDY Siloe</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="JDY Siloe">JDY Siloe</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "JP Leung")
+                                                    {
+                                                        <option value="JP Leung" selected="selected">JP Leung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="JP Leung">JP Leung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "K Leung")
+                                                    {
+                                                        <option value="K Leung" selected="selected">K Leung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="K Leung">K Leung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "K Yip")
+                                                    {
+                                                        <option value="K Yip" selected="selected">K Yip</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="K Yip">K Yip</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KB Chan")
+                                                    {
+                                                        <option value="KB Chan" selected="selected">KB Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KB Chan">KB Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KB Lee")
+                                                    {
+                                                        <option value="KB Lee" selected="selected">KB Lee</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KB Lee">KB Lee</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KC Wong")
+                                                    {
+                                                        <option value="KC Wong" selected="selected">KC Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KC Wong">KC Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Kenneth Leung")
+                                                    {
+                                                        <option value="Kenneth Leung" selected="selected">Kenneth Leung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Kenneth Leung">Kenneth Leung</option>
+                                                    }
+
+
+                                                    @if (Model.Surgeons.ToString() == "KH Chiu")
+                                                    {
+                                                        <option value="KH Chiu" selected="selected">KH Chiu</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KH Chiu">KH Chiu</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KM Au")
+                                                    {
+                                                        <option value="KM Au" selected="selected">KM Au</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KM Au">KM Au</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KM Chan")
+                                                    {
+                                                        <option value="KM Chan" selected="selected">KM Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KM Chan">KM Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KM Poon")
+                                                    {
+                                                        <option value="KM Poon" selected="selected">KM Poon</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KM Poon">KM Poon</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KM Siu")
+                                                    {
+                                                        <option value="KM Siu" selected="selected">KM Siu</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KM Siu">KM Siu</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Ko Kwok")
+                                                    {
+                                                        <option value="Ko Kwok" selected="selected">Ko Kwok</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Ko Kwok">Ko Kwok</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KW Cheung")
+                                                    {
+                                                        <option value="KW Cheung" selected="selected">KW Cheung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KW Cheung">KW Cheung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KW Ng")
+                                                    {
+                                                        <option value="KW Ng" selected="selected">KW Ng</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KW Ng">KW Ng</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KW So")
+                                                    {
+                                                        <option value="KW So" selected="selected">KW So</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KW So">KW So</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KW So")
+                                                    {
+                                                        <option value="KW So" selected="selected">KW So</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KW So">KW So</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KY Chi")
+                                                    {
+                                                        <option value="KY Chi" selected="selected">KY Chi</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KY Chi">KY Chi</option>
+                                                    }
+
+
+                                                    @if (Model.Surgeons.ToString() == "KY Lau")
+                                                    {
+                                                        <option value="KY Lau" selected="selected">KY Lau</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KY Lau">KY Lau</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "KY Leung")
+                                                    {
+                                                        <option value="KY Leung" selected="selected">KY Leung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="KY Leung">KY Leung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "LK Chan")
+                                                    {
+                                                        <option value="LK Chan" selected="selected">LK Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="LK Chan">LK Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "M Wong")
+                                                    {
+                                                        <option value="M Wong" selected="selected">M Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="M Wong">M Wong</option>
+                                                    }
+
+
+                                                    @if (Model.Surgeons.ToString() == "Morin")
+                                                    {
+                                                        <option value="Morin" selected="selected">Morin</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Morin">Morin</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "N Tang")
+                                                    {
+                                                        <option value="N Tang" selected="selected">N Tang</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="N Tang">N Tang</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "OB Lee")
+                                                    {
+                                                        <option value="OB Lee" selected="selected">OB Lee</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="OB Lee">OB Lee</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "P Lui")
+                                                    {
+                                                        <option value="P Lui" selected="selected">P Lui</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="P Lui">P Lui</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "PC Ho")
+                                                    {
+                                                        <option value="PC Ho" selected="selected">PC Ho</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="PC Ho">PC Ho </option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "PH Chan")
+                                                    {
+                                                        <option value="PH Chan" selected="selected">PH Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="PH Chan">PH Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "R Yip")
+                                                    {
+                                                        <option value="R Yip" selected="selected">R Yip</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="R Yip">R Yip</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "S Cheung")
+                                                    {
+                                                        <option value="S Cheung" selected="selected">S Cheung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="S Cheung">S Cheung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "S Hsu")
+                                                    {
+                                                        <option value="S Hsu" selected="selected">S Hsu</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="S Hsu">S Hsu</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "S Yung")
+                                                    {
+                                                        <option value="S Yung" selected="selected">S Yung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="S Yung">S Yung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SH Choi")
+                                                    {
+                                                        <option value="SH Choi" selected="selected">SH Choi</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SH Choi">SH Choi</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SH Wong")
+                                                    {
+                                                        <option value="SH Wong" selected="selected">SH Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SH Wong">SH Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SL Hung")
+                                                    {
+                                                        <option value="SL Hung" selected="selected">SL Hung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SL Hung">SL Hung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SP Tang")
+                                                    {
+                                                        <option value="SP Tang" selected="selected">SP Tang</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SP Tang">SP Tang</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "ST Ho")
+                                                    {
+                                                        <option value="ST Ho" selected="selected">ST Ho</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="ST Ho">ST Ho</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SW Choi")
+                                                    {
+                                                        <option value="SW Choi" selected="selected">SW Choi</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SW Choi">SW Choi</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SW Lee")
+                                                    {
+                                                        <option value="SW Lee" selected="selected">SW Lee</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SW Lee">SW Lee</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SW Yung")
+                                                    {
+                                                        <option value="SW Yung" selected="selected">SW Yung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SW Yung">SW Yung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SY Lee")
+                                                    {
+                                                        <option value="SY Lee" selected="selected">SY Lee</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SY Lee">SY Lee</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "SY Ying")
+                                                    {
+                                                        <option value="SY Ying" selected="selected">SY Ying</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="SY Ying">SY Ying</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "T Ng")
+                                                    {
+                                                        <option value="T Ng" selected="selected">T Ng</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="T Ng">T Ng</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Tang N")
+                                                    {
+                                                        <option value="Tang N" selected="selected">Tang N</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Tang N">Tang N</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "TH Yip")
+                                                    {
+                                                        <option value="TH Yip" selected="selected">TH Yip</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="TH Yip">TH Yip</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "TK Lung")
+                                                    {
+                                                        <option value="TK Lung" selected="selected">TK Lung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="TK Lung">TK Lung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "TW Au")
+                                                    {
+                                                        <option value="TW Au" selected="selected">TW Au</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="TW Au">TW Au</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "TW Lee")
+                                                    {
+                                                        <option value="TW Lee" selected="selected">TW Lee</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="TW Lee">TW Lee</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "TW So")
+                                                    {
+                                                        <option value="TW So" selected="selected">TW So</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="TW So">TW So</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "WF Chan")
+                                                    {
+                                                        <option value="WF Chan" selected="selected">WF Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WF Chan">WF Chan</option>
+                                                    }
+
+
+                                                    @if (Model.Surgeons.ToString() == "WK So")
+                                                    {
+                                                        <option value="WK So" selected="selected">WK So</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WK So">WK So</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "WL Tsang")
+                                                    {
+                                                        <option value="WL Tsang" selected="selected">WL Tsang</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WL Tsang">WL Tsang</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "WM Lam")
+                                                    {
+                                                        <option value="WM Lam" selected="selected">WM Lam</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WM Lam">WM Lam</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "WN Wong")
+                                                    {
+                                                        <option value="WN Wong" selected="selected">WN Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WN Wong">WN Wong</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "WS Chan")
+                                                    {
+                                                        <option value="WS Chan" selected="selected">WS Chan</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WS Chan">WS Chan</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "WS So")
+                                                    {
+                                                        <option value="WS So" selected="selected">WS So</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WS So">WS So</option>
+                                                    }
+
+
+                                                    @if (Model.Surgeons.ToString() == "WY Cheung")
+                                                    {
+                                                        <option value="WY Cheung" selected="selected">WY Cheung</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WY Cheung">WY Cheung</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "WY Mok")
+                                                    {
+                                                        <option value="WY Mok" selected="selected">WY Mok</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="WY Mok">WY Mok</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "Y Nohara")
+                                                    {
+                                                        <option value="Y Nohara" selected="selected">Y Nohara</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Y Nohara">Y Nohara</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "YC Wun")
+                                                    {
+                                                        <option value="YC Wun" selected="selected">YC Wun</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="YC Wun">YC Wun</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "YL Lee")
+                                                    {
+                                                        <option value="YL Lee" selected="selected">YL Lee</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="YL Lee">YL Lee</option>
+                                                    }
+
+                                                    @if (Model.Surgeons.ToString() == "YS Wong")
+                                                    {
+                                                        <option value="YS Wong" selected="selected">YS Wong</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="YS Wong">YS Wong</option>
+                                                    }
+
+
+                                                    @if (Model.Surgeons.ToString() == "YW OR")
+                                                    {
+                                                        <option value="YW OR" selected="selected">YW OR</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="YW OR">YW OR</option>
+                                                    }
+
+                                                </select>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td bgcolor="DarkSlateGray">Date of Birth</td>
+                                            <td bgcolor="black">
+                                                <input type="text" class="class-DOB"
+                                                       id="DOB"
+                                                       name="DOB"
+                                                       value="@Model.DOB"
+                                                       placeholder="DOB" />
+                                            </td>
+                                            <td bgcolor="DarkSlateGray">Others</td>
+                                            <td bgcolor="black">
+                                                <input type="text" class=""
+                                                       id="HisOthers"
+                                                       name="HisOthers"
+                                                       value="@Model.HisOthers"
+                                                       size="28"
+                                                       placeholder="Others">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td bgcolor="DarkSlateGray">Sex</td>
+                                            <td bgcolor="black">
+                                                <select id="Sex" name="Sex">
+
+
+                                                    @if (Model.Sex == "")
+                                                    {
+                                                        <option value="0" selected></option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="0"></option>
+                                                    }
+
+                                                    @if (Model.Sex == "1")
+                                                    {
+                                                        <option value="1" selected>M</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="1">M</option>
+                                                    }
+
+                                                    @if (Model.Sex == "2")
+                                                    {
+                                                        <option value="2" selected>F </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="2">F</option>
+                                                    }
+
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <br>
+
+                                    <table width="100%" border="0" cellpadding="2" cellspacing="1">
+                                        <tr>
+                                            <td class="title" width="50%" colspan="2" bgcolor="MidnightBlue"><b><i>Diagnosis</i></b></td>
+                                            <td class="title" width="50%" colspan="2" bgcolor="MidnightBlue"><b><i>Associated Diseases & Cong. Abnormalities</i></b></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2" bgcolor="black">
+
+                                                <input id="isIS" name="isIS" type="checkbox" value="true" @(Model.isIso == "true" ? "checked=\" checked\"" : "") onClick="SetDiagnosis(this)"> IS &nbsp;
+                                                <input id="isCS" name="isCS" type="checkbox" value="true" @(Model.isCS == "true" ? "checked=\" checked\"" : "") onClick="SetDiagnosis(this)"> CS &nbsp;
+                                                <input id="isNM" name="isNM" type="checkbox" value="true" @(Model.isNM == "true" ? "checked=\" checked\"" : "") onClick="SetDiagnosis(this)"> NM &nbsp;<br>
+                                                <input id="isMisc" name="isMisc" type="checkbox" value="true" @(Model.isMisc == "true" ? "checked=\" checked\"" : "") onClick="SetDiagnosis(this)"> Misc, specify:
+                                                <input type="text" name=newMisc value='@Model.DiagnosisMisc' size="30">
+                                            </td>
+                                            <td colspan="2" rowspan="2" bgcolor="black">
+                                                @Html.TextArea("ADCA", Model.ADCA, 8, 47, new { @class = "form-control" })
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2" bgcolor="black">
+
+                                                Idiopathic scoliosis subclassification, King's:<br>
+                                                <input id="isKingI" name="isKingI" type="checkbox" value="true" @(Model.isKingI == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> I &nbsp;
+                                                <input id="isKingII" name="isKingII" type="checkbox" value="true" @(Model.isKingII == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> II &nbsp;
+                                                <input id="isKingIII" name="isKingIII" type="checkbox" value="true" @(Model.isKingIII == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> III &nbsp;
+                                                <input id="isKingIV" name="isKingIV" type="checkbox" value="true" @(Model.isKingIV == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> IV &nbsp;
+                                                <input id="isKingV" name="isKingV" type="checkbox" value="true" @(Model.isKingV == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> V &nbsp;
+                                                <br>
+                                                <input id="isIso" name="isIso" type="checkbox" value="true" @(Model.isIso == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> Isolated &nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <input id="isTriple" name="isTriple" type="checkbox" value="true" @(Model.isTriple == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> Triple curve  &nbsp;
+                                                <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <input id="isTL" name="isTL" type="checkbox" value="true" @(Model.isTL == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)" "> T-L      &nbsp;
+                                                <input id="isL" name="isL" type="checkbox" value="true" @(Model.isL == "true" ? "checked=\" checked\"" : "") onClick="SetKing(this)"> L         &nbsp;
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" bgcolor="black">
+                                                Lenke subclassification :<br>
+                                                <select id="Lenke1" name="Lenke1">
+                                                    @if (Model.Lenke1 == "")
+                                                    {
+                                                        <option value="0" selected></option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="0"></option>
+                                                    }
+
+                                                    @if (Model.Lenke1 == "1")
+                                                    {
+                                                        <option value="1" selected>1</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="1">1</option>
+                                                    }
+
+                                                    @if (Model.Lenke1 == "2")
+                                                    {
+                                                        <option value="2" selected>2</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="2">2</option>
+                                                    }
+
+                                                    @if (Model.Lenke1 == "3")
+                                                    {
+                                                        <option value="3" selected>3</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="3">3</option>
+                                                    }
+
+                                                    @if (Model.Lenke1 == "4")
+                                                    {
+                                                        <option value="4" selected>4</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="4">4</option>
+                                                    }
+
+                                                    @if (Model.Lenke1 == "5")
+                                                    {
+                                                        <option value="5" selected>5</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="5">5</option>
+                                                    }
+
+                                                    @if (Model.Lenke1 == "6")
+                                                    {
+                                                        <option value="6" selected>6</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="6">6</option>
+                                                    }
+
+                                                </select><input type="button" id="btnLenke1" value="Show Remarks" onClick=""><br />
+                                                <select id="Lenke2" name="Lenke2">
+                                                    @if (Model.Lenke2 == "")
+                                                    {
+                                                        <option value="0" selected></option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="0"></option>
+                                                    }
+
+                                                    @if (Model.Lenke2 == "a")
+                                                    {
+                                                        <option value="a" selected>A</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="a">A</option>
+                                                    }
+
+                                                    @if (Model.Lenke2 == "b")
+                                                    {
+                                                        <option value="b" selected>B</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="b">B</option>
+                                                    }
+
+                                                    @if (Model.Lenke2 == "c")
+                                                    {
+                                                        <option value="c" selected>C</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="c">C</option>
+                                                    }
+
+                                                </select><input type="button" id="btnLenke2" value="Show Remarks" onClick=""><br />
+                                                <select id="Lenke3" name="Lenke3">
+                                                    @if (Model.Lenke3 == "")
+                                                    {
+                                                        <option value="0" selected></option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="0"></option>
+                                                    }
+
+                                                    @if (Model.Lenke3 == "+")
+                                                    {
+                                                        <option value="+" selected>+</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="+">+</option>
+                                                    }
+
+                                                    @if (Model.Lenke3 == "-")
+                                                    {
+                                                        <option value="-" selected>-</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="-">-</option>
+                                                    }
+
+                                                </select><input type="button" id="btnLenke3" value="Show Remarks" onClick="">
+                                            </td>
+
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+
+
+                                    <table width="100%" align="center" border="0" cellpadding="2" cellspacing="1">
+                                        <tr>
+                                            <td class="title" colspan="3" bgcolor="MidnightBlue"><b><i>Treatment</i></b></td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td bgcolor="DarkSlateBlue">
+                                                <u>Brace</u>
+                                            </td>
+                                            <td colspan="2" width="70%" valign=top bgcolor="DarkSlateBlue">
+                                                <u>Surgery</u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                Surgeons &nbsp;
+                                                <input type="text"
+                                                       id="Surgeons"
+                                                       name="Surgeons"
+                                                       value="@Model.Surgeons"
+                                                       size="40" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td bgcolor="black" valign=top>
+
+                                                <table border="0" width="100%" cellspacing="2" cellpadding="1">
+                                                    <tr>
+                                                        <td colspan="2" bgcolor="DarkSlateGray" align="center">
+                                                            Type of brace<br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td bgcolor="black">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td bgcolor="black" width="100%" valign="middle">
+
+                                                            <input id="isUnderArm" name="isUnderArm" type="checkbox" value="true" @(Model.isUnderArm == "true" ? "checked=\" checked\"" : "")> Under arm<br>
+                                                            <input id="isMilwaukes" name="isMilwaukes" type="checkbox" value="true" @(Model.isMilwaukes == "true" ? "checked=\" checked\"" : "")> Milwaukee<br>
+                                                            <input id="isBoston" name="isBoston" type="checkbox" value="true" @(Model.isBoston == "true" ? "checked=\" checked\"" : "")> Boston<br>
+                                                            <input id="isBraceOthers" name="isBraceOthers" type="checkbox" value="true" @(Model.isBraceOthers == "true" ? "checked=\" checked\"" : "")> Others, specify:<br>
+                                                            &nbsp; &nbsp; &nbsp; &nbsp;
+                                                            <input type="text"
+                                                                   id="BraceOthers"
+                                                                   name="BraceOthers"
+                                                                   value="@Model.BraceOthers"
+                                                                   placeholder="BraceOthers" size=20>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                                <table border="0" width="100%" cellpadding="1" cellspacing="2">
+                                                    <tr>
+                                                        <td colspan="2" align="center" bgcolor="DarkSlateGray">
+
+                                                            &nbsp; Brace programme
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="70%" bgcolor="black" valign="middle">
+                                                            <table align="center">
+                                                                <tr>
+                                                                    <td>&nbsp;</td>
+                                                                    <td>(dd/mm/yyyy)</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align=right>Start</td>
+                                                                    <td>
+                                                                        <input type="text" class="class-BraceStart"
+                                                                               id="BraceStart"
+                                                                               name="BraceStart"
+                                                                               value="@Model.BraceStart"
+                                                                               placeholder="DD/MM/YYYY">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align=right>Wean</td>
+                                                                    <td>
+                                                                        <input type="text" class="class-BraceWean"
+                                                                               id="BraceWean"
+                                                                               name="BraceWean"
+                                                                               value="@Model.BraceWean"
+                                                                               placeholder="DD/MM/YYYY">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align=right>Stop</td>
+                                                                    <td>
+                                                                        <input type="text" class="class-BraceStop"
+                                                                               id="BraceStop"
+                                                                               name="BraceStop"
+                                                                               value="@Model.BraceStop"
+                                                                               placeholder="DD/MM/YYYY">
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td bgcolor="black" valign="top">
+
+                                                <table border="0" width="100%" cellpadding="1" cellspacing="2">
+                                                    <tr>
+                                                        <td colspan="3" align="center" bgcolor="DarkSlateGray">
+                                                            Surgery
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td bgcolor="black">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td colspan="2" bgcolor="black" width=80%>
+
+                                                            <table align="center">
+                                                                <tr>
+                                                                    <td>(dd/mm/yyyy)</td>
+                                                                    <td>&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" id="ASF"
+                                                                               name="ASF"
+                                                                               value="@Model.ASF"
+                                                                                class="class-ASF"
+                                                                               placeholder="DD/MM/YYYY">
+                                                                    </td>
+                                                                    <td>ASF</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                               id="PSF"
+                                                                               name="PSF"
+                                                                               value="@Model.PSF"
+                                                                                class="class-PSF"
+                                                                               placeholder="DD/MM/YYYY">
+                                                                    </td>
+                                                                    <td>PSF</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                               id="ASFPSF"
+                                                                               name="ASFPSF"
+                                                                                 class="class-ASFPSF"
+                                                                               value="@Model.ASFPSF"
+                                                                               placeholder="DD/MM/YYYY">
+                                                                    </td>
+                                                                    <td>ASF+PSF</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign=top>
+                                                                        <input type="text"
+                                                                               id="ThoRelease"
+                                                                               name="ThoRelease"
+                                                                               value="@Model.ThoRelease"
+                                                                                 class="class-ThoRelease"
+                                                                               placeholder="DD/MM/YYYY">
+                                                                    </td>
+                                                                    <td>Thoracoscopic release</td>
+                                                                </tr>
+                                                            </table>
+
+                                                            Others<br>
+                                                            &nbsp;&nbsp;
+                                                            @Html.TextArea("otherSurgery", Model.otherSurgery, 5, 15, new { @class = "" })
+                                                            <br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td bgcolor="black" width=5%>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td valign="middle" width=30% bgcolor="black">
+
+                                                            &nbsp;&nbsp;&nbsp; Level of<br>
+                                                            &nbsp;&nbsp;&nbsp; fusion
+
+                                                        </td>
+                                                        <td bgcolor="black">
+
+                                                            &nbsp; from &nbsp; to<br>
+                                                            &nbsp; <input type="text"
+                                                                          id="LOFfrom"
+                                                                          name="LOFfrom"
+                                                                          value="@Model.LOFfrom"
+                                                                          class="class-LOFfrom"
+                                                                          placeholder="DD/MM/YYYY">
+
+                                                            <input type="text"
+                                                                   id="LOFto"
+                                                                   name="LOFto"
+                                                                   value="@Model.LOFto"
+                                                                    class="class-LOFto"
+                                                                   placeholder="DD/MM/YYYY">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3" align="center" bgcolor="DarkSlateGray">
+                                                            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                                                <tr>
+                                                                    <td align="center" bgcolor="DarkSlateGray">
+                                                                        Graft
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="20%" bgcolor="black">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                    <td bgcolor="black">
+
+                                                                        <input id="isAuto" name="isAuto" type="checkbox" value="true" @(Model.isAuto == "true" ? "checked=\" checked\"" : "")> Auto<Br>
+                                                                        <input id="isAllo" name="isAllo" type="checkbox" value="true" @(Model.isAllo == "true" ? "checked=\" checked\"" : "")> Allo<br>
+                                                                        <input id="isGraOthers" name="isGraOthers" type="checkbox" value="true" @(Model.isGraOthers == "true" ? "checked=\" checked\"" : "")> Others
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+
+                                            <td bgcolor="black" valign="top">
+                                                <table border="0" width="100%" cellpadding="1" cellspacing="2">
+                                                    <tr><td bgcolor="DarkSlateGray" align="center">Instrumentation</td></tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table bgcolor="black" border="0" width="100%" height="50">
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        &nbsp; Posterior
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>
+
+                                                                        &nbsp;&nbsp; <input id="isPosISOLA" name="isPosISOLA" type="checkbox" value="true" @(Model.isPosISOLA == "true" ? "checked=\" checked\"" : "")> ISOLA <br>
+                                                                        &nbsp;&nbsp; <input id="isPostHarr" name="isPostHarr" type="checkbox" value="true" @(Model.isPostHarr == "true" ? "checked=\" checked\"" : "")> Harrington +ww
+
+                                                                    </td>
+                                                                    <td>
+
+                                                                        <input id="isPostCD" name="isPostCD" type="checkbox" value="true" @(Model.isPostCD == "true" ? "checked=\" checked\"" : "")> CD <br>
+                                                                        <input id="isPostOthers" name="isPostOthers" type="checkbox" value="true" @(Model.isPostOthers == "true" ? "checked=\" checked\"" : "")> others
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table bgcolor="black" border="0" width="100%" height="50">
+                                                                            <tr>
+                                                                                <td colspan="2">
+
+                                                                                    &nbsp; Anterior
+
+                                                                                </td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td>
+
+                                                                                    &nbsp;&nbsp; <input id="isAntZielke" name="isAntZielke" type="checkbox" value="true" @(Model.isAntZielke == "true" ? "checked=\" checked\"" : "")> Zielke <br>
+                                                                                    &nbsp;&nbsp; <input id="isAntZielke" name="isAntOthers" type="checkbox" value="true" @(Model.isAntOthers == "true" ? "checked=\" checked\"" : "")> Others
+
+                                                                                </td>
+                                                                                <td valign=top>
+
+                                                                                    <input id="isAntISOLA" name="isAntISOLA" type="checkbox" value="true" @(Model.isAntISOLA == "true" ? "checked=\" checked\"" : "")> ISOLA
+
+                                                                                </td>
+
+
+
+
+                                                                            <tr>
+                                                                                <td valign=top colspan="2">
+
+                                                                                    &nbsp; Others<br>
+                                                                                    &nbsp;&nbsp;
+
+                                                                                    @Html.TextArea("otherImplant", Model.otherImplant, 4, 20, new { @class = "form-control" })
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table border="0" width="100%" cellpadding="1" cellspacing="2">
+                                                                <tr>
+                                                                    <td bgcolor="DarkSlateGray" align="center">
+
+                                                                        Post-OP brace
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center" width="70%" bgcolor="black">
+                                                                        <table border="0">
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>(dd/mm/yyyy)</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align=right>Start</td>
+                                                                                <td>
+
+                                                                                    <input type="text" class="class-PostOPStart"
+                                                                                           id="PostOPStart"
+                                                                                           name="PostOPStart"
+                                                                                           value="@Model.PostOPStart"
+                                                                                           placeholder="DD/MM/YYYY">
+
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align=right>Wean</td>
+                                                                                <td>
+                                                                                    <input type="text" class="class-PostOPWean"
+                                                                                           id="PostOPWean"
+                                                                                           name="PostOPWean"
+                                                                                           value="@Model.PostOPWean"
+                                                                                           placeholder="DD/MM/YYYY">
+
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align=right>Stop</td>
+                                                                                <td>
+                                                                                    <input type="text" class="class-PostOPStop"
+                                                                                           id="PostOPStop"
+                                                                                           name="PostOPStop"
+                                                                                           value="@Model.PostOPStop"
+                                                                                           placeholder="DD/MM/YYYY">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+
+
+                                    </table>
+                                    <br>
+
+
+                                    <table align="center" width="100%" border="0" cellpadding="2" cellspacing="1">
+                                        <tr>
+                                            <td class="title" colspan="3" bgcolor="MidnightBlue"><b><i>Additional Investigations</i></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" bgcolor="black" width=25%>
+
+                                                &nbsp; <input id="isXrayfilm" name="isXrayfilm" type="checkbox" value="true" @(Model.isXrayfilm == "true" ? "checked=\" checked\"" : "")> X-ray bending film<br>
+                                                &nbsp; <input id="isMRI" name="isMRI" type="checkbox" value="true" @(Model.isMRI == "true" ? "checked=\" checked\"" : "")> MRI<br>
+                                                &nbsp; <input id="isDXA" name="isDXA" type="checkbox" value="true" @(Model.isDXA == "true" ? "checked=\" checked\"" : "")> DXA<br>
+                                                &nbsp; <input id="isUS" name="isUS" type="checkbox" value="true" @(Model.isUS == "true" ? "checked=\" checked\"" : "")> US<br>
+                                                &nbsp; <input id="isPQCT" name="isPQCT" type="checkbox" value="true" @(Model.isPQCT == "true" ? "checked=\" checked\"" : "")> PQCT
+
+                                            </td>
+                                            <td rowspan="2" bgcolor="black" width="20%">
+
+                                                &nbsp; <input id="isCTscan" name="isCTscan" type="checkbox" value="true" @(Model.isCTscan == "true" ? "checked=\" checked\"" : "")> CT-scan<br>
+                                                &nbsp; <input id="isBioChem" name="isBioChem" type="checkbox" value="true" @(Model.isBioChem == "true" ? "checked=\" checked\"" : "")> Biochem.<br>
+                                                &nbsp; <input id="isQCT" name="isQCT" type="checkbox" value="true" @(Model.isQCT == "true" ? "checked=\" checked\"" : "")> QCT<br>
+                                                &nbsp; <input id="isSSEP" name="isSSEP" type="checkbox" value="true" @(Model.isSSEP == "true" ? "checked=\" checked\"" : "")> SSEP<br>
+                                                &nbsp; <input id="isEMG" name="isEMG" type="checkbox" value="true" @(Model.isEMG == "true" ? "checked=\" checked\"" : "")> EMG
+                                            </td>
+                                            <td bgcolor="DarkSlateGray">
+                                                Other investigations and results of investigations
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#000">
+                                                @Html.TextArea("OtherInvest", Model.OtherInvest, 7, 50, new { @class = "" })
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <br>
+
+                                    <table align="center" width="100%" border="0" cellpadding="2" cellspacing="1">
+                                        <tr><td class="title" bgcolor="MidnightBlue"><b><i>Comments</i></b></td></tr>
+                                        <tr>
+                                            <td bgcolor="black" align="center">
+                                                @Html.TextArea("Comments", Model.Comments, 12, 100, new { @class = "" })
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <input type="submit" name="submit1" id="submit1" value="Save" style="display:none" /><br><br>
+
+    </form>
+
+    <DIV id="MenuDiv" STYLE="position:absolute;left:10;top:10;width:110;">
+
+
+        <input class="MenuButton" name="update2" type="button" value="Update" onClick="ConfirmUpdate1()"><br><br>
+        <!--<input class="MenuButton" name="update2" type="button" value="Update" onClick="ConfirmUpdate1()"><br><br>-->
+        <!--<input class="MenuButton" name=update3 type=button value="Update & Print" onclick="ConfirmUpdate2()"><br><br>-->
+        <input class="MenuButton" name=restore2 type=button value="Restore" onClick="ConfirmRestore()"><br><br>
+    </DIV>
+
+
+
+
+    <div class="row">
+        &nbsp;
+    </div>
+
+    <div id="dialog" title="Alert Message"></div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script>
+       var _isShowMessage = '@Context.Session.GetString("_isShowMessage")';
+                                        var _alertMessage = '@Context.Session.GetString("_alertMessage")';
+
+
+        if (_isShowMessage == 'true' && _alertMessage != '') {
+
+             $( "#dialog" ).dialog({
+                                        autoOpen: true,
+              modal: true,
+              width: 500,
+              height: 300,
+              position: { my: "center", at: "center", of: window  },
+              open: function() {
+                        jQuery('.ui-widget-overlay').on('click', function() {
+                            jQuery('#j_dialog').dialog('close');
+                        })
+                },
+
+              buttons: {
+                                            Ok: function () {
+
+                      $.ajax({
+                                                    method: "post",
+                        url: "./WebRemoveSession",
+                        error: function (xhr, status, err) {
+                                                            alert(err);
+                                                        }
+
+                                                    }).done(function (res) {
+
+                                                    });
+                  $( this ).dialog( "close" );
+                                                }
+                                            },
+              show: {
+                  effect: "fade",
+                duration: 10
+              },
+              hide: {
+                                            effect: "fade",
+                duration: 10
+              }
+
+                                        });
+
+
+           $('#dialog').show().html(_alertMessage);
+
+                                        //alert(_alertMessage);
+                                    }
+
+    </script>
+
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/js/cleave.js"></script>
+    <script type="text/javascript" src="~/js/CreatePersonalInfo.js"></script>
+    <script type="text/javascript">
+        $('#btnLenke1').on('click', function () {
+
+            $(this).lightGallery({
+                dynamic: true,
+                dynamicEl: [{
+                    "src": '../images/Lenke1.jpg',
+                    'thumb': '../images/Lenke1.jpg',
+                    'subHtml': '<p></p>'
+                }]
+            })
+        });
+
+        $('#btnLenke2').on('click', function () {
+
+            $(this).lightGallery({
+                dynamic: true,
+                dynamicEl: [{
+                    "src": '../images/Lenke2.jpg',
+                    'thumb': '../images/Lenke2.jpg',
+                    'subHtml': '<p></p>'
+                }]
+            })
+        });
+
+        $('#btnLenke3').on('click', function () {
+
+            $(this).lightGallery({
+                dynamic: true,
+                dynamicEl: [{
+                    "src": '../images/Lenke3.jpg',
+                    'thumb': '../images/Lenke3.jpg',
+                    'subHtml': '<p></p>'
+                }]
+            })
+        });
+    </script>
+    <script>
+
+        function ConfirmUpdate1() {
+            if ($('#isIso').prop('checked') && ($('#isTL').prop('checked') || $('#isL').prop('checked'))) {
+                $('#isErr').hide();
+                $("#submit1").button().click();
+            } else {
+                $('#isErr').show();
+            }
+
+        }
+
+        CreateStaticMenu("MenuDiv", document.body.offsetWidth - 120, 50);
+    </script>
+
+</body>
+</html>

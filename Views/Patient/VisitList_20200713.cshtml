@@ -1,0 +1,784 @@
+﻿@{
+    ViewData["Title"] = "Visit";
+
+}
+
+@model Tuple<List<Scoliosis.Models.InfoVisitModel>, Scoliosis.Models.InfoBarViewModel>
+
+@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/sb-admin-2.min.js"></script>
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+    <link href="~/dist/css/lightgallery.css" rel="stylesheet">
+    <link href="~/dist/css/lightslider.css" rel="stylesheet">
+
+    <style type="text/css">
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .lightgallery li {
+            text-align: center;
+            color: #FFF;
+            /*width: 150px;
+            height: 80%;*/
+        }
+
+        .lightgallery ul {
+            display: inline-block;
+        }
+
+        .lightgallery h3 {
+            margin: 0;
+        }
+
+        .demo {
+        }
+
+        .item-a {
+            width: 90%;
+            height: 90%;
+        }
+
+        td.title2 {
+            font-size: 14px;
+            padding: 5px 5px 5px 5px;
+            color: #000000;
+            text-align: left;
+        }
+
+
+    </style>
+</head>
+
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Eddie -->
+        <input type="hidden" id="hddgallery" value="0">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Menu bar</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Patient information</span>
+                </a>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded menuFont">
+                        <table>
+                            <tr>
+                                <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item2.SCN</td>
+                            </tr>
+                            <tr>
+                                <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item2.Name</td>
+                            </tr>
+                            <tr>
+                                <td class="title2">&nbsp;&nbsp;&nbsp;&nbsp;@Model.Item2.HKID</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Addons</span>
+                </a>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../Patient/InitAssessPage?SCN=@Model.Item2.SCN">Initial Assesment</a>
+                        <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN">New Visit</a>
+                        <a class="collapse-item" href="../Patient/EditPersonalInfoPage?SCN=@Model.Item2.SCN">Personal Info</a>
+                        <a class="collapse-item" href="../Patient/OperativeDataList?SCN=@Model.Item2.SCN">Operative Data</a>
+                        @*<h6 class="collapse-header">&nbsp;</h6>*@
+                        @*<a class="collapse-item" href="">Orthotic Remarks</a>*@
+                        <a class="collapse-item" href="../Patient/VisitList?SCN=@Model.Item2.SCN&DOB=1900-01-01">Visits List</a>
+                        @*<a class="collapse-item" href="">Remarks List</a>*@
+                        @*<a class="collapse-item" href="">Print Visits List</a>*@
+                        <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item2.SCN">New P & O Visit</a>
+                        <a class="collapse-item" href="../Patient/POConfigPage?SCN=@Model.Item2.SCN">P & O Config</a>
+                        <a class="collapse-item" href="../Patient/POEvaluationPage?SCN=@Model.Item2.SCN">P & O Evaluation</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider" />
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Visits</span>
+                </a>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @foreach (var visit in @Model.Item2.visits)
+                        {
+
+                            <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)">@visit</a>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>P & O Visits</span>
+                </a>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @foreach (var POvisit in @Model.Item2.POvisit)
+                        {
+
+                            <a class="collapse-item" href="../Patient/POVisitPage?SCN=@Model.Item2.SCN&DOB=@POvisit">@POvisit</a>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider" />
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Core Manu</span>
+                </a>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../home/index">Home page</a>
+                        <a class="collapse-item" href="../Patient/SearchTrad">Search Page</a>
+                        <a class="collapse-item" href="../Patient/TextSearch">Words/Text Search</a>
+                        <a class="collapse-item" href="../Patient/CreatePersonalInfoPage">New Patient</a>
+                        <a class="collapse-item" href="../Patient/VisitPage?SCN=@Model.Item2.SCN">New Visit</a>
+                        <a class="collapse-item" href="../Identity/Account/Login">Logout</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block" />
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <!-- <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+            -->
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Search -->
+                @*<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>*@
+
+                <div class="input-group">
+                    <div class="input-group-append">
+                        Clinical Summary Database System
+                    </div>
+                </div>
+
+
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <!--20203014 Put the logout page out-->
+                        @*<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                Hello - @Context.Session.GetString("_userName") &nbsp; &nbsp; |  &nbsp;
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </span>
+                        </a>
+
+                        <!-- Dropdown - User Information -->
+                        @*<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>*@
+                    </li>
+
+                </ul>
+
+
+
+            </nav>
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Visit Record</h1>
+                    </div>
+
+                    <div class="col-lg-12  testimonial-group">
+                        <!-- Content Row -->
+                        <div class="row">
+
+                            <div class="card shadow col-lg-12">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Photo Gallery</h6>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <div class="demo">
+
+                                        @if (Model.Item1.Count > 0 && Model.Item1[0].VisitList != null)
+                                        {
+                                            <ul id="lightgallery">
+                                                <!--class="ightgallery"-->
+                                                @for (int i = 0; i < Model.Item1[0].VisitList.Count(); i++)
+                                                {
+                                                    <li id="@Model.Item1[0].VisitList[i]" data-thumb="@Model.Item1[0].VisitList[i]" data-src="@Model.Item1[0].VisitList[i]" data-sub-html="@Model.Item1[0].PhotoModifyList[i]">
+                                                        <a href="" data-sub-html="#caption2">
+                                                            <img class="img-responsive item-a" src="@Model.Item1[0].VisitList[i]">
+                                                            <div class="caption">
+                                                                <h6>@Model.Item1[0].VisitListName[i]</h6>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <div> No record found</div>
+                                        }
+
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">&nbsp; </div>
+
+                    <div class="col-lg-12  testimonial-group">
+                        <!-- Content Row -->
+                        <div class="row" >
+                             
+                            <div class="card shadow col-lg-12" style="max-height: 500px; overflow-y: scroll;" >
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Patient Visits info</h6>
+                                </div>
+
+                                <div  class="card-body" >
+
+                                    @if (Model.Item1.Count == 0)
+                                    {
+                                        <div class="row">
+                                            No Visiting record
+                                        </div>
+                                    }
+                                    else
+                                    {
+
+                                        <table max-width="100%" width="100%" cellspacing="2" border="1" align="center">
+                                            <tr class="bg-gray-500 text-gray-100">
+                                                <td>Visit No</td>
+
+                                                @{int i = 1;}
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td><a href="../Patient/VisitPage?SCN=@Html.DisplayFor(modelItem => item.SCN)&DOB=@Html.DisplayFor(modelItem => item.DocHpylink)">@i</a></td>
+                                                    i = i + 1;
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Date of Clinic</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.DOC)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Age</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                                                }
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>Special Remarks</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    @if (item.SpcRemarks == "Yes")
+                                                    {
+                                                        <td>
+                                                            <a href="#" onclick="window.open('../Patient/SpecialRemarkSummary?SCN=@Html.DisplayFor(modelItem => item.SCN)',
+                                                                        'name', 'location=no,scrollbars=yes,status=no,toolbar=no,resizable=yes,width=600,height=600')">
+                                                                @Html.DisplayFor(modelItem => item.SpcRemarks)
+                                                            </a>
+
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@Html.DisplayFor(modelItem => item.SpcRemarks)</td>
+                                                    }
+
+
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>&nbsp;</td>
+                                                }
+                                            </tr>
+
+
+
+                                            <tr class="bg-gray-500 text-gray-100">
+                                                <td>Seating Height(cm)</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.HT)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Weight(kg)</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.WT)</td>
+                                                }
+
+                                            </tr>
+                                            <tr>
+                                                <td>Menarche(year)</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.MaturYear)</td>
+                                                }
+                                            </tr>
+
+                                            <tr>
+                                                <td>Menarche(month)</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.MaturMonth)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Risser's Sign</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.RSign)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Level #1</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel1From)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Level #2</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel2From)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Level #3</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel3From)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Level #4</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveLevel4From)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Measured with Brace</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.withBrace)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Degree #1</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg1)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Degree #2</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg2)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Degree #3</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg3)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Curve Degree #4</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.CurveDeg4)</td>
+                                                }
+                                            </tr>
+
+                                            <tr>
+                                                <td>Joint hyperlaxity</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.Jointhyper)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Abdominal reflex RUQ</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.AbdReflexA)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Abdominal reflex LUQ</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.AbdReflexB)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Abdominal reflex RLQ</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.AbdReflexC)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Abdominal reflex LLQ</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.AbdReflexD)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Trunk Shift(cm) </td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.TrunkDir)</td>
+                                                }
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>&nbsp;</td>
+                                                }
+                                            </tr>
+
+                                            <tr class="bg-gray-500 text-gray-100">
+                                                <td>Visit Type</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td></td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Height/Arm Span(cm)</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.HT)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>ArmSpan</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.ArmSpan)</td>
+                                                }
+
+                                            </tr>
+                                            <tr>
+                                                <td>LArmSpan</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.LArmSpan)</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>RArmSpan</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.RArmSpan)</td>
+                                                }
+                                            </tr>
+
+
+                                            <tr class="bg-gray-500 text-gray-100">
+                                                <td>&nbsp;</td>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <td>&nbsp;</td>
+                                                }
+                                            </tr>
+
+
+
+
+
+
+
+                                        </table>
+
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- End of Main Content -->
+                        <!-- Footer -->
+                        <footer class="sticky-footer bg-white">
+                            <div class="container my-auto">
+                                <div class="copyright text-center my-auto">
+                                    <span>Copyright &copy; CUHK 2019</span>
+                                </div>
+                            </div>
+                        </footer>
+                        <!-- End of Footer -->
+
+                    </div>
+                    <!-- End of Content Wrapper -->
+
+                </div>
+
+            </div>
+            <!-- End of Page Wrapper -->
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/dist/js/lightgallery.js"></script>
+    <script src="~/dist/js/lightslider.js"></script>
+    <script type="text/javascript">
+        $(document).keyup(function (e) {
+            if (e.key === "Escape") {
+                var hddgallery = document.getElementById('hddgallery');
+                if (hddgallery.value == "1") {
+                    hddgallery.value = "0";
+                    location.reload();
+                }
+            }
+        });
+
+
+        $('#lightgallery').lightSlider({
+            item: 10,
+            gallery: false,
+            slideMargin: 0,
+            autowidth: true,
+            addClass: '',
+            hideControlOnEnd: true,
+            loop: false,
+            prevHtml:'<img src="../images/prev.jpg">',
+            nextHtml:'<img src="../images/next.jpg">',
+            onSliderLoad: function (el) {
+                var maxHeight = 0,
+                    container = $(el),
+                    children = container.children();
+
+                children.each(function () {
+                    var childHeight = $(this).height();
+                    if (childHeight > maxHeight) {
+                        maxHeight = childHeight;
+                    }
+                });
+                container.height(maxHeight);
+                el.lightGallery({
+                    selector: '#lightgallery .lslide'
+                });
+            }
+        });
+        $('#lightgallery').lightGallery({
+            share: false,
+        });
+        $('#lightgallery').on('onAfterOpen.lg', function (event) {
+            //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+            var myVariable = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src');
+            var myVariable2 = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('sub-html');
+            window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            var hddgallery = document.getElementById('hddgallery');
+            hddgallery.value = "1";
+            $('#lightgallery').destroy(true);
+        });
+        $('#lightgallery').on('onSlideClick.lg', function (event) {
+            //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+            var myVariable = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src');
+            var myVariable2 = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('sub-html');
+            window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            var hddgallery = document.getElementById('hddgallery');
+            hddgallery.value = "1";
+        });
+        $('#lightgallery').on('onCloseAfter.lg', function (event) {
+            location.reload();
+        });
+
+    </script>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,87 @@
+      body {
+
+        font-size: 10pt;
+      }
+      form {
+        display: inline;
+      }
+      #helptext {
+        padding-left: 1em;
+        font-weight: bold;
+      }
+      canvas {
+        position: absolute;
+        left: 10px;
+        background: transparent;
+      }
+      #background-img {
+        z-index: -1;
+      }
+      #measure {
+        z-index: 0;
+      }
+      #loupe {
+        position: fixed;  /* stays when rest scrolls. */
+        opacity: 0;
+        box-shadow: 3px 3px 15px;
+        border-radius: 10px;
+        color: #000;     /* influences shadow color. */
+      }
+      #download-result {
+        font-size: larger;
+        font-weight: bold;
+        color: #11f;
+        background: #999;
+        padding: 2px;
+      }
+      #download:hover {
+	color: #fff;
+      }
+#btnSave,#btnRefresh,#btnDelete {
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}
+ #btnExport {
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  width: 100px;
+}
+	  #ddllabel,#ddlaction,#ddlcal,#ddlresize {
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}
+	  #label {
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}
+
+#loading {
+    background: url('loading.gif') no-repeat center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999999;
+}

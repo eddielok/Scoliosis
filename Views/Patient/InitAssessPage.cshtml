@@ -1,0 +1,1292 @@
+﻿
+@{ Layout = null; }
+
+@model Tuple<Scoliosis.Models.InfoBarViewModel, Scoliosis.Models.InfoInitAssessViewModel>
+@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/jquerysession.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <script type="text/javascript" src="~/js/Restrict.js"></script>
+    <script type="text/javascript" src="~/js/xBrowser.js"></script>
+    <script type="text/javascript" src="~/js/xLayer.js"></script>
+    <script type="text/javascript" src="~/js/staticMenu.js"></script>
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/dist/css/lightgallery.css" rel="stylesheet">
+    <link href="~/dist/css/lightslider.css" rel="stylesheet">
+
+
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="~/css/CreatePersonalInfo.css" rel="stylesheet" type="text/css">
+
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+    @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">*@
+
+    <style>
+        h1 {
+            font-size: 18px;
+            font-family: Tahoma;
+            font-weight: bolder;
+        }
+
+        td.title {
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 20px;
+            background: RoyalBlue;
+            color: white;
+        }
+
+        td.level1 {
+            font-family: Arial;
+            font-weight: bolder;
+            font-size: 11pt;
+            background: RoyalBlue;
+            color: white;
+        }
+
+        td.level2 {
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 11pt;
+            text-align: center;
+            background: RoyalBlue;
+            color: white;
+        }
+
+        td.level2a {
+            font-family: Arial;
+            font-size: 10pt;
+            background: #eee;
+            color: #000;
+        }
+
+        td.level2b {
+            font-family: Arial;
+            font-size: 10pt;
+            background: #fff;
+            color: #000;
+        }
+
+        td.blank {
+            height: 15px;
+        }
+
+        td.line {
+            height: 1px;
+        }
+
+        input {
+            font-family: Arial;
+            font-size: 10p;
+        }
+
+        textarea {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        input.MenuButton {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 9pt;
+            font-weight: 800;
+            width: 80px;
+        }
+
+        td.title2 {
+            font-size: 14px;
+            padding: 5px 5px 5px 5px;
+            color: #000000;
+            text-align: left;
+        }
+
+        .buttonMenu {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 11pt;
+            font-weight: 500;
+            width: 80%;
+        }
+
+        .buttonVisit {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 11pt;
+            color: white;
+            width: 80%;
+        }
+
+        .buttonVisitBlack {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 11pt;
+            color: Background;
+            width: 100%;
+        }
+
+        .buttonVisit {
+            background-color: #eeeeee;
+            font-family: Arial;
+            font-size: 11pt;
+            width: 80%;
+        }
+
+        .Sub-title {
+            FONT-FAMILY: Tahoma,Arial;
+            FONT-SIZE: 11pt;
+            FONT-WEIGHT: bold;
+            TEXT-ALIGN: center;
+            BACKGROUND: #6495ED;
+            COLOR: #ffffff;
+            width: 80%;
+        }
+
+        .ContentA {
+            FONT-FAMILY: Tahoma,Arial;
+            FONT-SIZE: 11pt;
+            BACKGROUND: #ffffff;
+            COLOR: #000000;
+            VERTICAL-ALIGN: middle;
+            width: 80%;
+            TEXT-ALIGN: center;
+        }
+
+        .ContentB {
+            FONT-FAMILY: Tahoma,Arial;
+            FONT-SIZE: 11pt;
+            BACKGROUND: #eeeeee;
+            COLOR: #000000;
+            VERTICAL-ALIGN: middle;
+            width: 80%;
+            TEXT-ALIGN: center;
+        }
+
+        .remarkField {
+            width: 100%;
+        }
+
+        .post-modal {
+            width: 100%;
+            min-height: 100px;
+            max-height: 200px;
+            right: 0;
+            top: 75px;
+            left: 289px;
+            overflow-y: scroll;
+        }
+
+        body {
+            background: #75C864;
+            font-family: Arial;
+            /*max-height: 800px;*/
+            overflow: hidden
+        }
+
+        .item-a {
+            width: 90%;
+            height: 90%;
+        }
+
+        ul.TOCIul {
+            list-style-type: none;
+        }
+
+        li.TOCIli {
+            display: inline-block;
+        }
+
+        input[type="checkbox"][id^="myCheckbox"] {
+            display: none;
+        }
+
+        label {
+            padding: 2px;
+            display: block;
+            position: relative;
+            margin: 2px;
+            cursor: pointer;
+        }
+
+            label:before {
+                background-color: white;
+                color: white;
+                content: " ";
+                display: block;
+                border-radius: 50%;
+                border: 1px solid grey;
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                width: 25px;
+                height: 25px;
+                text-align: center;
+                line-height: 28px;
+                transition-duration: 0.4s;
+                transform: scale(0);
+            }
+
+            label img {
+                height: 300px;
+                width: 150px;
+                transition-duration: 0.2s;
+                transform-origin: 50% 50%;
+            }
+
+        :checked + label {
+            border-color: #ddd;
+        }
+
+            :checked + label:before {
+                content: "✓";
+                background-color: grey;
+                transform: scale(1);
+            }
+
+            :checked + label img {
+                transform: scale(0.9);
+                /* box-shadow: 0 0 5px #333; */
+                z-index: -1;
+            }
+
+        #TOCI {
+            width: 0px;
+            display: none;
+        }
+
+        .patientTable {
+        }
+
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .lightgallery li {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .lightgallery ul {
+            display: inline-block;
+        }
+
+        .lightgallery h3 {
+            margin: 0;
+        }
+
+        .post-modal {
+            width: 100%;
+            min-height: 100px;
+            max-height: 200px;
+            right: 0;
+            top: 75px;
+            left: 289px;
+            overflow-y: scroll;
+        }
+
+        .tableBorderTPStyle {
+            border: 2px solid #888;
+            font-size: 13pt;
+            /*style="border: 3px solid #000;"*/
+        }
+    </style>
+
+
+</head>
+
+<body id="page-top" style="background: #75C864;">
+
+    <form id="form" action="../Patient/InitAssessPage?scn=@Model.Item2.SCN" method="post">
+
+        <div id="wrapper">
+
+            <div style="height: 100vh;overflow-y: scroll;overflow-x: hidden">
+                <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
+
+
+                    <li class="nav-item">
+
+                        <div class="Sub-title">Patient</div>
+                        <hr class="sidebar-dividerTP">
+                        <div class="ContentA">@Model.Item1.SCN</div>
+                        <hr class="sidebar-dividerTP">
+                        <div class="ContentB">@Model.Item1.Name</div>
+                        <hr class="sidebar-dividerTP">
+                        <div class="ContentA">@Model.Item1.HKID</div>
+                        <hr class="sidebar-dividerTP">
+
+                        <div class="Sub-title">Visit Info</div>
+
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/InitAssessPage?SCN=@Model.Item2.SCN')" value="Initial Assesment">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN')" value="New Visit">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/EditPersonalInfoPage?SCN=@Model.Item2.SCN')" value="Personal Info">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/OperativeDataList?SCN=@Model.Item2.SCN')" value="Operative Data">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/VisitList?SCN=@Model.Item2.SCN')" value="Visits List">
+                        <hr class="sidebar-dividerTP">
+
+
+                        <div class="Sub-title">Visits</div>
+                        @foreach (var visit in @Model.Item1.visits)
+                        {
+                            if (@visit.Substring(0, 1) == "n")
+                            {
+            <input type="button" style="background:Green" class="buttonVisit" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+        else if (@visit.Substring(0, 1) == "p")
+        {
+<input type="button" style="background:pink" class="buttonVisit" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+else if (@visit.Substring(0, 1) == "o")
+{
+<input type="button" style="background:blue" class="buttonVisit" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+else
+{
+<input type="button" class="buttonVisitBlack" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN&DOB=@visit.Substring(2, 10)')" value="@visit "> }
+
+
+<hr class="sidebar-dividerTP">}
+
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <li class="nav-item">
+
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../home/index')" value="Home page">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/SearchTrad')" value="Search Page">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/TextSearch')" value="Words/Text Search">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/CreatePersonalInfoPage')" value="New Patient">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Patient/VisitPage?SCN=@Model.Item2.SCN')" value="New Visit">
+                        <hr class="sidebar-dividerTP">
+                        <input type="button" class="buttonMenu" onclick="goToUrl('../Identity/Account/Login')" value="Logout">
+
+                    </li>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                </ul>
+            </div>
+
+            <div id="content-wrapper" class="d-flex flex-column" style="height: 100vh; overflow-y: scroll;">
+
+
+                <!-- Main Content -->
+                <div id="content">
+
+
+                    <div class="col-lg-12">
+                        <!-- Content Row -->
+                        <div class="row">
+                            <!-- Content Column -->
+                            <div class="col-lg-12 mb-4">
+                                <div class="post-modal">
+
+
+                                    <div class="demo">
+
+                                        @if (Model.Item2.VisitList != null && Model.Item2.VisitList.Count != 0)
+                                        {
+                            <ul id="lightgallery">
+                                <!--class="ightgallery"-->
+                                @for (int i = 0; i < Model.Item2.VisitList.Count(); i++)
+                                {
+                <li id="@Model.Item2.VisitList[i]" data-thumb="@Model.Item2.VisitList[i]" data-src="@Model.Item2.VisitList[i]" data-sub-html="@Model.Item2.PhotoModifyList[i]">
+                    <a href="">
+                        <img class="img-responsive item-a" src="@Model.Item2.VisitList[i]">
+                        <div class="caption">
+                            <h9>@Model.Item2.VisitListName[i]</h9>
+                        </div>
+                    </a>
+                </li>
+}
+                            </ul> }
+                        else
+                        {
+            <div><h1><font color="#FFF"> No X-Ray/Photo Found </font></h1></div>}
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container-fluid">
+
+                        <input onchange="" type="hidden" name=SCN value='@Model.Item2.SCN'>
+                        <table border="0" width="87%" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>
+                                    <table border="0" cellspacing="0" cellpadding="2">
+                                        <tr>
+                                            <td width="25%"></td>
+                                            <td width="40%"></td>
+                                            <td width="35%"></td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="title" style="text-align: center">Initial Assessment</td></tr>
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr><td class="level1" colspan="3">&nbsp; General Information</td></tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+                                        <tr>
+                                            <td valign=top class="level2">Date of Initial Assessment</td>
+                                            <td class="level2b" colspan="2">
+                                                &nbsp;
+                                                <input type="text" class="class-DOC"
+                                                       id="iadate"
+                                                       name="iadate"
+                                                       value="@Model.Item2.iadate"
+                                                       placeholder="dd/mm/yyyy">
+                                                &nbsp;   <input type="button" value="Today" onclick="today()">
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+                                        <tr>
+                                            <td valign=top class="level2" rowspan="2">Referral source</td>
+                                            <td valign=top class="level2a" colspan="2">
+                                                <input id="isReferralStudent" name="isReferralStudent" class=""
+                                                       type="checkbox" value="true" @(Model.Item2.isReferralStudent == "true" ? "checked=\" checked\"" : "")
+                                                       onclick="SetReferral(this)" />
+                                                student health service
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isReferralOther" name="isReferralOther"
+                                                       type="checkbox" value="true" @(Model.Item2.isReferralOther == "true" ? "checked=\" checked\"" : "") onclick="SetReferral(this)" />others, specify:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("ReferralOther", Model.Item2.ReferralOther, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isReferralOther,isReferralStudent)" })
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="3" class="line"></td></tr>
+                                        <tr valign=top>
+                                            <td valign=top class="level2" rowspan="2">Patient's main concern</td>
+                                            <td valign=top class="level2b" colspan="2">
+                                                <input id="isConcernNil" name="isConcernNil" class="" type="checkbox"
+                                                       value="true" @(Model.Item2.isConcernNil == "true" ? "checked=\" checked\"" : "") onclick="SetConcern(this)" />nil
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isConcernOther" name="isConcernOther" type="checkbox"
+                                                       value="true" @(Model.Item2.isConcernOther == "true" ? "checked=\" checked\"" : "") onclick="SetConcern(this)" />
+                                                others, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+
+                                                @Html.TextArea("ConcernOther", Model.Item2.ConcernOther, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isConcernOther,isConcernNil)" })
+                                                <span id=hello onclick="ToggleConcernList()"><u style="cursor: hand">Choose from list</u></span>
+                                                <div id=ConcernList style="display:none">
+                                                    <table class="choice" border="0" cellspacing="1" color="#000">
+                                                        <tr><td class="choice" onclick="AddConcern('risk of progression;')">risk of progression;</td></tr>
+                                                        <tr><td class="choice" onclick="AddConcern('associated morbidity;')">associated morbidity;</td></tr>
+                                                        <tr><td class="choice" onclick="AddConcern('body symmetry;')">body symmetry;</td></tr>
+                                                        <tr><td class="choice" onclick="AddConcern('future morbidity;')">futre morbidity;</td></tr>
+                                                        <tr><td class="choice" onclick="AddConcern('future ill health;')">future ill health;</td></tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr><td class="blank"></td></tr>
+                                        <tr><td class="level1">&nbsp;History</td><td class="level1" colspan="2"><input type="button" value="Set History Normal" onclick="SetHistory()"> - Mark all items in History section as nil/normal/healthy</td></tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+                                        <style>
+                                            table.choice {
+                                                background-color: #000000;
+                                            }
+
+                                            td.choice {
+                                                background-color: #FFFFFF;
+                                                font-famliy: Arial;
+                                                color: #000000;
+                                                font-size: 12px;
+                                                cursor: hand;
+                                            }
+                                        </style>
+
+                                        <tr>
+                                            <td valign=top class="level2" rowspan="5">Symptoms &amp; history of present illness</td>
+                                            <td colspan="2" class="level2a">
+                                                <input id="isSymNil" name="isSymNil" class="" type="checkbox" value="true" @(Model.Item2.isSymNil == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                nil
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a"><input id="isSymBack" name="isSymBack" class="" type="checkbox" value="true" @(Model.Item2.isSymBack == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" /> back pain, specify:</td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("SymBack", Model.Item2.SymBack, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isSymBack,isSymNil)" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isSymLimb" name="isSymLimb" type="checkbox" value="true" @(Model.Item2.isSymLimb == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                lower limb neurological<br>&nbsp; &nbsp; &nbsp; symptom, specify:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("SymLimb", Model.Item2.SymLimb, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isSymLimb,isSymNil)" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isSymCon" name="isSymCon" type="checkbox" value="true" @(Model.Item2.isSymCon == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                constitutional symptoms<br>&nbsp; &nbsp; &nbsp; such as weight loss, <br>&nbsp; &nbsp; &nbsp; malaise, anorexia:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("SymCon", Model.Item2.SymCon, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isSymCon,isSymNil)" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isSymOther" name="isSymOther" type="checkbox" value="true" @(Model.Item2.isSymOther == "true" ? "checked=\" checked\"" : "") onclick="SetSymptom(this)" />
+                                                others, specify:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("SymOther", Model.Item2.SymOther, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isSymOther,isSymNil)" })
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top rowspan="4" class="level2">Past health</td>
+                                            <td valign=top class="level2b" colspan="2">
+                                                <input id="isPastGood" name="isPastGood" type="checkbox" value="true" @(Model.Item2.isPastGood == "true" ? "checked=\" checked\"" : "") onclick="SetPast(this)" />
+                                                good past health
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isPastSpinal" name="isPastSpinal" type="checkbox" value="true" @(Model.Item2.isPastSpinal == "true" ? "checked=\" checked\"" : "") onclick="SetPast(this)" />
+                                                previous spinal injuries,<br>&nbsp; &nbsp; &nbsp; specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("PastSpinal", Model.Item2.PastSpinal, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isPastSpinal,isPastGood)" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isPastSpinal" name="isPastBone" type="checkbox" value="true" @(Model.Item2.isPastBone == "true" ? "checked=\" checked\"" : "") onclick="SetPast(this)" />
+                                                Previous bone and joint<br>&nbsp; &nbsp; &nbsp; infection, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("PastBone", Model.Item2.PastSpinal, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isPastBone,isPastGood)" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isPastSpinal" name="isPastOther" type="checkbox" value="true" @(Model.Item2.isPastBone == "true" ? "checked=\" checked\"" : "") onclick="SetPast(this)" />
+                                                others, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("PastOther", Model.Item2.PastOther, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isPastOther,isPastGood)" })
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top rowspan="2" class="level2">Medication</td>
+                                            <td valign=top class="level2a" colspan="2">
+                                                <input id="isMedicationNil" name="isMedicationNil" type="checkbox" value="true" @(Model.Item2.isMedicationNil == "true" ? "checked=\" checked\"" : "") onclick="SetMedication(this)" />
+                                                nil
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isMedicationNil" name="isMedication" type="checkbox" value="true" @(Model.Item2.isMedication == "true" ? "checked=\" checked\"" : "") onclick="SetMedication(this)" />
+                                                yes, specify:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("Medication", Model.Item2.Medication, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isMedication,isMedicationNil)" })
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top rowspan="2" class="level2">Previous operation</td>
+                                            <td valign=top class="level2b" colspan="2">
+                                                <input id="isPreOpNil" name="isPreOpNil" type="checkbox" value="true" @(Model.Item2.isPreOpNil == "true" ? "checked=\" checked\"" : "") onclick="SetPreOp(this)" />
+                                                nil
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isPreOp" name="isPreOp" type="checkbox" value="true" @(Model.Item2.isPreOp == "true" ? "checked=\" checked\"" : "") onclick="SetPreOp(this)" />
+                                                yes, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("PreOp", Model.Item2.PreOp, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isPreOp,isPreOpNil)" })
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+                                        <tr>
+                                            <td valign=top rowspan="2" class="level2">Allergy</td>
+                                            <td valign=top class="level2a" colspan="2">
+                                                <input id="isAllergyNil" name="isAllergyNil" type="checkbox" value="true" @(Model.Item2.isAllergyNil == "true" ? "checked=\" checked\"" : "") onclick="SetAllergy(this)" />
+                                                nil
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isAllergy" name="isAllergy" type="checkbox" value="true" @(Model.Item2.isAllergy == "true" ? "checked=\" checked\"" : "") onclick="SetAllergy(this)" />
+                                                yes, specify:
+                                            </td>
+
+
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("Allergy", Model.Item2.Allergy, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isAllergy,isAllergyNil)" })
+                                            </td>
+                                        </tr>
+
+                                        <tr><td class="blank"></td></tr>
+
+                                        <tr>
+                                            <td class="level1"><a name=Physical>&nbsp; Physical Examination</td>
+                                            <td class="level1" colspan="2">  <input type=button value="Set Normal" onclick="SetNormal();"> - Mark all items below (except inspection) as normal</td>
+                                        </tr>
+                                        <tr><td colspan="3" class="line"></td></tr>
+                                        <tr>
+                                            <td valign=top class="level2" rowspan="5">General</td>
+                                            <td class="level2b" colspan="2">
+                                                <input id="isGenNormal" name="isGenNormal" type="checkbox" value="true" @(Model.Item2.isGenNormal == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                normal
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="level2b">
+                                                <input id="isGenLeg" name="isGenLeg" type="checkbox" value="true" @(Model.Item2.isGenLeg == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                leg length discrepancy,<br>&nbsp; &nbsp; &nbsp; specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("GenLeg", Model.Item2.GenLeg, 3, 42, new { @class = "", onkeyup = "AutoCheck(this,isGenLeg,isGenNormal)" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="level2b">
+                                                <input id="isGenDys" name="isGenDys" type="checkbox" value="true" @(Model.Item2.isGenDys == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                dysmorphic feature,<br>&nbsp; &nbsp; &nbsp; specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("GenDys", Model.Item2.GenDys, 3, 42, new { @class = "", onkeyup = "AutoCheck(this,isGenDys,isGenNormal)" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="level2b">
+                                                <input id="isGenSkin" name="isGenSkin" type="checkbox" value="true" @(Model.Item2.isGenSkin == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                abnormal skin <br>&nbsp; &nbsp; &nbsp; pigmentation, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+
+                                                <input type="text" size="42" name="GenSkin" id="GenSkin" value='@Model.Item2.GenSkin' onkeyup="AutoCheck(this,isGenSkin,isGenNormal)">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isGenOther" name="isGenOther" type="checkbox" value="true" @(Model.Item2.isGenOther == "true" ? "checked=\" checked\"" : "") onclick="SetGen(this)" />
+                                                others, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("GenOther", Model.Item2.GenOther, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isGenOther,isGenNormal)" })
+
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td class="level1" colspan="3">&nbsp; Back</td>
+                                        </tr>
+                                        <tr><td colspan="3" class="line"></td></tr>
+                                        <tr>
+                                            <td valign=top class="level2" rowspan=6><a name="Inspection">Inspection</td>
+                                            <td valign=top class="level2a" colspan="2">
+                                                <input id="isBackInspectNormal" name="isBackInspectNormal" type="checkbox" value="true" @(Model.Item2.isBackInspectNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                normal
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackInspectAsy" name="isBackInspectAsy" type="checkbox" value="true" @(Model.Item2.isBackInspectAsy == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                asymmetrical shoulder:
+                                            </td>
+
+                                            <td valign=top class="level2a">
+                                                <input id="isBackInspectAsyL" name="isBackInspectAsyL" type="checkbox" value="true" @(Model.Item2.isBackInspectAsyL == "true" ? "checked=\" checked\"" : "") /> left higher
+                                                <input id="isBackInspectAsyR" name="isBackInspectAsyR" type="checkbox" value="true" @(Model.Item2.isBackInspectAsyR == "true" ? "checked=\" checked\"" : "") /> right higher
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackInspectRib" name="isBackInspectRib" type="checkbox" value="true" @(Model.Item2.isBackInspectRib == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                Rib
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackInspectRibL" name="isBackInspectRibL" type="checkbox" value="true" @(Model.Item2.isBackInspectRibL == "true" ? "checked=\" checked\"" : "") onclick="SetChecked(this)" />
+                                                left
+                                                <input id="isBackInspectRibR" name="isBackInspectRibR" type="checkbox" value="true" @(Model.Item2.isBackInspectRibR == "true" ? "checked=\" checked\"" : "") onclick="SetChecked(this)" />
+                                                right
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackInspectLumbar" name="isBackInspectLumbar" type="checkbox" value="true" @(Model.Item2.isBackInspectLumbar == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                lumbar prominence:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackInspectLumbarL" name="isBackInspectLumbarL" type="checkbox" value="true" @(Model.Item2.isBackInspectLumbarL == "true" ? "checked=\" checked\"" : "") />
+                                                left
+                                                <input id="isBackInspectLumbarR" name="isBackInspectLumbarR" type="checkbox" value="true" @(Model.Item2.isBackInspectLumbarR == "true" ? "checked=\" checked\"" : "") />
+                                                right
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+
+                                                <input id="isBackPelvisTilt" name="isBackPelvisTilt" type="checkbox" value="true" @(Model.Item2.isBackPelvisTilt == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+
+                                                pelvis tilt:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackPelvisTiltL" name="isBackPelvisTiltL" type="checkbox" value="true" @(Model.Item2.isBackPelvisTiltL == "true" ? "checked=\" checked\"" : "") />
+                                                left higher
+                                                <input id="isBackPelvisTiltR" name="isBackPelvisTiltR" type="checkbox" value="true" @(Model.Item2.isBackPelvisTiltR == "true" ? "checked=\" checked\"" : "") />
+                                                right higher
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackInspectOther" name="isBackInspectOther" type="checkbox" value="true" @(Model.Item2.isBackInspectOther == "true" ? "checked=\" checked\"" : "") onclick="SetBackInspect(this)" />
+                                                others, specify:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("BackInspectOther", Model.Item2.BackInspectOther, 1, 42, new { @class = "", onkeyup = "AutoCheck(this,isBackInspectOther,isBackInspectNormal)" })
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top class="level2" rowspan="2">Palpation</td>
+                                            <td valign=top class="level2b" colspan="2">
+                                                <input id="isBackPalpationNormal" name="isBackPalpationNormal" type="checkbox" value="true" @(Model.Item2.isBackPalpationNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackPalpation(this)" />
+                                                normal, non-tender, no spasm
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isBackPalpationAbnormal" name="isBackPalpationAbnormal" type="checkbox" value="true" @(Model.Item2.isBackPalpationAbnormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackPalpation(this)" /> abnormal, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("BackPalpationAbnormal", Model.Item2.BackPalpationAbnormal, 1, 42, new { @class = "", onkeyup = "AutoCheck(this,isBackPalpationAbnormal,isBackPalpationNormal)" })
+
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top class="level2" rowspan="5">Range of movement</td>
+                                            <td valign=top class="level2a" colspan="2">
+                                                <input id="isBackRangeNormal" name="isBackRangeNormal" type="checkbox" value="true" @(Model.Item2.isBackRangeNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackRange(this)" /> normal
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class=level2a>
+                                                <input id="isBackRangeDys" name="isBackRangeDys" type="checkbox" value="true" @(Model.Item2.isBackRangeDys == "true" ? "checked=\" checked\"" : "") onclick="SetBackRange(this)" /> Dysrthymic, specify:
+                                            </td>
+                                            <td valign=top class="level2a"> @Html.TextArea("BackRangeDys", Model.Item2.BackRangeDys, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isBackRangeDys,isBackRangeNormal)" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a" colspan="2">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Modified Schober Test:
+                                                <table align=center border="0" background=#000000 cellspacing="1" cellpadding="0">
+                                                    <tr>
+                                                        <td class="level2a">Standing:</td>
+                                                        <td class="level2a">5cm</td>
+                                                        <td class="level2a">10cm</td>
+                                                        <td class="level2a">15cm</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="level2a">Flexion - cm increased:</td>
+                                                        <td class="level2a"><input name="BackRangeSchober5" type="text" onkeyup="RestrictFloat(this)" onchange="" size="2" value="@Model.Item2.BackRangeSchober5">cm</td>
+                                                        <td class="level2a"><input name="BackRangeSchober10" type="text" onkeyup="RestrictFloat(this)" onchange="" size="2" value="@Model.Item2.BackRangeSchober10">cm</td>
+                                                        <td class="level2a"><input name="BackRangeSchober15" type="text" onkeyup="RestrictFloat(this)" onchange="" size="2" value="@Model.Item2.BackRangeSchober15">cm</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a" colspan="2">
+                                                <input id="isBackRangeAbnormal" name="isBackRangeAbnormal" type="checkbox" value="true" @(Model.Item2.isBackRangeAbnormal == "true" ? "checked=\" checked\"" : "") />
+                                                abnormal, specify:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a" colspan="2">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; forward flexion: finger to
+                                                <input type="text"
+                                                       id="BackRangeForward"
+                                                       name="BackRangeForward"
+                                                       size="25"
+                                                       value="@Model.Item2.BackRangeForward"
+                                                       placeholder="">
+                                                <br>
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; side flexion: finger to &nbsp; &nbsp;
+                                                <input type="text"
+                                                       id="BackRangeSide"
+                                                       name="BackRangeSide"
+                                                       size="25"
+                                                       value="@Model.Item2.BackRangeSide"
+                                                       placeholder="">
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top class="level2" rowspan="2">Straight leg raising</td>
+                                            <td valign=top class="level2b" colspan="2">
+                                                <input id="isBackLegNormal" name="isBackLegNormal" type="checkbox" value="true" @(Model.Item2.isBackLegNormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackLeg(this)" /> normal both sides
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2b">
+                                                <input id="isBackLegAbnormal" name="isBackLegAbnormal" type="checkbox" value="true" @(Model.Item2.isBackLegAbnormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackLeg(this)" />abnormal, specify:
+                                            </td>
+                                            <td valign=top class="level2b">
+                                                @Html.TextArea("BackLegAbnormal", Model.Item2.BackLegAbnormal, 5, 43, new { @class = "", onkeyup = "AutoCheck(this,isBackLegAbnormal,isBackLegNormal)" })
+
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top class="level2" rowspan="2">Neurology of lower limb</td>
+                                            <td valign=top class="level2a" colspan="2">
+                                                normal motor, reflex, sensation, coordination
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign=top class="level2a">
+                                                <input id="isBackLimbAbnormal" name="isBackLimbAbnormal" type="checkbox" value="true" @(Model.Item2.isBackLimbAbnormal == "true" ? "checked=\" checked\"" : "") onclick="SetBackLimb(this)" />
+                                                abnormal, specify:
+                                            </td>
+                                            <td valign=top class="level2a">
+                                                @Html.TextArea("BackLimbAbnormal", Model.Item2.BackLimbAbnormal, 3, 43, new { @class = "", onkeyup = "AutoCheck(this,isBackLimbAbnormal,isBackLimbNormal)" })
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="line"></td></tr>
+
+                                        <tr>
+                                            <td valign=top class="level2">Remarks</td>
+                                            <td class="level2a" colspan="2">
+                                                @Html.TextArea("Remarks", Model.Item2.Remarks, 5, 90, new { @class = "" })
+                                                <table>
+                                                    <tr><td style="color: #000; font-size: 11px;" colspan=4>Template Remarks:</td></tr>
+                                                    <tr>
+                                                        <td style="color: #000; vertical-align: top;">
+                                                            <span id=RemarkOptionsToggler1 onclick="ToggleRemarkOptions1()"><u style="cursor: hand; font-size: 11px;">Initial Visit</u></span>
+                                                            <div id=RemarkOptions1 style="display:none">
+                                                                <table class="choice" border="0" cellspacing="1" color="#000">
+                                                                    <tr><td class="choice" onclick="AddRemarks('Physiotherapy is offered;')">Physiotherapy is offered;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Scoliosis advice is given;')">Scoliosis advice is given;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Pregnancy alert with xray;')">Pregnancy alert with xray;</td></tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                        <td style="color: #000; vertical-align: top;">
+                                                            <span id=RemarkOptionsToggler2 onclick="ToggleRemarkOptions2()"><u style="cursor: hand; font-size: 11px;">Investigation</u></span>
+                                                            <div id=RemarkOptions2 style="display:none">
+                                                                <table class="choice" border="0" cellspacing="1" color="#000">
+                                                                    <tr><td class="choice" onclick="AddRemarks('MRI spine booked;')">MRI spine booked;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('U/S abdomen booked;')">U/S abdomen booked;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('XRay scannogram to check leg length discrepancy;')">XRay scannogram to check leg length discrepancy;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('XRay cone view on thoracic spine (AP,lateral);')">XRay cone view on thoracic spine (AP,lateral);</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('XRay cone view on lumbar spine (AP,lateral);')">XRay cone view on lumbar spine (AP,lateral);</td></tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                        <td style="color: #000; vertical-align: top;">
+                                                            <span id=RemarkOptionsToggler3 onclick="ToggleRemarkOptions3()"><u style="cursor: hand; font-size: 11px;">Bracing</u></span>
+                                                            <div id=RemarkOptions3 style="display:none">
+                                                                <table class="choice" border="0" cellspacing="1" color="#000">
+                                                                    <tr><td class="choice" onclick="AddRemarks('Bracing will be started;')">Bracing will be started;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Patient has been informed the following:')">Patient has been informed the following:</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Risk of curve progression;')">&nbsp; &nbsp;Risk of curve progression;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Need to wear brace 23 hrs per day;')">&nbsp; &nbsp;Need to wear brace 23 hrs per day;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Bracing will be continue until skeletal maturity;')">&nbsp; &nbsp;Bracing will be continue until skeletal maturity;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('P&O form is completed;')">&nbsp; &nbsp;P&O form is completed;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Notify us in case no contact for brace fitting within 1 month;')">&nbsp; &nbsp;Notify us in case no contact for brace fitting within 1 month;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Bracing weaning begins today;')">Bracing weaning begins today;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('7:00am-10:00pm for 6 months;')">7:00am-10:00pm for 6 months;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('7:00am-5:00pm for another 6 months;')">7:00am-5:00pm for another 6 months;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Brace need adjustment;')">Brace need adjustment;</td></tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                        <td style="color: #000; vertical-align: top;">
+                                                            <span id=RemarkOptionsToggler4 onclick="ToggleRemarkOptions4()"><u style="cursor: hand; font-size: 11px;">Surgery</u></span>
+                                                            <div id=RemarkOptions4 style="display:none">
+                                                                <table class="choice" border="0" cellspacing="1" color="#000">
+                                                                    <tr><td class="choice" onclick="AddRemarks('Surgery is suggested;')">Surgery is suggested;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Patient & guardian has been informed the following:')">Patient & guardian has been informed the following:</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Risk of curve progression;')">&nbsp; &nbsp;Risk of curve progression;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Nature & retionale of surgery;')">&nbsp; &nbsp;Nature & retionale of surgery;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Risk of general anesthesia;')">&nbsp; &nbsp;Risk of general anesthesia;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Risk of surgery for scoliosis;')">&nbsp; &nbsp;Risk of surgery for scoliosis;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('MRI brain & whole spine are booked for pre--op workup;')">MRI brain & whole spine are booked for pre--op workup;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Admission slip & notification letter are given to patient;')">Admission slip & notification letter are given to patient;</td></tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                        <td style="color: #000; vertical-align: top;">
+                                                            <span id=RemarkOptionsToggler5 onclick="ToggleRemarkOptions5()"><u style="cursor: hand; font-size: 11px;">Follow up</u></span>
+                                                            <div id=RemarkOptions5 style="display:none">
+                                                                <table class="choice" border="0" cellspacing="1" color="#000">
+                                                                    <tr><td class="choice" onclick="AddRemarks('Patient is asymptomatic;')">Patient is asymptomatic;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('No back tenderness;')">No back tenderness;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('Both lower limbs have normal motor & sensory function;')">Normal Motor & sensory function;</td></tr>
+                                                                    <tr><td class="choice" onclick="AddRemarks('No other abnorality detected from xray except scoliosis;')">No other abnorality detected from xray except scoliosis;</td></tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        <tr><td colspan="3" class="blank"></td></tr>
+
+
+                                        <tr>
+                                            <td colspan="3" align=center bgcolor=black style="font-size:12pt; font-family:Arial;">Please complete <b><font color=red>Personal Info. box</font></b> and <b><font color=red>New Visit Box</font></b>.</td>
+                                        </tr>
+
+
+                                        <tr><td colspan="3" class="blank"></td></tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <input type="submit" name="submit1" id="submit1" value="Save" style="display:none" /><br><br>
+
+                <DIV id="MenuDiv" STYLE="position:absolute;left:10;top:10;width:110;">
+
+                    <input class="MenuButton" name="update2" type="button" value="Update" onClick="ConfirmUpdate1()"><br><br>
+                    <!--<input class="MenuButton" name="update2" type="button" value="Update" onClick="ConfirmUpdate1()"><br><br>-->
+                    <!--<input class="MenuButton" name=update3 type="button" value="Update & Print" onclick="ConfirmUpdate2()"><br><br>-->
+
+                    <input class="MenuButton" name=print2 type="button" value="Print" onClick="Print()"><br><br>
+                    <input class="MenuButton" name=trace type="button" value="Trace Log" onClick="TraceModification()"><br><br>
+                </DIV>
+            </div>
+    </form>
+
+
+    <div class="row">
+        &nbsp;
+    </div>
+
+
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script>
+       var _isShowMessage = '@Context.Session.GetString("_isShowMessage")';
+                                        var _alertMessage = '@Context.Session.GetString("_alertMessage")';
+
+
+        if (_isShowMessage == 'true' && _alertMessage != '') {
+
+             $( "#dialog" ).dialog({
+                                        autoOpen: true,
+              modal: true,
+              width: 500,
+              height: 300,
+              position: { my: "center", at: "center", of: window  },
+              open: function() {
+                        jQuery('.ui-widget-overlay').on('click', function() {
+                            jQuery('#j_dialog').dialog('close');
+                        })
+                },
+
+              buttons: {
+                                            Ok: function () {
+
+                      $.ajax({
+                                                    method: "post",
+                        url: "./WebRemoveSession",
+                        error: function (xhr, status, err) {
+                                                            alert(err);
+                                                        }
+
+                                                    }).done(function (res) {
+
+                                                    });
+                  $( this ).dialog( "close" );
+                                                }
+                                            },
+              show: {
+                                            effect: "fade",
+                duration: 10
+              },
+              hide: {
+                                            effect: "fade",
+                duration: 10
+              }
+
+                                        });
+
+
+           $('#dialog').show().html(_alertMessage);
+
+                                        //alert(_alertMessage);
+                                    }
+
+    </script>
+
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/js/cleave.js"></script>
+    <script type="text/javascript" src="~/js/InitAssess.js"></script>
+
+    <script>
+        function ConfirmUpdate1() {
+            $("#submit1").button().click();
+        }
+
+    </script>
+
+    <script>
+        CreateStaticMenu("MenuDiv", document.body.offsetWidth - 120, 50);
+    </script>
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+    <script src="~/dist/js/lightgallery.js"></script>
+    <script src="~/dist/js/lightslider.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.2/js/lightgallery.js"></script>*@
+    @*<script src="~/lib/jquery.mousewheel.min.js"></script>*@
+    <script type="text/javascript">
+        $('#lightgallery').lightSlider({
+            //    gallery:true,
+            //    item:1,
+            //    loop:true,
+            //    thumbItem:9,
+            //    slideMargin:0,
+            //    enableDrag: false,
+            //    currentPagerPosition:'left',
+            //    onSliderLoad: function(el) {
+            //        el.lightGallery({
+            //            selector: '#lightgallery .lslide'
+            //        });
+            //    }
+            //});
+            //item: 1,
+            //slideMargin: 0,
+            //autowidth: true,
+            //gallery: false,
+            //loop: false,
+            item: 10,
+            gallery: false,
+            slideMargin: 0,
+            autowidth: true,
+            addClass: '',
+            hideControlOnEnd: true,
+            loop: false,
+            prevHtml: '<img src="../images/prev.jpg">',
+            nextHtml: '<img src="../images/next.jpg">',
+            onSliderLoad: function (el) {
+                el.lightGallery({
+                    selector: '#lightgallery .lslide'
+                });
+            }
+        });
+        $('#lightgallery').lightGallery({
+            share: false,
+        });
+        $('#lightgallery').on('onAfterOpen.lg', function (event) {
+            //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+            var myVariable = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src');
+            var myVariable2 = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('sub-html');
+            window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            var hddgallery = document.getElementById('hddgallery');
+            hddgallery.value = "1";
+        });
+        $('#lightgallery').on('onSlideClick.lg', function (event) {
+            //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+            var myVariable = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src');
+            var myVariable2 = $('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('sub-html');
+            window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            var hddgallery = document.getElementById('hddgallery');
+            hddgallery.value = "1";
+        });
+        $(document).ready(function () {
+            if ($('#ThoKyphosis').val() == 0) {
+                $('#ThoKyphosis').val("")
+            }
+            if ($('#LumLordosis').val() == 0) {
+                $('#LumLordosis').val("")
+            }
+
+            $('#lightgalleryxray').lightGallery({
+                share: false,
+            });
+            $('#lightgalleryxray').on('onAfterOpen.lg', function (event) {
+                //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+                var myVariable = $('#lightgalleryxray').data('lightGallery').$items.eq($('#lightgalleryxray').data('lightGallery').index).data('src');
+                var myVariable2 = $('#lightgalleryxray').data('lightGallery').$items.eq($('#lightgalleryxray').data('lightGallery').index).data('sub-html');
+                window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+                var hddgallery = document.getElementById('hddgallery');
+                hddgallery.value = "1";
+            });
+            $('#lightgalleryxray').on('onSlideClick.lg', function (event) {
+                //alert($('#lightgallery').data('lightGallery').$items.eq($('#lightgallery').data('lightGallery').index).data('src'));
+                var myVariable = $('#lightgalleryxray').data('lightGallery').$items.eq($('#lightgalleryxray').data('lightGallery').index).data('src');
+                var myVariable2 = $('#lightgalleryxray').data('lightGallery').$items.eq($('#lightgalleryxray').data('lightGallery').index).data('sub-html');
+                window.open("/measure/measure.html?imgdata=" + myVariable2 + "&imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+                var hddgallery = document.getElementById('hddgallery');
+                hddgallery.value = "1";
+            });
+        });
+        $(document).ready(function () {
+            $('#lightgalleryexport').lightGallery({
+                share: false,
+            });
+            $('#lightgalleryexport').on('onAfterOpen.lg', function (event) {
+                var myVariable = $('#lightgalleryexport').data('lightGallery').$items.eq($('#lightgalleryexport').data('lightGallery').index).data('src');
+                window.open("/measure/measure.html?imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            });
+            $('#lightgalleryexport').on('onSlideClick.lg', function (event) {
+                var myVariable = $('#lightgalleryexport').data('lightGallery').$items.eq($('#lightgalleryexport').data('lightGallery').index).data('src');
+                window.open("/measure/measure.html?imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            });
+        });
+        $(document).ready(function () {
+            $('#lightgalleryexportxray').lightGallery({
+                share: false,
+            });
+            $('#lightgalleryexportxray').on('onAfterOpen.lg', function (event) {
+                var myVariable = $('#lightgalleryexportxray').data('lightGallery').$items.eq($('#lightgalleryexportxray').data('lightGallery').index).data('src');
+                window.open("/measure/measure.html?imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            });
+            $('#lightgalleryexportxray').on('onSlideClick.lg', function (event) {
+                var myVariable = $('#lightgalleryexportxray').data('lightGallery').$items.eq($('#lightgalleryexportxray').data('lightGallery').index).data('src');
+                window.open("/measure/measure.html?imgsrc=" + encodeURI(myVariable), "mywindow", "scrollbars=yes,menubar=yes,resizable=yes,toolbar=yes,location=no,status=no');win.moveTo(0,0);win.resizeTo(window.screen.availWidth, window.screen.availHeight");
+            });
+        });
+
+
+        $('#lightgallery').on('onCloseAfter.lg', function (event) {
+            location.reload();
+        });
+        $('#lightgalleryxray').on('onCloseAfter.lg', function (event) {
+            location.reload();
+        });
+        $('#lightgalleryexport').on('onCloseAfter.lg', function (event) {
+            location.reload();
+        });
+        $('#lightgalleryexportxray').on('onCloseAfter.lg', function (event) {
+            location.reload();
+        });
+    </script>
+    <script type="text/javascript">
+        $('#lightgalleryexport').lightSlider({
+            item: 1,
+            slideMargin: 0,
+            gallery: false,
+            autowidth: true,
+            slidewidth: 20,
+            slideheight: 20,
+            loop: false,
+            onSliderLoad: function (el) {
+                el.lightGallery({
+                    selector: '#lightgalleryexport .lslide'
+                });
+            }
+        });
+        $('#lightgalleryxray').lightSlider({
+            item: 1,
+            slideMargin: 0,
+            autowidth: true,
+            gallery: false,
+            slidewidth: 20,
+            slideheight: 20,
+            loop: false,
+            onSliderLoad: function (el) {
+                el.lightGallery({
+                    selector: '#lightgalleryxray .lslide'
+                });
+            }
+        });
+        $('#lightgalleryexportxray').lightSlider({
+            item: 1,
+            slideMargin: 0,
+            autowidth: true,
+            gallery: false,
+            slidewidth: 20,
+            slideheight: 20,
+            loop: false,
+            onSliderLoad: function (el) {
+                el.lightGallery({
+                    selector: '#lightgalleryexportxray .lslide'
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

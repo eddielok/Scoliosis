@@ -1,0 +1,271 @@
+﻿
+@using Microsoft.AspNetCore.Http
+
+
+@model Scoliosis.Models.PrintPersonalInfoViewModel
+
+<html>
+<head>
+    <meta http-equiv=pragma content=no-cache>
+    <basefont face=Arial>
+    <title>Dept. of O & T PWH / Scoliosis Clinical Summary</title>
+    <script src=jscript.js></script>
+    <style>
+        td {
+            font-size: 11px;
+        }
+
+        th {
+            font-size: 12px;
+        }
+
+        td.subtitle {
+            font-size: 12px;
+            color: #000;
+            background: #E0E0E0;
+        }
+
+        h1.title {
+            font-size: 16px;
+            color: #000;
+            background: #FFF;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        pre {
+            font-family: Arial;
+        }
+
+        table.data {
+            background: #F4F4F4;
+        }
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff" text="#000000">
+
+    <h1 class="title">Scoliosis Clinical Summary of @Model.Name (SCN @Model.SCN, HKID: @Model.HKID)</h1>
+
+    <table width=100% border=1 cellpadding=2 cellspacing=0>
+        <tr>
+            <td>
+                <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                    <tr>
+                        <td class=subtitle colspan=2><B><I>Patient Personal Infomation</I></B></td>
+                        <td class=subtitle colspan=2><B><I>History</I></B></td>
+                    </tr>
+                    <tr>
+                        <td width=15%>SCN:</td>
+                        <td width=35%>
+                            @Model.SCN
+                        </td>
+                        <td width=15%>Age of onset:</td>
+                        <td width=35%>
+                            @Model.AgeOnset
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Name:</td>
+                        <td>
+                            @Model.Name
+                        </td>
+                        <td>Family history:</td>
+                        <td>
+                            @Model.FamHis
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>HKID:</td>
+                        <td>@Model.HKID</td>
+                        <td>Attending Physician:</td>
+                        <td>
+                            @Model.AttnPhys
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Date of Birth (dd/mm/yyyy)</td>
+                        <td>
+                            @Model.DOB
+                        </td>
+                        <td>Others</td>
+                        <td> @Model.HisOthers</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Sex</td>
+                        <td>@Model.Sex</td>
+                        <td colspan=2>&nbsp;</td>
+                    </tr>
+
+
+                </table>
+            </td>
+        </tr>
+        <tr><td height=2px></td></tr>
+
+        <tr>
+            <td>
+                <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                    <tr>
+                        <td class=subtitle colspan=2><B><I>Diagnosis</I></B></td>
+                    </tr>
+
+                    <tr>
+                        <td width=25%>Diagnosis:</td>
+                        <td>@Model.Diagnosis</td>
+                    </tr>
+                    <tr>
+                        <td>Idiopathic scoliosis subclassification, King's:</td>
+                        <td> @Model.King</td>
+                    </tr>
+                    <tr>
+                        <td valign=top>Associated Diseases & Cong. Abnormalities:</td>
+                        <td valign=top>@Model.ADCA</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr><td height=2px></td></tr>
+
+        <tr>
+            <td>
+                <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                    <tr>
+                        <td class=subtitle colspan=3><B><I>Treatment</I></B></td>
+                    </tr>
+                    <tr>
+                        <td colspan=3>Surgeons: @Model.Surgeons</td>
+                    </tr>
+                    <tr>
+                        <td width=33% valign=top>
+                            <table>
+                                <tr><td colspan=2 valign=top><u>Brace</u></td></tr>
+                                <tr>
+                                    <td valign=top>Type of Brace:</td>
+                                    <td>
+                                        @Model.isUnderArm @Model.isMilwaukes @Model.isBoston @Model.isBraceOthers
+                                    </td>
+                                </tr>
+                                <tr><td colspan=2 valign=top><u>Brace Programme (dd/mm/yyyy)</u></td></tr>
+
+                                <tr><td valign=top>Start:</td><td>@Model.BraceStart</td></tr>
+
+                                <tr><td valign=top>Start:</td><td>@Model.BraceWean</td></tr>
+
+                                <tr><td valign=top>Start:</td><td>@Model.BraceStop</td></tr>
+                            </table>
+                        </td>
+                        <td width=33% valign=top>
+                            <table>
+                                <tr><td colspan=2 valign=top><u>Surgery (dd/mm/yyyy)</u></td></tr>
+                                <tr><td valign=top>ASF:</td><td>@Model.ASF></td></tr>
+                                <tr><td valign=top>PSF:</td><td>@Model.PSF</td></tr>
+
+                                <tr><td valign=top>ASF+PSF:</td><td>@Model.ASFPSF</td></tr>
+
+                                <tr><td valign=top>Thoracoscopic release:</td><td> @Model.ThoRelease </td></tr>
+
+                                <tr><td valign=top>Others: </td><td> @Model.OtherSurgery </td></tr>
+
+                                <tr><td valign=top>Level of Fustion:</td><td>  @Model.LOFfrom to	@Model.LOFto </td></tr>
+
+                                <tr>
+                                    <td valign=top>Grafts:</td>
+                                    <td>
+                                        @Model.Grafts
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width=33% valign=top>
+                            <table>
+                                <tr><td colspan=2 valign=top><u>Instrumentation</u></td></tr>
+                                <tr>
+                                    <td valign=top>Posterior:</td>
+                                    <td valign=top>
+                                        @Model.Posterior
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign=top>Anterior:</td>
+                                    <td valign=top>
+                                        @Model.Anterior
+                                    </td>
+                                </tr>
+
+                                <tr><td valign=top>Others:</td><td valign=top>  @Model.OtherImplant</td></tr>
+                                <tr><td colspan=2><u>Post-OP brace (dd/mm/yyyy)</u></td></tr>
+
+                                <tr><td valign=top>Start:</td><td>@Model.PostOPStart</td></tr>
+                                <tr><td valign=top>Wean:</td><td> @Model.PostOPWean </td></tr>
+                                <tr><td valign=top>Stop:</td><td> @Model.PostOPStop </td></tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><td height=2px></td></tr>
+
+
+
+                    <tr>
+                        <td>
+                            <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                                <tr>
+                                    <td class=subtitle colspan=3><B><I>Additional Investigations</I></B></td>
+                                </tr>
+                                <tr>
+                                    <td valign=top width=25%>
+                                        <table>
+                                            <tr><td>X-ray bending film:</td><td>@Model.isXrayfilm</td></tr>
+                                            <tr><td>MRI:</td><td> @Model.isMRI</td></tr>
+                                            <tr><td>DXA:</td><td> @Model.isDXA</td></tr>
+                                            <tr><td>US:</td><td>  @Model.isUS</td></tr>
+                                            <tr><td>PQCT:</td><td>@Model.isPQCT</td></tr>
+                                        </table>
+                                    </td>
+                                    <td valign=top width=25%>
+                                        <table>
+                                            <tr><td>CT-scan:</td><td>@Model.isCTscan</td></tr>
+                                            <tr><td>Biochem.:</td><td>@Model.isBioChem</td></tr>
+                                            <tr><td>QCT:</td><td>@Model.isQCT</td></tr>
+                                            <tr><td>SSEP:</td><td>@Model.isSSEP</td></tr>
+                                            <tr><td>EMG:</td><td>@Model.isEMG</td></tr>
+                                        </table>
+                                    </td>
+                                    <td valign=top width=50%>
+                                        <u>Other investigations and results of investigations:</u><br>
+                                        @Model.OtherInvest
+                                    </td>
+                                </tr>
+
+                                <tr><td height=2px></td></tr>
+
+                                <tr>
+                                    <td>
+                                        <table class=data width=100% border=0 cellpadding=5 cellspacing=0>
+                                            <tr>
+                                                <td class=subtitle colspan=3><B><I>Comments</I></B></td>
+                                            </tr>
+                                            <tr><td>@Model.Comments<td></tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+
+
+
+    </table>
+
+    <div align=right><font style="font-size:12px">Page Generated on @Model.Today by @Model.UserId </font></div>
+</body>
+</html>

@@ -1,0 +1,368 @@
+﻿@model Scoliosis.Models.UsersSupplementViewModel
+
+@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>UserSupplement - Scoliosis</title>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/cleave.js"></script>
+    <script type="text/javascript" src="~/js/moment.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="~/js/sb-admin-2.min.js"></script>
+
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/js/Restrict.js"></script>
+
+
+    <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+
+
+    <style type="text/css">
+        input.CtrlBtn {
+            background: #DADAAD;
+            color: #000000;
+            font-weight: bold;
+            font-family: Arial;
+            font-size 10px;
+            width: 140px;
+        }
+
+        input.ro {
+            border-style: groove;
+            background: #DDD;
+        }
+
+        body {
+            background: #FFF;
+            font-family: Arial;
+        }
+
+        td {
+            background: #FFF;
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+            td.subtable {
+                text-align: center;
+            }
+
+        th {
+            background: #6496DE;
+            color: #FFF;
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+            th.section {
+                background: #22F;
+                color: #FFF;
+                font-size: 16px;
+            }
+
+        td.sep {
+            height: 5px;
+        }
+
+        table {
+            background: #FFF;
+        }
+
+            table.section {
+                background: #BBB;
+            }
+
+            table.subtable {
+                background: #888;
+            }
+
+        input, select, textarea {
+            font-family: Arial;
+            font-size: 11px;
+        }
+
+            input.Bluebtn {
+                background: #6496DE;
+                color: #FFFFFF;
+                font-weight: bold;
+                width: 100px;
+            }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <form id="form" action="../Patient/UserSupplementAdmin?userId=@Model.UserId" method="post">
+
+        <div id="content">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+          
+                <div class="col-lg-12">
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Content Column -->
+                        <div class="col-lg-12 mb-4">
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">User Information (Admin)</h6>
+                                </div>
+                                <div class="card-body">
+
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                                        <tr>
+                                            <td width="25%"></td>
+                                            <td width="75%"></td>
+                                        </tr>
+
+                                        <tr width="22%" bgcolor="RoyalBlue"><th colspan="2">Login Account Information</th></tr>
+                                        <tr>
+                                            <td valign=top class="level2">User Id</td>
+                                            <td>
+                                                @Model.UserId
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign=top class="level2">Role</td>
+                                            <td>
+                                                <select id="Role" name="Role">
+
+                                                    @if (Model.Role.ToString() == "Administrator")
+                                                    {
+                                                        <option value="Administrator" selected="selected">Administrator </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Administrator"> Administrator</option>
+                                                    }
+
+                                                    @if (Model.Role.ToString() == "Guest")
+                                                    {
+                                                        <option value="Guest" selected="selected">Guest </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Guest"> Guest</option>
+                                                    }
+
+                                                    @if (Model.Role.ToString() == "Operator")
+                                                    {
+                                                        <option value="Operator" selected="selected">Operator </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Operator"> Operator</option>
+                                                    }
+
+                                                    @if (Model.Role.ToString() == "Test")
+                                                    {
+                                                        <option value="Test" selected="selected">Test </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Test"> Test</option>
+                                                    }
+
+                                                    @if (Model.Role.ToString() == "P & O")
+                                                    {
+                                                        <option value="P & O" selected="selected">P & O </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="P & O"> P & O</option>
+                                                    }
+
+                                                    @if (Model.Role.ToString() == "Test")
+                                                    {
+                                                        <option value="Doctor" selected="selected">Doctor </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="Doctor"> Doctor</option>
+                                                    }
+
+                                                </select>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr width="22%" bgcolor="RoyalBlue"><th colspan="2">Please fill in Detail Information</th></tr>
+                                        <tr>
+                                            <td valign=top class="level2">Full Name</td>
+                                            <td>
+                                                <input type="hidden"
+                                                       id="UserId"
+                                                       name="UserId"
+                                                       value="@Model.UserId">
+
+                                                <input type="hidden"
+                                                       id="Role"
+                                                       name="Role"
+                                                       value="@Model.Role">
+
+                                                &nbsp;
+                                                <input type="hidden"
+                                                       id="CreatedDate"
+                                                       name="CreatedDate"
+                                                       value="@Model.CreatedDate">
+
+                                                <input type="text"
+                                                       id="FullName"
+                                                       name="FullName"
+                                                       value="@Model.FullName"
+                                                       placeholder="FullName" />
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign=top class="level2">Description</td>
+                                            <td>
+                                                &nbsp;
+                                                <input type="text"
+                                                       id="Description"
+                                                       name="Description"
+                                                       value="@Model.Description"
+                                                       placeholder="Description">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign=top class="level2">Is User Manager</td>
+                                            <td>
+                                                &nbsp;
+                                                <input id="isMenarcheNeg" name="isMenarcheNeg"
+                                                       type="checkbox" value="true" @(Model.IsUserManager == true ? "checked=\" checked\"" : "") /><br>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td valign=top class="level2">Is Disable</td>
+                                            <td>
+                                                &nbsp;
+                                                <input id="Disabled" name="Disabled"
+                                                       type="checkbox" value="true" @(Model.Disabled == true ? "checked=\" checked\"" : "") /><br>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+
+                                    <input type="button" value="close" class="btn btn-primary" onclick="location.href='../Patient/UserSupplementList'" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+
+
+    <div id="dialog" title="Alert Message"></div>
+
+
+
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../Identity/Account/Login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/js/jquery-ui.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script>
+       var _isShowMessage = '@Context.Session.GetString("_isShowMessage")';
+        var _alertMessage = '@Context.Session.GetString("_alertMessage")';
+
+
+        if (_isShowMessage == 'true' && _alertMessage != '') {
+
+             $( "#dialog" ).dialog({
+              autoOpen: true,
+              modal: true,
+              width: 500,
+              height: 300,
+              position: { my: "center", at: "center", of: window  },
+              open: function() {
+                    jQuery('.ui-widget-overlay').on('click', function() {
+                        jQuery('#j_dialog').dialog('close');
+                    })
+                },
+
+              buttons: {
+                  Ok: function () {
+
+                      $.ajax({
+                        method: "post",
+                        url: "./WebRemoveSession",
+                        error: function (xhr, status, err) {
+                            alert(err);
+                           }
+
+                        }).done(function (res) {
+
+                        });
+                  $( this ).dialog( "close" );
+                }
+                },
+              show: {
+                effect: "fade",
+                duration: 10
+              },
+              hide: {
+                effect: "fade",
+                duration: 10
+              }
+
+             });
+
+
+           $('#dialog').show().html(_alertMessage);
+
+            //alert(_alertMessage);
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@model AccountEditModel
+@{
+    ViewData["Title"] = "Edit";
+    var roles = (List<IdentityRole>)ViewData["roles"];
+}
+<script src="~/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="~/js/moment.js"></script>
+<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/js/sb-admin-2.min.js"></script>
+
+<link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="~/css/sb-admin-2.css" rel="stylesheet">
+@*<h4>@ViewData["Title"]</h4>*@
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post" action="../Editdetail">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group" style="display:none">
+                <label asp-for="Username"></label>
+                <input name="Username" asp-for="Username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input name="Email" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none">
+                <label asp-for="PhoneNumber"></label>
+                <input name="PhoneNumber" asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <select name="Name" asp-for="Name" class="form-control" asp-items='new SelectList(roles,"Id","Name")'></select>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

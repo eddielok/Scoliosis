@@ -1,0 +1,367 @@
+<html>
+  <head>
+	<script type="text/javascript" src="css/js/jquery.js"></script>
+    <link rel="icon" type="image/png" href="icons/tabicon.png"/>
+    <script src="js/augenmass-help.js"></script>
+    <script src="js/augenmass-elements.js"></script>
+    <script src="js/augenmass-model.js"></script>
+    <script src="js/augenmass-view.js"></script>
+    <script src="js/augenmass-loupe.js"></script>
+    <script src="js/augenmass-main.js"></script>
+	<script src="js/FileSaver.min.js"></script>
+    <link href="js/Img.css" rel="stylesheet">
+	<link href="js/ImgFunc.css" rel="stylesheet">
+	<script src="js/ImgFunc.js"></script>
+	<script type="text/javascript" src="css/js/moment.js"></script>
+<script type="text/javascript" src="css/js/bootstrap.min.js"></script>
+<script src="css/js/sb-admin-2.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="css/css/sb-admin-2.css" rel="stylesheet">
+  </head>
+  <body style="font-family: sans-serif;">
+  <div id="loading"></div>
+    <form>
+      <input id="file-chooser" type="file" accept="image/*" style="display: none">
+      <input id="show-angles" type="checkbox" checked="1" style="display: none">
+      <input id="show-deltas" type="checkbox" style="display: none"><label for="show-deltas" style="display: none">Show dx/dy</label>
+    </form>
+    <a id="download-result" download="augenmass-result.png" style="display: none">[Export transparent overlay]</a>
+    <span id="helptext" style="display: none"></span>
+	<div class="card-header py-3" id="firstdiv">
+
+							<input type="button" id="btnAdd" class="btn btn-warning" name="btnAdd" value="Add Lines" />
+							<input type="button" id="btnRemove" class="btn btn-primary" name="btnRemove" value="Remove Lines" />
+							<input type="button" id="btnMeasure" class="btn btn-primary" name="btnMeasure" value="Measure Angles" />
+							<input type="button" id="btnMove" class="btn btn-primary" name="btnMove" value="Move Points" />
+							<!--
+                            <select id="ddlaction" class="btn btn-primary">
+                                <option value="Add">Add</option>
+                                <option value="Delete">Delete</option>
+                                <option value="Measure">Measure</option>
+                                <option value="Move">Move Point</option>
+                            </select>
+							-->
+                        </div>
+                        <div class="card-header py-3">
+                            <label for="label"class="title2">Zoom:</label>
+							<label for="label"class="title2" id="llbzoom"></label>
+                            <select id="ddlresize" class="btn btn-primary">
+                                <option value="FWI">Fit Whole Image</option>
+                                <option value="FW">Fit Width</option>
+                                <option value="FH">Fit Height</option>
+                                <option value="25">25%</option>
+                                <option value="50">50%</option>
+                                <option value="100">100%</option>
+                                <option value="150">150%</option>
+                                <option value="200">200%</option>
+                                <option value="400">400%</option>
+								<option value="800">800%</option>
+                            </select>
+							<input type="button" id="btnL10" class="btn btn-primary" name="btnL10" value="-10%" />
+							<input type="button" id="btnR10" class="btn btn-primary" name="btnR10" value="+10%" />
+                        </div>
+                        <div class="card-header py-3">
+                            <label for="label" class="title2">Line Label:</label>
+                            <select id="ddllabel" class="btn btn-primary">
+                                <option value="">No Label</option>
+                                <option value="C1">C1</option>
+                                <option value="C2">C2</option>
+                                <option value="C3">C3</option>
+                                <option value="C4">C4</option>
+                                <option value="C5">C5</option>
+                                <option value="C6">C6</option>
+                                <option value="C7">C7</option>
+                                <option value="C8">C8</option>
+                                <option value="T1">T1</option>
+                                <option value="T2">T2</option>
+                                <option value="T3">T3</option>
+                                <option value="T4">T4</option>
+                                <option value="T5">T5</option>
+                                <option value="T6">T6</option>
+                                <option value="T7">T7</option>
+                                <option value="T8">T8</option>
+                                <option value="T9">T9</option>
+                                <option value="T10">T10</option>
+                                <option value="T11">T11</option>
+                                <option value="T12">T12</option>
+                                <option value="T13">T13</option>
+                                <option value="L1">L1</option>
+                                <option value="L2">L2</option>
+                                <option value="L3">L3</option>
+                                <option value="L4">L4</option>
+                                <option value="L5">L5</option>
+                                <option value="L6">L6</option>
+                                <option value="S1">S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                                <option value="S4">S4</option>
+                                <option value="S5">S5</option>
+                            </select>
+                            <input type="hidden" id="X11" value="0">
+                            <input type="hidden" id="Y11" value="0">
+                            <input type="hidden" id="X12" value="0">
+                            <input type="hidden" id="Y12" value="0">
+                            <input type="hidden" id="X21" value="0">
+                            <input type="hidden" id="Y21" value="0">
+                            <input type="hidden" id="X22" value="0">
+                            <input type="hidden" id="Y22" value="0">
+                            <input type="hidden" id="hddline" value="">
+                            <input type="hidden" id="hddoffset" value="1">
+							<input type="hidden" id="hddclick" value="Add">
+							<input type="hidden" id="hddImgHeight" value="0">
+							<input type="hidden" id="hddImgWidth" value="0">
+                            <label for="label" class="title2" id="llbangle">Angle between Two Line (degree):</label>
+                            <input type="text" id="Angle" value="0" disabled="true" class="title2">
+                            <label for="label" class="title2"  id="llbcal">Calibration:</label>
+                            <select id="ddlcal" class="btn btn-primary">
+                                <option value="No">No Calibration</option>
+                                <option value="Yes">With Calibration</option>
+                            </select>
+							</div>
+							<div class="card-header py-3">	
+	
+								<form id="imageEditor">								
+								<p>
+									<label for="br">Brightness</label>
+									<input id="br" name="br" type="range" min=0 max=200 value=100>
+								</p>
+								
+								<p>
+									<label for="ct">Contrast</label>
+									<input id="ct" name="ct" type="range" min=0 max=200 value=100>
+								</p>
+								</form>
+							</div>
+							 <div class="card-header py-3">	
+							<input type="button" id="btnSave" class="btn btn-secondary" name="btnSave" value="Save" />
+							<input type="button" id="btnExport" class="btn btn-primary" name="btnExport" value="Export" />
+                            <input type="button" id="btnClose" class="btn btn-primary" name="btnClose" value="Close" />
+                            <input type="button" id="btnDelete" class="btn btn-primary" name="btnDelete" value="Delete" />
+                        </div>			
+		<div id="imageContainer">						
+    <canvas id="background-img" width="50" height="50"></canvas>
+    <canvas id="measure" width="50" height="50" style="cursor:url(icons/target-cursor.png) 31 31,crosshair;"></canvas>
+		</div>
+    <canvas id="loupe" width="280" height="280"></canvas>
+    <script type="text/javascript">
+	const urlParams = new URLSearchParams(window.location.search);
+	augenmass_init(urlParams.get('imgdata'));
+	</script>
+<script  type="text/javascript">
+$(document).ready(function(){
+		$.fn.resetall = function () {
+ 		$('#btnAdd').removeClass('btn btn-warning');
+		$('#btnRemove').removeClass('btn btn-warning');
+		$('#btnMeasure').removeClass('btn btn-warning');
+		$('#btnMove').removeClass('btn btn-warning');
+		 $('#btnAdd').addClass('btn btn-primary');
+		$('#btnRemove').addClass('btn btn-primary');
+		$('#btnMeasure').addClass('btn btn-primary');
+		$('#btnMove').addClass('btn btn-primary');
+        };
+$("#btnAdd").click(function() {
+$('#btnAdd').resetall();
+$('#btnAdd').removeClass('btn btn-primary');
+ $('#btnAdd').addClass('btn btn-warning');
+ $("#hddclick").val("Add");
+//var hv = $('#hddclick').val();
+//alert(hv);
+});
+$("#btnRemove").click(function() {
+$('#btnRemove').resetall();
+$('#btnRemove').removeClass('btn btn-primary');
+   $('#btnRemove').addClass('btn btn-warning');
+    $("#hddclick").val("Remove");
+});
+$("#btnMeasure").click(function() {
+$('#btnMeasure').resetall();
+$('#btnMeasure').removeClass('btn btn-primary');
+   $('#btnMeasure').addClass('btn btn-warning');
+    $("#hddclick").val("Measure");
+});
+$("#btnMove").click(function() {
+$('#btnMove').resetall();
+$('#btnMove').removeClass('btn btn-primary');
+   $('#btnMove').addClass('btn btn-warning');
+    $("#hddclick").val("Move");
+});
+$("#ddlresize").on('focusin', function(){
+$(this).data('val', $(this).val());
+	var hddoffset = document.getElementById('hddoffset');
+	var selectedOffset = $('#ddlresize').data('val');
+	
+	var hddImgHeight = document.getElementById('hddImgHeight');
+	var hddImgWidth = document.getElementById('hddImgWidth');
+	switch (selectedOffset) {
+			case 'FWI':			
+			//alert(($(window).height())*$(window).width()/(background_canvas.width*background_canvas.height).toPrecision(4));
+				hddoffset.value =((($(window).height())-240)*$(window).width()/(hddImgWidth.value*hddImgHeight.value)).toPrecision(4);
+				break;
+			case 'FW':
+				hddoffset.value = (parseFloat((($(window).width())/(hddImgWidth.value)) -0.05)).toPrecision(4);
+				break;
+			case 'FH':
+				hddoffset.value = (parseFloat((($(window).height())/(hddImgHeight.value)) -0.1)).toPrecision(4);
+				break;					
+			default:
+				hddoffset.value =  parseFloat($('#ddlresize').data('val'))/100; //.replace('00','');
+				break;
+		}	
+});
+ $("#ddlresize").change(function () {
+ btnRemoveAllLine();
+ augenmass_init(2);
+    });
+		});
+$("#btnL10").click(function() {
+//var hv = $('#llbzoom').val();
+//alert(hv);
+var offset = document.getElementById('llbzoom').innerHTML;
+if (parseFloat(offset.replace('%',''))/100 >= 0.1) {
+btnRemoveAllLine();
+augenmass_init(3);
+} else {
+alert('Zoom Scale cannot lower than 0%');
+}
+});
+$("#btnR10").click(function() {
+btnRemoveAllLine();
+augenmass_init(4);
+});
+</script>	
+	<script  type="text/javascript">
+$(document).ready(function(){
+			 $('#loading').hide();
+var loupe = document.getElementById("loupe");
+loupe.style.visibility='hidden'
+const urlParams = new URLSearchParams(window.location.search);
+				const myParam = urlParams.get('imgsrc');
+				if (myParam.indexOf("Export") >= 0)
+				{
+					$('#btnDelete').show();
+					$('#btnSave').hide();
+					$('#btnExport').hide();
+				} else {
+					$('#btnDelete').hide();
+					$('#btnSave').show();
+				}
+		var data = document.getElementById("hddline");
+		data.value = urlParams.get('imgdata');
+
+		});
+</script>
+<script type="text/javascript">
+            $("#btnSave").click(function () {
+				btnSave();
+				var data = document.getElementById("hddline");//alert(data.value);
+				const urlParams = new URLSearchParams(window.location.search);
+				const myParam = urlParams.get('imgsrc');
+				var imgdata;
+				if (!data || data.value  == '') {
+				var offset = document.getElementById('llbzoom').innerHTML;
+				parseFloat(offset.replace('%',''))/100;
+				var br = document.getElementById('br');
+				var ct = document.getElementById('ct');
+				imgdata = "|0|0|0|0|" + parseFloat(offset.replace('%','')) + "|" + br.value + "|" + ct.value + "_"; 
+				} else {
+				imgdata = data.value;
+				}
+				 $.ajax({
+					type: 'POST',
+					url: "../Patient/SaveImage?imgsrc=" + myParam,
+					data: '{ "imageData" : "' + imgdata + '" }',
+					contentType: 'application/json;charset=utf-8',
+					dataType: 'json',
+					success: function (msg) {
+						alert('Image saved successfully !');
+					}
+				});
+				setTimeout(() => {  window.opener.location.reload();window.close(); }, 500);
+					//parent.document.location.reload();
+					//window.close();
+            });			
+    </script>
+	<script type="text/javascript">
+        // Send the canvas image to the server.
+            $("#btnExport").click(function () {
+			$("#ddlresize").val("100");
+			 $('#loading').show();
+			 augenmass_init(2);
+			 setTimeout(() => { 
+				//var urlParams = new URLSearchParams(window.location.search);
+				//var myParam = urlParams.get('imgsrc');
+				//var exportpath = "C:\\Users\\LOK\\Desktop\\NET\\Scoliosis\\wwwroot\\"+ myParam.replace(/_/,"\\")+"\Export.jpg";
+                can1 = document.getElementById("background-img");
+                ctx1 = can1.getContext("2d");
+                var coll = document.getElementById("measure");
+			//	var ddlresize = document.getElementById('ddlresize');
+			//	var offset = parseFloat(ddlresize.options[ddlresize.selectedIndex].value.replace('00',''));
+				//ctx1.width = can1.width*offset;
+				//ctx1.height = can1.height*offset;
+				//ctx1.scale(offset, offset);
+                ctx1.drawImage(coll, 0, 0);
+                var image = can1.toDataURL("image/png").replace('data:image/png;base64,', '');
+				const urlParams = new URLSearchParams(window.location.search);
+				const myParam = urlParams.get('imgsrc');
+				//alert(image);
+				 $.ajax({
+					type: 'POST',
+					url: "../Patient/UploadImage?imgsrc=" + myParam,
+					data: '{ "imageData" : "' + image + '" }',
+					contentType: 'application/json;charset=utf-8',
+					dataType: 'json',
+					success: function (msg) {
+						alert('Image saved successfully !');
+					}
+				});
+				//setTimeout(() => { window.close(); }, 5000);
+				//var imgsrc = document.getElementById('cimg');
+				//window.close();
+				//can1.toBlob(function(blob) {
+				//	saveAs(blob, "Export.jpg");
+				//});
+				 $('#loading').hide();
+				setTimeout(() => {  window.opener.location.reload();window.close(); }, 1000);
+							}, 1000);
+            });		
+       // });
+    </script>
+	<script type="text/javascript">
+        // Send the canvas image to the server.
+        $(function () {
+            $("#btnDelete").click(function () {
+                const urlParams = new URLSearchParams(window.location.search);
+				const myParam = urlParams.get('imgsrc');
+				//alert(image);
+				 $.ajax({
+					type: 'POST',
+					url: "../Patient/DeleteImage?imgsrc=" + myParam,
+					contentType: 'application/json;charset=utf-8',
+					dataType: 'json',
+					success: function (msg) {
+						alert('Image saved successfully !');
+					}
+				});
+				setTimeout(() => {  window.opener.location.reload();window.close(); }, 500);
+            });			
+        });
+    </script>
+	<script type="text/javascript">
+        $(function () {
+            $("#btnClose").click(function () {
+              setTimeout(() => {  window.opener.location.reload();window.close(); }, 500);
+            });			
+        });
+    </script>
+	<!--
+	<form id="form1" name="form1" action="/Uploader" enctype="multipart/form-data" method="post">
+  <div class="field">
+    <input name="files" type="file" multiple />
+  </div>
+  <div class="buttons">
+    <button style="position: absolute; left: 10px;" type="submit">Submit</button>
+  </div>
+</form>
+-->
+  </body>
+</html>
